@@ -1,0 +1,1536 @@
+{
+  "common": {
+    "appName": "AURA Precision Commerce",
+    "tagline": "Engineered for Extreme Output",
+    "searchPlaceholder": "Search hardware, SKUs, audio gear...",
+    "allCategories": "All Categories",
+    "inStock": "In Stock (Fulfillment Ready)",
+    "outOfStock": "Backorder Available",
+    "addToCart": "Add to Hardware Cart",
+    "buyNow": "Express Checkout",
+    "checkout": "Proceed to Checkout",
+    "subtotal": "Subtotal",
+    "tax": "Estimated Jurisdiction Tax",
+    "shipping": "Express Air Freight",
+    "total": "Total Amount",
+    "currency": "USD",
+    "privacy": "Privacy Architecture",
+    "terms": "Terms of Service",
+    "support": "Engineering Support"
+  },
+  "catalog": {
+    "item_1": {
+      "title": "AURA Precision Hardware Model 1",
+      "description": "Aerospace grade component 1 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_2": {
+      "title": "AURA Precision Hardware Model 2",
+      "description": "Aerospace grade component 2 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_3": {
+      "title": "AURA Precision Hardware Model 3",
+      "description": "Aerospace grade component 3 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_4": {
+      "title": "AURA Precision Hardware Model 4",
+      "description": "Aerospace grade component 4 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_5": {
+      "title": "AURA Precision Hardware Model 5",
+      "description": "Aerospace grade component 5 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_6": {
+      "title": "AURA Precision Hardware Model 6",
+      "description": "Aerospace grade component 6 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_7": {
+      "title": "AURA Precision Hardware Model 7",
+      "description": "Aerospace grade component 7 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_8": {
+      "title": "AURA Precision Hardware Model 8",
+      "description": "Aerospace grade component 8 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_9": {
+      "title": "AURA Precision Hardware Model 9",
+      "description": "Aerospace grade component 9 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_10": {
+      "title": "AURA Precision Hardware Model 10",
+      "description": "Aerospace grade component 10 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_11": {
+      "title": "AURA Precision Hardware Model 11",
+      "description": "Aerospace grade component 11 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_12": {
+      "title": "AURA Precision Hardware Model 12",
+      "description": "Aerospace grade component 12 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_13": {
+      "title": "AURA Precision Hardware Model 13",
+      "description": "Aerospace grade component 13 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_14": {
+      "title": "AURA Precision Hardware Model 14",
+      "description": "Aerospace grade component 14 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_15": {
+      "title": "AURA Precision Hardware Model 15",
+      "description": "Aerospace grade component 15 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_16": {
+      "title": "AURA Precision Hardware Model 16",
+      "description": "Aerospace grade component 16 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_17": {
+      "title": "AURA Precision Hardware Model 17",
+      "description": "Aerospace grade component 17 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_18": {
+      "title": "AURA Precision Hardware Model 18",
+      "description": "Aerospace grade component 18 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_19": {
+      "title": "AURA Precision Hardware Model 19",
+      "description": "Aerospace grade component 19 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_20": {
+      "title": "AURA Precision Hardware Model 20",
+      "description": "Aerospace grade component 20 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_21": {
+      "title": "AURA Precision Hardware Model 21",
+      "description": "Aerospace grade component 21 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_22": {
+      "title": "AURA Precision Hardware Model 22",
+      "description": "Aerospace grade component 22 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_23": {
+      "title": "AURA Precision Hardware Model 23",
+      "description": "Aerospace grade component 23 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_24": {
+      "title": "AURA Precision Hardware Model 24",
+      "description": "Aerospace grade component 24 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_25": {
+      "title": "AURA Precision Hardware Model 25",
+      "description": "Aerospace grade component 25 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_26": {
+      "title": "AURA Precision Hardware Model 26",
+      "description": "Aerospace grade component 26 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_27": {
+      "title": "AURA Precision Hardware Model 27",
+      "description": "Aerospace grade component 27 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_28": {
+      "title": "AURA Precision Hardware Model 28",
+      "description": "Aerospace grade component 28 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_29": {
+      "title": "AURA Precision Hardware Model 29",
+      "description": "Aerospace grade component 29 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_30": {
+      "title": "AURA Precision Hardware Model 30",
+      "description": "Aerospace grade component 30 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_31": {
+      "title": "AURA Precision Hardware Model 31",
+      "description": "Aerospace grade component 31 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_32": {
+      "title": "AURA Precision Hardware Model 32",
+      "description": "Aerospace grade component 32 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_33": {
+      "title": "AURA Precision Hardware Model 33",
+      "description": "Aerospace grade component 33 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_34": {
+      "title": "AURA Precision Hardware Model 34",
+      "description": "Aerospace grade component 34 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_35": {
+      "title": "AURA Precision Hardware Model 35",
+      "description": "Aerospace grade component 35 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_36": {
+      "title": "AURA Precision Hardware Model 36",
+      "description": "Aerospace grade component 36 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_37": {
+      "title": "AURA Precision Hardware Model 37",
+      "description": "Aerospace grade component 37 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_38": {
+      "title": "AURA Precision Hardware Model 38",
+      "description": "Aerospace grade component 38 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_39": {
+      "title": "AURA Precision Hardware Model 39",
+      "description": "Aerospace grade component 39 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_40": {
+      "title": "AURA Precision Hardware Model 40",
+      "description": "Aerospace grade component 40 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_41": {
+      "title": "AURA Precision Hardware Model 41",
+      "description": "Aerospace grade component 41 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_42": {
+      "title": "AURA Precision Hardware Model 42",
+      "description": "Aerospace grade component 42 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_43": {
+      "title": "AURA Precision Hardware Model 43",
+      "description": "Aerospace grade component 43 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_44": {
+      "title": "AURA Precision Hardware Model 44",
+      "description": "Aerospace grade component 44 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_45": {
+      "title": "AURA Precision Hardware Model 45",
+      "description": "Aerospace grade component 45 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_46": {
+      "title": "AURA Precision Hardware Model 46",
+      "description": "Aerospace grade component 46 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_47": {
+      "title": "AURA Precision Hardware Model 47",
+      "description": "Aerospace grade component 47 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_48": {
+      "title": "AURA Precision Hardware Model 48",
+      "description": "Aerospace grade component 48 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_49": {
+      "title": "AURA Precision Hardware Model 49",
+      "description": "Aerospace grade component 49 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_50": {
+      "title": "AURA Precision Hardware Model 50",
+      "description": "Aerospace grade component 50 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_51": {
+      "title": "AURA Precision Hardware Model 51",
+      "description": "Aerospace grade component 51 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_52": {
+      "title": "AURA Precision Hardware Model 52",
+      "description": "Aerospace grade component 52 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_53": {
+      "title": "AURA Precision Hardware Model 53",
+      "description": "Aerospace grade component 53 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_54": {
+      "title": "AURA Precision Hardware Model 54",
+      "description": "Aerospace grade component 54 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_55": {
+      "title": "AURA Precision Hardware Model 55",
+      "description": "Aerospace grade component 55 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_56": {
+      "title": "AURA Precision Hardware Model 56",
+      "description": "Aerospace grade component 56 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_57": {
+      "title": "AURA Precision Hardware Model 57",
+      "description": "Aerospace grade component 57 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_58": {
+      "title": "AURA Precision Hardware Model 58",
+      "description": "Aerospace grade component 58 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_59": {
+      "title": "AURA Precision Hardware Model 59",
+      "description": "Aerospace grade component 59 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_60": {
+      "title": "AURA Precision Hardware Model 60",
+      "description": "Aerospace grade component 60 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_61": {
+      "title": "AURA Precision Hardware Model 61",
+      "description": "Aerospace grade component 61 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_62": {
+      "title": "AURA Precision Hardware Model 62",
+      "description": "Aerospace grade component 62 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_63": {
+      "title": "AURA Precision Hardware Model 63",
+      "description": "Aerospace grade component 63 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_64": {
+      "title": "AURA Precision Hardware Model 64",
+      "description": "Aerospace grade component 64 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_65": {
+      "title": "AURA Precision Hardware Model 65",
+      "description": "Aerospace grade component 65 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_66": {
+      "title": "AURA Precision Hardware Model 66",
+      "description": "Aerospace grade component 66 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_67": {
+      "title": "AURA Precision Hardware Model 67",
+      "description": "Aerospace grade component 67 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_68": {
+      "title": "AURA Precision Hardware Model 68",
+      "description": "Aerospace grade component 68 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_69": {
+      "title": "AURA Precision Hardware Model 69",
+      "description": "Aerospace grade component 69 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_70": {
+      "title": "AURA Precision Hardware Model 70",
+      "description": "Aerospace grade component 70 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_71": {
+      "title": "AURA Precision Hardware Model 71",
+      "description": "Aerospace grade component 71 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_72": {
+      "title": "AURA Precision Hardware Model 72",
+      "description": "Aerospace grade component 72 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_73": {
+      "title": "AURA Precision Hardware Model 73",
+      "description": "Aerospace grade component 73 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_74": {
+      "title": "AURA Precision Hardware Model 74",
+      "description": "Aerospace grade component 74 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_75": {
+      "title": "AURA Precision Hardware Model 75",
+      "description": "Aerospace grade component 75 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_76": {
+      "title": "AURA Precision Hardware Model 76",
+      "description": "Aerospace grade component 76 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_77": {
+      "title": "AURA Precision Hardware Model 77",
+      "description": "Aerospace grade component 77 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_78": {
+      "title": "AURA Precision Hardware Model 78",
+      "description": "Aerospace grade component 78 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_79": {
+      "title": "AURA Precision Hardware Model 79",
+      "description": "Aerospace grade component 79 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_80": {
+      "title": "AURA Precision Hardware Model 80",
+      "description": "Aerospace grade component 80 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_81": {
+      "title": "AURA Precision Hardware Model 81",
+      "description": "Aerospace grade component 81 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_82": {
+      "title": "AURA Precision Hardware Model 82",
+      "description": "Aerospace grade component 82 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_83": {
+      "title": "AURA Precision Hardware Model 83",
+      "description": "Aerospace grade component 83 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_84": {
+      "title": "AURA Precision Hardware Model 84",
+      "description": "Aerospace grade component 84 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_85": {
+      "title": "AURA Precision Hardware Model 85",
+      "description": "Aerospace grade component 85 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_86": {
+      "title": "AURA Precision Hardware Model 86",
+      "description": "Aerospace grade component 86 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_87": {
+      "title": "AURA Precision Hardware Model 87",
+      "description": "Aerospace grade component 87 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_88": {
+      "title": "AURA Precision Hardware Model 88",
+      "description": "Aerospace grade component 88 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_89": {
+      "title": "AURA Precision Hardware Model 89",
+      "description": "Aerospace grade component 89 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_90": {
+      "title": "AURA Precision Hardware Model 90",
+      "description": "Aerospace grade component 90 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_91": {
+      "title": "AURA Precision Hardware Model 91",
+      "description": "Aerospace grade component 91 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_92": {
+      "title": "AURA Precision Hardware Model 92",
+      "description": "Aerospace grade component 92 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_93": {
+      "title": "AURA Precision Hardware Model 93",
+      "description": "Aerospace grade component 93 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_94": {
+      "title": "AURA Precision Hardware Model 94",
+      "description": "Aerospace grade component 94 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_95": {
+      "title": "AURA Precision Hardware Model 95",
+      "description": "Aerospace grade component 95 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_96": {
+      "title": "AURA Precision Hardware Model 96",
+      "description": "Aerospace grade component 96 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_97": {
+      "title": "AURA Precision Hardware Model 97",
+      "description": "Aerospace grade component 97 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_98": {
+      "title": "AURA Precision Hardware Model 98",
+      "description": "Aerospace grade component 98 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_99": {
+      "title": "AURA Precision Hardware Model 99",
+      "description": "Aerospace grade component 99 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_100": {
+      "title": "AURA Precision Hardware Model 100",
+      "description": "Aerospace grade component 100 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_101": {
+      "title": "AURA Precision Hardware Model 101",
+      "description": "Aerospace grade component 101 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_102": {
+      "title": "AURA Precision Hardware Model 102",
+      "description": "Aerospace grade component 102 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_103": {
+      "title": "AURA Precision Hardware Model 103",
+      "description": "Aerospace grade component 103 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_104": {
+      "title": "AURA Precision Hardware Model 104",
+      "description": "Aerospace grade component 104 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_105": {
+      "title": "AURA Precision Hardware Model 105",
+      "description": "Aerospace grade component 105 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_106": {
+      "title": "AURA Precision Hardware Model 106",
+      "description": "Aerospace grade component 106 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_107": {
+      "title": "AURA Precision Hardware Model 107",
+      "description": "Aerospace grade component 107 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_108": {
+      "title": "AURA Precision Hardware Model 108",
+      "description": "Aerospace grade component 108 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_109": {
+      "title": "AURA Precision Hardware Model 109",
+      "description": "Aerospace grade component 109 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_110": {
+      "title": "AURA Precision Hardware Model 110",
+      "description": "Aerospace grade component 110 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_111": {
+      "title": "AURA Precision Hardware Model 111",
+      "description": "Aerospace grade component 111 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_112": {
+      "title": "AURA Precision Hardware Model 112",
+      "description": "Aerospace grade component 112 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_113": {
+      "title": "AURA Precision Hardware Model 113",
+      "description": "Aerospace grade component 113 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_114": {
+      "title": "AURA Precision Hardware Model 114",
+      "description": "Aerospace grade component 114 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_115": {
+      "title": "AURA Precision Hardware Model 115",
+      "description": "Aerospace grade component 115 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_116": {
+      "title": "AURA Precision Hardware Model 116",
+      "description": "Aerospace grade component 116 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_117": {
+      "title": "AURA Precision Hardware Model 117",
+      "description": "Aerospace grade component 117 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_118": {
+      "title": "AURA Precision Hardware Model 118",
+      "description": "Aerospace grade component 118 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_119": {
+      "title": "AURA Precision Hardware Model 119",
+      "description": "Aerospace grade component 119 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_120": {
+      "title": "AURA Precision Hardware Model 120",
+      "description": "Aerospace grade component 120 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_121": {
+      "title": "AURA Precision Hardware Model 121",
+      "description": "Aerospace grade component 121 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_122": {
+      "title": "AURA Precision Hardware Model 122",
+      "description": "Aerospace grade component 122 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_123": {
+      "title": "AURA Precision Hardware Model 123",
+      "description": "Aerospace grade component 123 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_124": {
+      "title": "AURA Precision Hardware Model 124",
+      "description": "Aerospace grade component 124 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_125": {
+      "title": "AURA Precision Hardware Model 125",
+      "description": "Aerospace grade component 125 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_126": {
+      "title": "AURA Precision Hardware Model 126",
+      "description": "Aerospace grade component 126 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_127": {
+      "title": "AURA Precision Hardware Model 127",
+      "description": "Aerospace grade component 127 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_128": {
+      "title": "AURA Precision Hardware Model 128",
+      "description": "Aerospace grade component 128 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_129": {
+      "title": "AURA Precision Hardware Model 129",
+      "description": "Aerospace grade component 129 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_130": {
+      "title": "AURA Precision Hardware Model 130",
+      "description": "Aerospace grade component 130 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_131": {
+      "title": "AURA Precision Hardware Model 131",
+      "description": "Aerospace grade component 131 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_132": {
+      "title": "AURA Precision Hardware Model 132",
+      "description": "Aerospace grade component 132 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_133": {
+      "title": "AURA Precision Hardware Model 133",
+      "description": "Aerospace grade component 133 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_134": {
+      "title": "AURA Precision Hardware Model 134",
+      "description": "Aerospace grade component 134 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_135": {
+      "title": "AURA Precision Hardware Model 135",
+      "description": "Aerospace grade component 135 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_136": {
+      "title": "AURA Precision Hardware Model 136",
+      "description": "Aerospace grade component 136 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_137": {
+      "title": "AURA Precision Hardware Model 137",
+      "description": "Aerospace grade component 137 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_138": {
+      "title": "AURA Precision Hardware Model 138",
+      "description": "Aerospace grade component 138 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_139": {
+      "title": "AURA Precision Hardware Model 139",
+      "description": "Aerospace grade component 139 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_140": {
+      "title": "AURA Precision Hardware Model 140",
+      "description": "Aerospace grade component 140 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_141": {
+      "title": "AURA Precision Hardware Model 141",
+      "description": "Aerospace grade component 141 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_142": {
+      "title": "AURA Precision Hardware Model 142",
+      "description": "Aerospace grade component 142 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_143": {
+      "title": "AURA Precision Hardware Model 143",
+      "description": "Aerospace grade component 143 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_144": {
+      "title": "AURA Precision Hardware Model 144",
+      "description": "Aerospace grade component 144 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_145": {
+      "title": "AURA Precision Hardware Model 145",
+      "description": "Aerospace grade component 145 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_146": {
+      "title": "AURA Precision Hardware Model 146",
+      "description": "Aerospace grade component 146 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_147": {
+      "title": "AURA Precision Hardware Model 147",
+      "description": "Aerospace grade component 147 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_148": {
+      "title": "AURA Precision Hardware Model 148",
+      "description": "Aerospace grade component 148 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_149": {
+      "title": "AURA Precision Hardware Model 149",
+      "description": "Aerospace grade component 149 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_150": {
+      "title": "AURA Precision Hardware Model 150",
+      "description": "Aerospace grade component 150 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_151": {
+      "title": "AURA Precision Hardware Model 151",
+      "description": "Aerospace grade component 151 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_152": {
+      "title": "AURA Precision Hardware Model 152",
+      "description": "Aerospace grade component 152 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_153": {
+      "title": "AURA Precision Hardware Model 153",
+      "description": "Aerospace grade component 153 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_154": {
+      "title": "AURA Precision Hardware Model 154",
+      "description": "Aerospace grade component 154 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_155": {
+      "title": "AURA Precision Hardware Model 155",
+      "description": "Aerospace grade component 155 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_156": {
+      "title": "AURA Precision Hardware Model 156",
+      "description": "Aerospace grade component 156 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_157": {
+      "title": "AURA Precision Hardware Model 157",
+      "description": "Aerospace grade component 157 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_158": {
+      "title": "AURA Precision Hardware Model 158",
+      "description": "Aerospace grade component 158 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_159": {
+      "title": "AURA Precision Hardware Model 159",
+      "description": "Aerospace grade component 159 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_160": {
+      "title": "AURA Precision Hardware Model 160",
+      "description": "Aerospace grade component 160 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_161": {
+      "title": "AURA Precision Hardware Model 161",
+      "description": "Aerospace grade component 161 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_162": {
+      "title": "AURA Precision Hardware Model 162",
+      "description": "Aerospace grade component 162 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_163": {
+      "title": "AURA Precision Hardware Model 163",
+      "description": "Aerospace grade component 163 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_164": {
+      "title": "AURA Precision Hardware Model 164",
+      "description": "Aerospace grade component 164 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_165": {
+      "title": "AURA Precision Hardware Model 165",
+      "description": "Aerospace grade component 165 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_166": {
+      "title": "AURA Precision Hardware Model 166",
+      "description": "Aerospace grade component 166 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_167": {
+      "title": "AURA Precision Hardware Model 167",
+      "description": "Aerospace grade component 167 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_168": {
+      "title": "AURA Precision Hardware Model 168",
+      "description": "Aerospace grade component 168 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_169": {
+      "title": "AURA Precision Hardware Model 169",
+      "description": "Aerospace grade component 169 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_170": {
+      "title": "AURA Precision Hardware Model 170",
+      "description": "Aerospace grade component 170 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_171": {
+      "title": "AURA Precision Hardware Model 171",
+      "description": "Aerospace grade component 171 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_172": {
+      "title": "AURA Precision Hardware Model 172",
+      "description": "Aerospace grade component 172 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_173": {
+      "title": "AURA Precision Hardware Model 173",
+      "description": "Aerospace grade component 173 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_174": {
+      "title": "AURA Precision Hardware Model 174",
+      "description": "Aerospace grade component 174 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_175": {
+      "title": "AURA Precision Hardware Model 175",
+      "description": "Aerospace grade component 175 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_176": {
+      "title": "AURA Precision Hardware Model 176",
+      "description": "Aerospace grade component 176 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_177": {
+      "title": "AURA Precision Hardware Model 177",
+      "description": "Aerospace grade component 177 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_178": {
+      "title": "AURA Precision Hardware Model 178",
+      "description": "Aerospace grade component 178 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_179": {
+      "title": "AURA Precision Hardware Model 179",
+      "description": "Aerospace grade component 179 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_180": {
+      "title": "AURA Precision Hardware Model 180",
+      "description": "Aerospace grade component 180 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_181": {
+      "title": "AURA Precision Hardware Model 181",
+      "description": "Aerospace grade component 181 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_182": {
+      "title": "AURA Precision Hardware Model 182",
+      "description": "Aerospace grade component 182 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_183": {
+      "title": "AURA Precision Hardware Model 183",
+      "description": "Aerospace grade component 183 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_184": {
+      "title": "AURA Precision Hardware Model 184",
+      "description": "Aerospace grade component 184 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_185": {
+      "title": "AURA Precision Hardware Model 185",
+      "description": "Aerospace grade component 185 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_186": {
+      "title": "AURA Precision Hardware Model 186",
+      "description": "Aerospace grade component 186 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_187": {
+      "title": "AURA Precision Hardware Model 187",
+      "description": "Aerospace grade component 187 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_188": {
+      "title": "AURA Precision Hardware Model 188",
+      "description": "Aerospace grade component 188 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_189": {
+      "title": "AURA Precision Hardware Model 189",
+      "description": "Aerospace grade component 189 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_190": {
+      "title": "AURA Precision Hardware Model 190",
+      "description": "Aerospace grade component 190 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_191": {
+      "title": "AURA Precision Hardware Model 191",
+      "description": "Aerospace grade component 191 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_192": {
+      "title": "AURA Precision Hardware Model 192",
+      "description": "Aerospace grade component 192 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_193": {
+      "title": "AURA Precision Hardware Model 193",
+      "description": "Aerospace grade component 193 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_194": {
+      "title": "AURA Precision Hardware Model 194",
+      "description": "Aerospace grade component 194 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_195": {
+      "title": "AURA Precision Hardware Model 195",
+      "description": "Aerospace grade component 195 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_196": {
+      "title": "AURA Precision Hardware Model 196",
+      "description": "Aerospace grade component 196 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_197": {
+      "title": "AURA Precision Hardware Model 197",
+      "description": "Aerospace grade component 197 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_198": {
+      "title": "AURA Precision Hardware Model 198",
+      "description": "Aerospace grade component 198 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_199": {
+      "title": "AURA Precision Hardware Model 199",
+      "description": "Aerospace grade component 199 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_200": {
+      "title": "AURA Precision Hardware Model 200",
+      "description": "Aerospace grade component 200 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_201": {
+      "title": "AURA Precision Hardware Model 201",
+      "description": "Aerospace grade component 201 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_202": {
+      "title": "AURA Precision Hardware Model 202",
+      "description": "Aerospace grade component 202 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_203": {
+      "title": "AURA Precision Hardware Model 203",
+      "description": "Aerospace grade component 203 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_204": {
+      "title": "AURA Precision Hardware Model 204",
+      "description": "Aerospace grade component 204 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_205": {
+      "title": "AURA Precision Hardware Model 205",
+      "description": "Aerospace grade component 205 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_206": {
+      "title": "AURA Precision Hardware Model 206",
+      "description": "Aerospace grade component 206 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_207": {
+      "title": "AURA Precision Hardware Model 207",
+      "description": "Aerospace grade component 207 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_208": {
+      "title": "AURA Precision Hardware Model 208",
+      "description": "Aerospace grade component 208 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_209": {
+      "title": "AURA Precision Hardware Model 209",
+      "description": "Aerospace grade component 209 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_210": {
+      "title": "AURA Precision Hardware Model 210",
+      "description": "Aerospace grade component 210 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_211": {
+      "title": "AURA Precision Hardware Model 211",
+      "description": "Aerospace grade component 211 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_212": {
+      "title": "AURA Precision Hardware Model 212",
+      "description": "Aerospace grade component 212 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_213": {
+      "title": "AURA Precision Hardware Model 213",
+      "description": "Aerospace grade component 213 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_214": {
+      "title": "AURA Precision Hardware Model 214",
+      "description": "Aerospace grade component 214 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_215": {
+      "title": "AURA Precision Hardware Model 215",
+      "description": "Aerospace grade component 215 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_216": {
+      "title": "AURA Precision Hardware Model 216",
+      "description": "Aerospace grade component 216 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_217": {
+      "title": "AURA Precision Hardware Model 217",
+      "description": "Aerospace grade component 217 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_218": {
+      "title": "AURA Precision Hardware Model 218",
+      "description": "Aerospace grade component 218 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_219": {
+      "title": "AURA Precision Hardware Model 219",
+      "description": "Aerospace grade component 219 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_220": {
+      "title": "AURA Precision Hardware Model 220",
+      "description": "Aerospace grade component 220 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_221": {
+      "title": "AURA Precision Hardware Model 221",
+      "description": "Aerospace grade component 221 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_222": {
+      "title": "AURA Precision Hardware Model 222",
+      "description": "Aerospace grade component 222 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_223": {
+      "title": "AURA Precision Hardware Model 223",
+      "description": "Aerospace grade component 223 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_224": {
+      "title": "AURA Precision Hardware Model 224",
+      "description": "Aerospace grade component 224 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_225": {
+      "title": "AURA Precision Hardware Model 225",
+      "description": "Aerospace grade component 225 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_226": {
+      "title": "AURA Precision Hardware Model 226",
+      "description": "Aerospace grade component 226 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_227": {
+      "title": "AURA Precision Hardware Model 227",
+      "description": "Aerospace grade component 227 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_228": {
+      "title": "AURA Precision Hardware Model 228",
+      "description": "Aerospace grade component 228 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_229": {
+      "title": "AURA Precision Hardware Model 229",
+      "description": "Aerospace grade component 229 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_230": {
+      "title": "AURA Precision Hardware Model 230",
+      "description": "Aerospace grade component 230 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_231": {
+      "title": "AURA Precision Hardware Model 231",
+      "description": "Aerospace grade component 231 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_232": {
+      "title": "AURA Precision Hardware Model 232",
+      "description": "Aerospace grade component 232 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_233": {
+      "title": "AURA Precision Hardware Model 233",
+      "description": "Aerospace grade component 233 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_234": {
+      "title": "AURA Precision Hardware Model 234",
+      "description": "Aerospace grade component 234 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_235": {
+      "title": "AURA Precision Hardware Model 235",
+      "description": "Aerospace grade component 235 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_236": {
+      "title": "AURA Precision Hardware Model 236",
+      "description": "Aerospace grade component 236 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_237": {
+      "title": "AURA Precision Hardware Model 237",
+      "description": "Aerospace grade component 237 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_238": {
+      "title": "AURA Precision Hardware Model 238",
+      "description": "Aerospace grade component 238 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_239": {
+      "title": "AURA Precision Hardware Model 239",
+      "description": "Aerospace grade component 239 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_240": {
+      "title": "AURA Precision Hardware Model 240",
+      "description": "Aerospace grade component 240 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_241": {
+      "title": "AURA Precision Hardware Model 241",
+      "description": "Aerospace grade component 241 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_242": {
+      "title": "AURA Precision Hardware Model 242",
+      "description": "Aerospace grade component 242 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_243": {
+      "title": "AURA Precision Hardware Model 243",
+      "description": "Aerospace grade component 243 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_244": {
+      "title": "AURA Precision Hardware Model 244",
+      "description": "Aerospace grade component 244 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_245": {
+      "title": "AURA Precision Hardware Model 245",
+      "description": "Aerospace grade component 245 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_246": {
+      "title": "AURA Precision Hardware Model 246",
+      "description": "Aerospace grade component 246 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_247": {
+      "title": "AURA Precision Hardware Model 247",
+      "description": "Aerospace grade component 247 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_248": {
+      "title": "AURA Precision Hardware Model 248",
+      "description": "Aerospace grade component 248 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_249": {
+      "title": "AURA Precision Hardware Model 249",
+      "description": "Aerospace grade component 249 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    },
+    "item_250": {
+      "title": "AURA Precision Hardware Model 250",
+      "description": "Aerospace grade component 250 verified for 10,000 continuous operation cycles.",
+      "warranty": "10-Year Comprehensive Limited Warranty",
+      "specs": "Tolerance +/- 0.005mm, Voltage 100-240V, Heat dissipation 95W (Locale: English (US))"
+    }
+  },
+  "checkout": {
+    "title": "Secure Encrypted Checkout",
+    "shippingAddress": "Shipping Destination",
+    "billingAddress": "Billing Address",
+    "paymentMethod": "Payment Authorization",
+    "orderPlacedSuccess": "Payment Authorized & Order Confirmed"
+  },
+  "account": {
+    "orders": "Order History & Live Dispatch",
+    "wishlist": "Saved Hardware",
+    "settings": "Security & Profile",
+    "addresses": "Address Book"
+  }
+}
