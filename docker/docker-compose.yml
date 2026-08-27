@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: enterprise-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: enterprise_password_2026
+      POSTGRES_DB: enterprise_ecommerce
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: enterprise-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.api
+    container_name: enterprise-api
+    environment:
+      DATABASE_URL: postgresql://postgres:enterprise_password_2026@postgres:5432/enterprise_ecommerce
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  storefront:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.storefront
+    container_name: enterprise-storefront
+    environment:
+      NEXT_PUBLIC_API_URL: http://api:4000/api/v1
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  admin-portal:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.admin
+    container_name: enterprise-admin-portal
+    ports:
+      - "3001:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  redis_data:
