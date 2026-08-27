@@ -1,0 +1,13 @@
+{
+  "name": "@enterprise/worker",
+  "version": "1.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "dependencies": {
+    "bullmq": "^5.1.5",
+    "ioredis": "^5.3.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
