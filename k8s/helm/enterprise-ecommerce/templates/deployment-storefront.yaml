@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-storefront
+spec:
+  replicas: {{ .Values.storefront.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: storefront
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: storefront
+    spec:
+      containers:
+        - name: storefront
+          image: "{{ .Values.storefront.image.repository }}:{{ .Values.storefront.image.tag }}"
+          ports:
+            - containerPort: 3000
+          resources:
+            {{- toYaml .Values.storefront.resources | nindent 12 }}

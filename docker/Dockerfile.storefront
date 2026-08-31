@@ -1,0 +1,15 @@
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY package.json turbo.json tsconfig.base.json ./
+COPY apps/storefront ./apps/storefront
+COPY packages ./packages
+RUN npm install
+RUN npm run build --filter=@enterprise/storefront
+
+FROM node:18-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/apps/storefront/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+EXPOSE 3000
+CMD ["npm", "run", "start"]

@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Enterprise Multi-Vendor E-Commerce Platform REST API
+  description: High-throughput API gateway specification for Catalog, Checkout, Payments, Warehouses, and Fulfillment.
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000/api/v1
+    description: Local Development Server
+paths:
+  /auth/login:
+    post:
+      summary: Authenticate customer or merchant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string, format: email }
+                password: { type: string }
+      responses:
+        '200':
+          description: JWT Access and Refresh Tokens
+  /products:
+    get:
+      summary: Faceted product search & filtering
+      parameters:
+        - name: search
+          in: query
+          schema: { type: string }
+        - name: categorySlug
+          in: query
+          schema: { type: string }
+      responses:
+        '200':
+          description: Paginated product list
+  /orders:
+    post:
+      summary: Create order and lock reserved stock
+      responses:
+        '201':
+          description: Order created in PENDING state
