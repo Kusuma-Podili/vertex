@@ -1,0 +1,50 @@
+{
+  "name": "enterprise-ecommerce-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Production-grade enterprise e-commerce platform with micro-modular architecture",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "python server.py",
+    "dev": "python server.py",
+    "build": "turbo run build",
+    "run": "python main.py",
+    "test": "python run_tests.py",
+    "test:coverage": "python run_tests.py",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "db:generate": "prisma generate --schema=packages/database/prisma/schema.prisma",
+    "db:migrate": "prisma migrate dev --schema=packages/database/prisma/schema.prisma",
+    "db:seed": "ts-node packages/database/src/seed.ts"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.2.5",
+    "turbo": "^1.13.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "keywords": [
+    "ecommerce",
+    "enterprise",
+    "nextjs",
+    "nestjs",
+    "typescript",
+    "monorepo",
+    "prisma",
+    "bullmq",
+    "redis"
+  ],
+  "author": "Enterprise Architecture Team",
+  "license": "UNLICENSED",
+  "main": "server.py"
+}

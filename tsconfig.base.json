@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "baseUrl": ".",
+    "paths": {
+      "@enterprise/types": ["packages/types/src/index.ts"],
+      "@enterprise/types/*": ["packages/types/src/*"],
+      "@enterprise/utils": ["packages/utils/src/index.ts"],
+      "@enterprise/utils/*": ["packages/utils/src/*"],
+      "@enterprise/database": ["packages/database/src/index.ts"],
+      "@enterprise/database/*": ["packages/database/src/*"],
+      "@enterprise/ui": ["packages/ui/src/index.ts"],
+      "@enterprise/ui/*": ["packages/ui/src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", ".next", "build"]
+}
