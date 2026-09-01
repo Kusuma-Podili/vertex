@@ -469,7 +469,7 @@ INDEX_HTML = """<!DOCTYPE html>
           </div>
 
           <!-- Category Navigation (STRICTLY FOR CUSTOMER ONLY - HIDDEN FOR VENDOR & ADMIN) -->
-          <nav class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#6B7280]" id="customer-category-nav">
+          <nav class="items-center gap-1.5 text-sm font-medium text-[#6B7280]" id="customer-category-nav" style="display: none;">
             <button onclick="handleCategoryClick('All')" class="category-pill active px-3 py-1.5 rounded-xl text-black font-bold bg-[#FEF9C3] border border-[#FEF08A]">All Hardware</button>
             <button onclick="handleCategoryClick('Audio & Acoustics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all">Audio & Acoustics</button>
             <button onclick="handleCategoryClick('Computing & Rigs')" class="category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all">Computing</button>
@@ -1275,18 +1275,18 @@ INDEX_HTML = """<!DOCTYPE html>
       if (user.role === 'customer') {
         document.getElementById('page-customer').classList.remove('hidden');
         document.getElementById('customer-header-actions').classList.remove('hidden');
-        customerCategoryNav.classList.remove('hidden');
+        if (customerCategoryNav) customerCategoryNav.style.display = 'flex';
         renderProducts();
         updateCartUI();
       } else if (user.role === 'vendor') {
         document.getElementById('page-vendor').classList.remove('hidden');
         document.getElementById('vendor-header-actions').classList.remove('hidden');
-        customerCategoryNav.classList.add('hidden');
+        if (customerCategoryNav) customerCategoryNav.style.display = 'none';
         renderVendorDashboard();
       } else if (user.role === 'admin') {
         document.getElementById('page-admin').classList.remove('hidden');
         document.getElementById('admin-header-actions').classList.remove('hidden');
-        customerCategoryNav.classList.add('hidden');
+        if (customerCategoryNav) customerCategoryNav.style.display = 'none';
         renderAdminDashboard();
       }
 
