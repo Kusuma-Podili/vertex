@@ -9,7 +9,7 @@ import datetime
 PORT = 3000
 
 # -------------------------------------------------------------
-# REAL-TIME IN-MEMORY DATA STORE (WHITE & MINIMAL BROWN/BLACK • INR RUPEES)
+# REAL-TIME IN-MEMORY DATA STORE (WHITE THEME • LIGHT YELLOW ACCENTS)
 # -------------------------------------------------------------
 DATA_STORE = {
     "users": [
@@ -279,7 +279,7 @@ DATA_STORE = {
 }
 
 # -------------------------------------------------------------
-# PURE WHITE THEME (MINIMAL BROWN & BLACK ACCENTS)
+# WHITE THEME + BLACK TYPOGRAPHY + LIGHT YELLOW BUTTONS
 # -------------------------------------------------------------
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="en">
@@ -292,18 +292,18 @@ INDEX_HTML = """<!DOCTYPE html>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
     
-    /* Pure White + Minimal Brown & Minimal Black Palette */
+    /* White Theme + Black Typography + Light Yellow Buttons */
     :root {
       --bg-white: #FFFFFF;
-      --bg-subtle: #FAFAFA;
-      --border-light: #E5E7EB;
-      --text-black: #111827;
+      --bg-offwhite: #FAFAFA;
+      --border-gray: #E5E7EB;
+      --text-black: #000000;
+      --text-slate: #111827;
       --text-muted: #6B7280;
-      --accent-brown: #6D4C41;
-      --accent-brown-dark: #4E342E;
-      --accent-brown-light: #F5EBE6;
-      --btn-black: #18181B;
-      --btn-black-hover: #27272A;
+      --btn-yellow: #FEF08A;
+      --btn-yellow-hover: #FDE047;
+      --btn-yellow-border: #FACC15;
+      --badge-yellow: #FEF9C3;
     }
 
     body {
@@ -314,20 +314,29 @@ INDEX_HTML = """<!DOCTYPE html>
 
     .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    .bg-brown { background-color: #6D4C41; }
-    .bg-brown:hover { background-color: #4E342E; }
-    .bg-brown-light { background-color: #F5EBE6; }
-    .text-brown { color: #6D4C41; }
-    .border-brown { border-color: #6D4C41; }
-    .border-brown-light { border-color: #E2D5CF; }
+    /* Light Yellow Action Buttons */
+    .btn-light-yellow {
+      background-color: #FEF08A;
+      color: #000000;
+      border: 1px solid #FDE047;
+    }
+    .btn-light-yellow:hover {
+      background-color: #FDE047;
+    }
+
+    .badge-light-yellow {
+      background-color: #FEF9C3;
+      color: #713F12;
+      border: 1px solid #FEF08A;
+    }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #FFFFFF; }
     ::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+    ::-webkit-scrollbar-thumb:hover { background: #CBD5E1; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased bg-white selection:bg-[#18181B] selection:text-white">
+<body class="min-h-screen flex flex-col antialiased bg-white selection:bg-[#FEF08A] selection:text-black">
 
   <!-- ========================================================= -->
   <!-- 1. MANDATORY INITIAL LOGIN GATEWAY SCREEN -->
@@ -335,53 +344,53 @@ INDEX_HTML = """<!DOCTYPE html>
   <div id="login-gatekeeper-screen" class="fixed inset-0 z-50 bg-[#FAFAFA] flex flex-col items-center justify-center p-4 overflow-y-auto">
     <div class="w-full max-w-xl bg-white border border-[#E5E7EB] rounded-3xl p-8 sm:p-10 shadow-xl space-y-8 animate-in zoom-in-95 duration-200">
       
-      <!-- Brand Header -->
+      <!-- Brand Logo -->
       <div class="text-center space-y-2">
-        <div class="h-16 w-16 rounded-2xl bg-[#18181B] text-white flex items-center justify-center text-2xl mx-auto shadow-md">
+        <div class="h-16 w-16 rounded-2xl bg-black text-white flex items-center justify-center text-2xl mx-auto shadow-md">
           <i class="fa-solid fa-cube"></i>
         </div>
-        <h1 class="text-3xl font-black text-[#111827] tracking-tight mt-3">VERTEX</h1>
+        <h1 class="text-3xl font-black text-black tracking-tight mt-3">VERTEX</h1>
         <p class="text-xs text-[#6B7280]">Role-Based Access Portal • All Prices in Indian Rupees (₹)</p>
       </div>
 
       <!-- 3 PRESET DEMO LOGIN CREDENTIALS -->
       <div class="space-y-3 p-5 rounded-2xl bg-[#FAFAFA] border border-[#E5E7EB]">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#6D4C41] flex items-center gap-1.5">
-            <i class="fa-solid fa-bolt text-[#6D4C41]"></i> 1-Click Login Credentials
+          <span class="text-xs font-bold uppercase tracking-wider text-black flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-[#CA8A04]"></i> 1-Click Login Credentials
           </span>
           <span class="text-[10px] text-[#6B7280]">Select role to enter</span>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           <!-- 1. Customer -->
-          <button onclick="loginPreset('customer')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-[#18181B] hover:shadow-sm transition-all group">
+          <button onclick="loginPreset('customer')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-black hover:shadow-xs transition-all group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-[#111827] group-hover:text-[#6D4C41]">1. Customer</span>
-              <i class="fa-solid fa-user text-[#6D4C41] text-xs"></i>
+              <span class="text-xs font-bold text-black group-hover:text-black">1. Customer</span>
+              <i class="fa-solid fa-user text-[#CA8A04] text-xs"></i>
             </div>
             <div class="text-[10px] text-[#6B7280] font-mono mt-0.5 truncate">john.doe@enterprise.io</div>
-            <div class="text-[10px] text-[#111827] font-mono font-bold">Pass: customer123</div>
+            <div class="text-[10px] text-black font-mono font-bold">Pass: customer123</div>
           </button>
 
           <!-- 2. Vendor -->
-          <button onclick="loginPreset('vendor')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-[#18181B] hover:shadow-sm transition-all group">
+          <button onclick="loginPreset('vendor')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-black hover:shadow-xs transition-all group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-[#111827] group-hover:text-[#6D4C41]">2. Merchant</span>
-              <i class="fa-solid fa-store text-[#6D4C41] text-xs"></i>
+              <span class="text-xs font-bold text-black group-hover:text-black">2. Merchant</span>
+              <i class="fa-solid fa-store text-[#CA8A04] text-xs"></i>
             </div>
             <div class="text-[10px] text-[#6B7280] font-mono mt-0.5 truncate">elena@aeroacoustics.io</div>
-            <div class="text-[10px] text-[#111827] font-mono font-bold">Pass: vendor123</div>
+            <div class="text-[10px] text-black font-mono font-bold">Pass: vendor123</div>
           </button>
 
           <!-- 3. Super Admin -->
-          <button onclick="loginPreset('admin')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-[#18181B] hover:shadow-sm transition-all group">
+          <button onclick="loginPreset('admin')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-black hover:shadow-xs transition-all group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-[#111827] group-hover:text-[#6D4C41]">3. Super Admin</span>
-              <i class="fa-solid fa-shield-halved text-[#6D4C41] text-xs"></i>
+              <span class="text-xs font-bold text-black group-hover:text-black">3. Super Admin</span>
+              <i class="fa-solid fa-shield-halved text-[#CA8A04] text-xs"></i>
             </div>
             <div class="text-[10px] text-[#6B7280] font-mono mt-0.5 truncate">admin@vertex.io</div>
-            <div class="text-[10px] text-[#111827] font-mono font-bold">Pass: admin123</div>
+            <div class="text-[10px] text-black font-mono font-bold">Pass: admin123</div>
           </button>
         </div>
       </div>
@@ -389,10 +398,10 @@ INDEX_HTML = """<!DOCTYPE html>
       <!-- CUSTOMER TABS: LOGIN vs SIGN UP -->
       <div class="space-y-4">
         <div class="flex rounded-2xl bg-[#FAFAFA] p-1 border border-[#E5E7EB]">
-          <button onclick="setGatekeeperTab('login')" id="gate-tab-login" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#18181B] text-white shadow-sm transition-all">
+          <button onclick="setGatekeeperTab('login')" id="gate-tab-login" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#FEF08A] text-black border border-[#FDE047] shadow-xs transition-all">
             <i class="fa-solid fa-arrow-right-to-bracket mr-1.5"></i> Customer Login (Old User)
           </button>
-          <button onclick="setGatekeeperTab('signup')" id="gate-tab-signup" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-[#111827] transition-all">
+          <button onclick="setGatekeeperTab('signup')" id="gate-tab-signup" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-black transition-all">
             <i class="fa-solid fa-user-plus mr-1.5"></i> Sign Up (New Customer)
           </button>
         </div>
@@ -400,14 +409,14 @@ INDEX_HTML = """<!DOCTYPE html>
         <!-- LOGIN FORM -->
         <form id="gate-form-login" onsubmit="handleGatekeeperLogin(event)" class="space-y-4 pt-2">
           <div>
-            <label class="text-xs font-bold text-[#111827]">Email Address</label>
-            <input required type="email" id="gate-login-email" placeholder="e.g. john.doe@enterprise.io" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Email Address</label>
+            <input required type="email" id="gate-login-email" placeholder="e.g. john.doe@enterprise.io" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-black mt-1 focus:outline-none focus:border-black">
           </div>
           <div>
-            <label class="text-xs font-bold text-[#111827]">Password</label>
-            <input required type="password" id="gate-login-password" placeholder="••••••••••••" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Password</label>
+            <input required type="password" id="gate-login-password" placeholder="••••••••••••" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-black mt-1 focus:outline-none focus:border-black">
           </div>
-          <button type="submit" class="w-full py-3.5 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold shadow-md transition-all">
+          <button type="submit" class="w-full py-3.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold border border-[#FDE047] shadow-xs transition-all">
             Login & Enter Portal &rarr;
           </button>
         </form>
@@ -415,24 +424,24 @@ INDEX_HTML = """<!DOCTYPE html>
         <!-- SIGN UP FORM -->
         <form id="gate-form-signup" onsubmit="handleGatekeeperSignUp(event)" class="space-y-4 pt-2 hidden">
           <div>
-            <label class="text-xs font-bold text-[#111827]">Full Name</label>
-            <input required type="text" id="gate-reg-name" placeholder="e.g. Ramesh Kumar" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Full Name</label>
+            <input required type="text" id="gate-reg-name" placeholder="e.g. Ramesh Kumar" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-black mt-1 focus:outline-none focus:border-black">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="text-xs font-bold text-[#111827]">Email Address</label>
-              <input required type="email" id="gate-reg-email" placeholder="ramesh@gmail.com" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+              <label class="text-xs font-bold text-black">Email Address</label>
+              <input required type="email" id="gate-reg-email" placeholder="ramesh@gmail.com" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-black mt-1 focus:outline-none focus:border-black">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#111827]">Mobile Number</label>
-              <input required type="text" id="gate-reg-phone" placeholder="+91 98765 00000" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+              <label class="text-xs font-bold text-black">Mobile Number</label>
+              <input required type="text" id="gate-reg-phone" placeholder="+91 98765 00000" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-black mt-1 focus:outline-none focus:border-black">
             </div>
           </div>
           <div>
-            <label class="text-xs font-bold text-[#111827]">Create Password</label>
-            <input required type="password" id="gate-reg-password" placeholder="Minimum 6 characters" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Create Password</label>
+            <input required type="password" id="gate-reg-password" placeholder="Minimum 6 characters" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-3 text-xs text-black mt-1 focus:outline-none focus:border-black">
           </div>
-          <button type="submit" class="w-full py-3.5 bg-[#6D4C41] hover:bg-[#4E342E] text-white rounded-xl text-xs font-bold shadow-md transition-all">
+          <button type="submit" class="w-full py-3.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold border border-[#FDE047] shadow-xs transition-all">
             Create Customer Account & Enter &rarr;
           </button>
         </form>
@@ -446,14 +455,14 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- ========================================================= -->
   <div id="authenticated-app" class="hidden flex-col min-h-screen bg-white">
 
-    <!-- GLOBAL HEADER (PURE WHITE WITH SUBTLE BORDERS) -->
+    <!-- GLOBAL HEADER (PURE WHITE WITH BLACK TYPOGRAPHY) -->
     <header class="sticky top-0 z-40 bg-white border-b border-[#E5E7EB] shadow-xs transition-all">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
         
         <!-- Brand & Context Title -->
         <div class="flex items-center gap-8">
-          <div class="text-2xl font-black tracking-widest text-[#111827] flex items-center gap-2.5">
-            <div class="h-11 w-11 rounded-2xl bg-[#18181B] flex items-center justify-center text-white shadow-sm">
+          <div class="text-2xl font-black tracking-widest text-black flex items-center gap-2.5">
+            <div class="h-11 w-11 rounded-2xl bg-black flex items-center justify-center text-white shadow-xs">
               <i class="fa-solid fa-cube text-xl"></i>
             </div>
             <span>VERTEX</span>
@@ -461,12 +470,12 @@ INDEX_HTML = """<!DOCTYPE html>
 
           <!-- Category Navigation (STRICTLY FOR CUSTOMER ONLY - HIDDEN FOR VENDOR & ADMIN) -->
           <nav class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#6B7280]" id="customer-category-nav">
-            <button onclick="handleCategoryClick('All')" class="category-pill active px-3 py-1.5 rounded-xl text-[#111827] font-bold bg-[#F5EBE6] border border-[#E2D5CF] text-[#6D4C41]">All Hardware</button>
-            <button onclick="handleCategoryClick('Audio & Acoustics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#111827] transition-all">Audio & Acoustics</button>
-            <button onclick="handleCategoryClick('Computing & Rigs')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#111827] transition-all">Computing</button>
-            <button onclick="handleCategoryClick('Optics & Cinema')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#111827] transition-all">Cinema Optics</button>
-            <button onclick="handleCategoryClick('Power & Energy')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#111827] transition-all">Power Hubs</button>
-            <button onclick="handleCategoryClick('Workspace & Ergonomics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#111827] transition-all">Ergonomics</button>
+            <button onclick="handleCategoryClick('All')" class="category-pill active px-3 py-1.5 rounded-xl text-black font-bold bg-[#FEF9C3] border border-[#FEF08A]">All Hardware</button>
+            <button onclick="handleCategoryClick('Audio & Acoustics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all">Audio & Acoustics</button>
+            <button onclick="handleCategoryClick('Computing & Rigs')" class="category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all">Computing</button>
+            <button onclick="handleCategoryClick('Optics & Cinema')" class="category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all">Cinema Optics</button>
+            <button onclick="handleCategoryClick('Power & Energy')" class="category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all">Power Hubs</button>
+            <button onclick="handleCategoryClick('Workspace & Ergonomics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all">Ergonomics</button>
           </nav>
         </div>
 
@@ -474,43 +483,43 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="flex items-center gap-3">
           
           <!-- Currency Indicator (₹ INR) -->
-          <div class="px-3 py-1.5 rounded-xl bg-white border border-[#E5E7EB] text-[#111827] font-mono font-bold text-xs flex items-center gap-1.5 shadow-xs">
+          <div class="px-3 py-1.5 rounded-xl bg-white border border-[#E5E7EB] text-black font-mono font-bold text-xs flex items-center gap-1.5 shadow-xs">
             <span class="h-2 w-2 rounded-full bg-[#10B981]"></span>
             <span>INR (₹)</span>
           </div>
 
           <!-- Customer Header Buttons -->
           <div id="customer-header-actions" class="hidden flex items-center gap-2">
-            <button onclick="openOrdersModal()" class="px-3.5 py-2 bg-white hover:bg-[#FAFAFA] text-[#111827] rounded-xl text-xs font-bold border border-[#E5E7EB] flex items-center gap-2 shadow-xs transition-colors">
-              <i class="fa-solid fa-clock-rotate-left text-[#6D4C41]"></i>
+            <button onclick="openOrdersModal()" class="px-3.5 py-2 bg-white hover:bg-[#FAFAFA] text-black rounded-xl text-xs font-bold border border-[#E5E7EB] flex items-center gap-2 shadow-xs transition-colors">
+              <i class="fa-solid fa-clock-rotate-left text-black"></i>
               <span class="hidden sm:inline">My Orders</span>
             </button>
 
-            <button onclick="toggleWishlistDrawer()" class="relative p-2.5 bg-white hover:bg-[#FAFAFA] text-[#111827] rounded-xl border border-[#E5E7EB] shadow-xs">
+            <button onclick="toggleWishlistDrawer()" class="relative p-2.5 bg-white hover:bg-[#FAFAFA] text-black rounded-xl border border-[#E5E7EB] shadow-xs">
               <i class="fa-regular fa-heart"></i>
-              <span id="wishlist-count-badge" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-[#18181B] text-white text-[10px] font-bold flex items-center justify-center">0</span>
+              <span id="wishlist-count-badge" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-black text-white text-[10px] font-bold flex items-center justify-center">0</span>
             </button>
 
-            <button onclick="toggleCartDrawer()" class="relative px-4 py-2 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm transition-all">
+            <button onclick="toggleCartDrawer()" class="relative px-4 py-2 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold flex items-center gap-2 border border-[#FDE047] shadow-xs transition-all">
               <i class="fa-solid fa-cart-shopping"></i>
               <span>Cart</span>
-              <span id="cart-count-badge" class="ml-1 px-1.5 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold">1</span>
+              <span id="cart-count-badge" class="ml-1 px-1.5 py-0.5 rounded-full bg-black text-white text-[11px] font-bold">1</span>
             </button>
           </div>
 
           <!-- Vendor Header Buttons -->
           <div id="vendor-header-actions" class="hidden flex items-center gap-2">
-            <button onclick="openAddProductModal()" class="px-4 py-2 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm">
+            <button onclick="openAddProductModal()" class="px-4 py-2 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold flex items-center gap-2 border border-[#FDE047] shadow-xs">
               <i class="fa-solid fa-plus"></i> + Add New SKU
             </button>
           </div>
 
           <!-- Admin Header Buttons -->
           <div id="admin-header-actions" class="hidden flex items-center gap-2">
-            <button onclick="openNewCouponModal()" class="px-3.5 py-2 bg-white hover:bg-[#FAFAFA] text-[#111827] border border-[#E5E7EB] rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs">
-              <i class="fa-solid fa-ticket text-[#6D4C41]"></i> + Promo Code
+            <button onclick="openNewCouponModal()" class="px-3.5 py-2 bg-white hover:bg-[#FAFAFA] text-black border border-[#E5E7EB] rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs">
+              <i class="fa-solid fa-ticket text-black"></i> + Promo Code
             </button>
-            <button onclick="simulateTrafficOrder()" class="px-3.5 py-2 bg-[#6D4C41] hover:bg-[#4E342E] text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm">
+            <button onclick="simulateTrafficOrder()" class="px-3.5 py-2 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold flex items-center gap-1.5 border border-[#FDE047] shadow-xs">
               <i class="fa-solid fa-bolt"></i> Simulate Order
             </button>
           </div>
@@ -533,24 +542,24 @@ INDEX_HTML = """<!DOCTYPE html>
       <!-- A. CUSTOMER STOREFRONT PAGE (ONLY SHOWN TO CUSTOMERS) -->
       <!-- ===================================================== -->
       <div id="page-customer" class="hidden space-y-10">
-        <!-- Hero Banner (White with minimal warm brown/black accents) -->
+        <!-- Hero Banner (White with minimal soft yellow accents) -->
         <section class="rounded-3xl border border-[#E5E7EB] bg-[#FAFAFA] p-8 sm:p-14 shadow-xs relative overflow-hidden">
           <div class="max-w-3xl space-y-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-[#6D4C41] text-xs font-bold border border-[#E5E7EB] shadow-xs">
-              <i class="fa-solid fa-sparkles text-[#6D4C41]"></i> Precision Engineering • Indian Rupees (₹)
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FEF9C3] text-[#854D0E] text-xs font-bold border border-[#FEF08A]">
+              <i class="fa-solid fa-sparkles text-[#CA8A04]"></i> Precision Engineering • Indian Rupees (₹)
             </div>
-            <h1 class="text-4xl sm:text-6xl font-black text-[#111827] tracking-tight leading-none">
-              Hardware Built For <span class="text-[#6D4C41]">Extreme Output</span>.
+            <h1 class="text-4xl sm:text-6xl font-black text-black tracking-tight leading-none">
+              Hardware Built For <span class="text-black underline decoration-[#FACC15] decoration-4">Extreme Output</span>.
             </h1>
             <p class="text-base sm:text-lg text-[#6B7280] leading-relaxed max-w-2xl">
               Beryllium transducer acoustics, unthrottled 16-core workstation rigs, and solid-state energy storage with 10-year comprehensive warranties.
             </p>
             <div class="flex flex-wrap gap-4 pt-2">
-              <a href="#catalog-section" class="px-8 py-3.5 bg-[#18181B] hover:bg-[#27272A] text-white font-bold text-sm rounded-xl shadow-sm transition-all">
+              <a href="#catalog-section" class="px-8 py-3.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black font-bold text-sm rounded-xl border border-[#FDE047] shadow-xs transition-all">
                 Browse Hardware Catalog
               </a>
-              <button onclick="applyCouponCode('WELCOME10')" class="px-6 py-3.5 bg-white hover:bg-[#FAFAFA] text-[#111827] font-semibold text-sm rounded-xl border border-[#E5E7EB] flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-tag text-[#6D4C41]"></i> Use Promo <span class="font-mono font-bold text-[#6D4C41]">WELCOME10</span> (10% Off)
+              <button onclick="applyCouponCode('WELCOME10')" class="px-6 py-3.5 bg-white hover:bg-[#FAFAFA] text-black font-semibold text-sm rounded-xl border border-[#E5E7EB] flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-tag text-[#CA8A04]"></i> Use Promo <span class="font-mono font-bold text-black">WELCOME10</span> (10% Off)
               </button>
             </div>
           </div>
@@ -561,12 +570,12 @@ INDEX_HTML = """<!DOCTYPE html>
           <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="relative w-full sm:w-96">
               <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-[#6B7280] text-sm"></i>
-              <input type="text" id="catalog-search-input" oninput="renderProducts()" placeholder="Search title, SKU, or specs..." class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl pl-11 pr-4 py-2.5 text-sm text-[#111827] placeholder-[#6B7280] focus:outline-none focus:border-[#18181B]">
+              <input type="text" id="catalog-search-input" oninput="renderProducts()" placeholder="Search title, SKU, or specs..." class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl pl-11 pr-4 py-2.5 text-sm text-black placeholder-[#6B7280] focus:outline-none focus:border-black">
             </div>
 
             <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
               <span class="text-xs text-[#6B7280] font-medium">Sort by:</span>
-              <select id="sort-select" onchange="renderProducts()" class="bg-[#FAFAFA] border border-[#E5E7EB] text-[#111827] text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#18181B] font-medium">
+              <select id="sort-select" onchange="renderProducts()" class="bg-[#FAFAFA] border border-[#E5E7EB] text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black font-medium">
                 <option value="featured">Featured Hardware</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
@@ -587,12 +596,12 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E5E7EB] pb-6">
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-3xl font-black text-[#111827]">Merchant Command Studio</h1>
-              <span class="px-2.5 py-0.5 bg-[#F5EBE6] text-[#6D4C41] border border-[#E2D5CF] rounded-full text-xs font-bold">VERIFIED SELLER</span>
+              <h1 class="text-3xl font-black text-black">Merchant Command Studio</h1>
+              <span class="px-2.5 py-0.5 bg-[#FEF9C3] text-[#854D0E] border border-[#FEF08A] rounded-full text-xs font-bold">VERIFIED SELLER</span>
             </div>
-            <p class="text-sm text-[#6B7280] mt-1">Vendor: <strong class="text-[#111827]">Elena Rostova (AeroAcoustics Labs)</strong> • Direct SKU inventory allocation & payout management</p>
+            <p class="text-sm text-[#6B7280] mt-1">Vendor: <strong class="text-black">Elena Rostova (AeroAcoustics Labs)</strong> • Direct SKU inventory allocation & payout management</p>
           </div>
-          <button onclick="openAddProductModal()" class="px-5 py-3 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-sm font-bold shadow-sm flex items-center gap-2">
+          <button onclick="openAddProductModal()" class="px-5 py-3 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-sm font-bold border border-[#FDE047] shadow-xs flex items-center gap-2">
             <i class="fa-solid fa-plus"></i> + Add New Product SKU
           </button>
         </div>
@@ -600,29 +609,29 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Total Store Gross GMV</div>
-            <div class="text-3xl font-black text-[#111827] mt-2" id="vendor-gmv">₹1,18,40,000</div>
+            <div class="text-3xl font-black text-black mt-2" id="vendor-gmv">₹1,18,40,000</div>
             <div class="text-xs text-[#10B981] mt-1 font-semibold"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% month-over-month</div>
           </div>
           <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Net Merchant Payout</div>
-            <div class="text-3xl font-black text-[#6D4C41] mt-2" id="vendor-payout">₹1,06,56,000</div>
+            <div class="text-3xl font-black text-black mt-2" id="vendor-payout">₹1,06,56,000</div>
             <div class="text-xs text-[#6B7280] mt-1">90% net after 10% platform commission</div>
           </div>
           <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Active Listed SKUs</div>
-            <div class="text-3xl font-black text-[#18181B] mt-2" id="vendor-sku-count">6 Units</div>
+            <div class="text-3xl font-black text-black mt-2" id="vendor-sku-count">6 Units</div>
             <div class="text-xs text-[#6B7280] mt-1">100% fulfillable in domestic hubs</div>
           </div>
         </div>
 
         <div class="rounded-2xl bg-white border border-[#E5E7EB] overflow-hidden shadow-xs">
           <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between">
-            <h3 class="text-lg font-bold text-[#111827]">Your Listed Products & Stock Control</h3>
-            <span class="text-xs text-[#6D4C41] font-mono font-bold">Live Inventory Sync</span>
+            <h3 class="text-lg font-bold text-black">Your Listed Products & Stock Control</h3>
+            <span class="text-xs text-black font-mono font-bold">Live Inventory Sync</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-              <thead class="bg-[#FAFAFA] text-[#111827] text-xs uppercase border-b border-[#E5E7EB] font-bold">
+              <thead class="bg-[#FAFAFA] text-black text-xs uppercase border-b border-[#E5E7EB] font-bold">
                 <tr>
                   <th class="px-6 py-4">Item & SKU</th>
                   <th class="px-6 py-4">Category</th>
@@ -632,7 +641,7 @@ INDEX_HTML = """<!DOCTYPE html>
                   <th class="px-6 py-4 text-right">Quick Stock Action</th>
                 </tr>
               </thead>
-              <tbody id="vendor-product-rows" class="divide-y divide-[#E5E7EB] text-[#111827]"></tbody>
+              <tbody id="vendor-product-rows" class="divide-y divide-[#E5E7EB] text-black"></tbody>
             </table>
           </div>
         </div>
@@ -645,17 +654,17 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E5E7EB] pb-6">
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-3xl font-black text-[#111827]">Executive Telemetry & Admin Gateway</h1>
-              <span class="px-2.5 py-0.5 bg-[#F5EBE6] text-[#6D4C41] border border-[#E2D5CF] rounded-full text-xs font-bold">ROOT PRIVILEGE</span>
+              <h1 class="text-3xl font-black text-black">Executive Telemetry & Admin Gateway</h1>
+              <span class="px-2.5 py-0.5 bg-[#FEF9C3] text-[#854D0E] border border-[#FEF08A] rounded-full text-xs font-bold">ROOT PRIVILEGE</span>
             </div>
-            <p class="text-sm text-[#6B7280] mt-1">Super Administrator: <strong class="text-[#111827]">System Controller</strong> • Live State Machine & Compliance Ledger</p>
+            <p class="text-sm text-[#6B7280] mt-1">Super Administrator: <strong class="text-black">System Controller</strong> • Live State Machine & Compliance Ledger</p>
           </div>
           <div class="flex gap-3">
-            <button onclick="openNewCouponModal()" class="px-4 py-2.5 bg-white hover:bg-[#FAFAFA] text-[#111827] border border-[#E5E7EB] rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs">
-              <i class="fa-solid fa-ticket text-[#6D4C41]"></i> + Create Promo Coupon
+            <button onclick="openNewCouponModal()" class="px-4 py-2.5 bg-white hover:bg-[#FAFAFA] text-black border border-[#E5E7EB] rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs">
+              <i class="fa-solid fa-ticket text-black"></i> + Create Promo Coupon
             </button>
-            <button onclick="simulateTrafficOrder()" class="px-4 py-2.5 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-2">
-              <i class="fa-solid fa-bolt text-[#6D4C41]"></i> Trigger Test Order
+            <button onclick="simulateTrafficOrder()" class="px-4 py-2.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold border border-[#FDE047] shadow-xs flex items-center gap-2">
+              <i class="fa-solid fa-bolt text-[#CA8A04]"></i> Trigger Test Order
             </button>
           </div>
         </div>
@@ -663,17 +672,17 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
           <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Gross Platform Revenue</div>
-            <div class="text-2xl font-black text-[#111827] mt-2" id="admin-revenue">₹2,36,83,000</div>
+            <div class="text-2xl font-black text-black mt-2" id="admin-revenue">₹2,36,83,000</div>
             <div class="text-xs text-[#10B981] mt-1 font-semibold">100% captured</div>
           </div>
           <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Processed Orders</div>
-            <div class="text-2xl font-black text-[#18181B] mt-2" id="admin-order-count">2 Orders</div>
+            <div class="text-2xl font-black text-black mt-2" id="admin-order-count">2 Orders</div>
             <div class="text-xs text-[#6B7280] mt-1">State machine active</div>
           </div>
           <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Verified Vendors</div>
-            <div class="text-2xl font-black text-[#6D4C41] mt-2" id="admin-vendor-count">3 Stores</div>
+            <div class="text-2xl font-black text-black mt-2" id="admin-vendor-count">3 Stores</div>
             <div class="text-xs text-[#F59E0B] mt-1 font-semibold">1 Pending Review</div>
           </div>
           <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
@@ -686,12 +695,12 @@ INDEX_HTML = """<!DOCTYPE html>
         <!-- Orders State Machine Transitions -->
         <div class="rounded-2xl bg-white border border-[#E5E7EB] overflow-hidden shadow-xs">
           <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between">
-            <h3 class="text-lg font-bold text-[#111827]">Order State Machine & Fulfillment Action Hub</h3>
-            <span class="text-xs text-[#6D4C41] font-mono font-bold">Real-Time Dispatch</span>
+            <h3 class="text-lg font-bold text-black">Order State Machine & Fulfillment Action Hub</h3>
+            <span class="text-xs text-black font-mono font-bold">Real-Time Dispatch</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-              <thead class="bg-[#FAFAFA] text-[#111827] text-xs uppercase border-b border-[#E5E7EB] font-bold">
+              <thead class="bg-[#FAFAFA] text-black text-xs uppercase border-b border-[#E5E7EB] font-bold">
                 <tr>
                   <th class="px-6 py-4">Order ID</th>
                   <th class="px-6 py-4">Customer</th>
@@ -701,7 +710,7 @@ INDEX_HTML = """<!DOCTYPE html>
                   <th class="px-6 py-4 text-right">Transition Action</th>
                 </tr>
               </thead>
-              <tbody id="admin-orders-rows" class="divide-y divide-[#E5E7EB] text-[#111827]"></tbody>
+              <tbody id="admin-orders-rows" class="divide-y divide-[#E5E7EB] text-black"></tbody>
             </table>
           </div>
         </div>
@@ -709,12 +718,12 @@ INDEX_HTML = """<!DOCTYPE html>
         <!-- Vendor Marketplace KYC Dossiers -->
         <div class="rounded-2xl bg-white border border-[#E5E7EB] overflow-hidden shadow-xs">
           <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between">
-            <h3 class="text-lg font-bold text-[#111827]">Vendor Marketplace KYC Dossiers</h3>
+            <h3 class="text-lg font-bold text-black">Vendor Marketplace KYC Dossiers</h3>
             <span class="text-xs text-[#6B7280]">Merchant Onboarding Pipeline</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-              <thead class="bg-[#FAFAFA] text-[#111827] text-xs uppercase border-b border-[#E5E7EB] font-bold">
+              <thead class="bg-[#FAFAFA] text-black text-xs uppercase border-b border-[#E5E7EB] font-bold">
                 <tr>
                   <th class="px-6 py-4">Store Name</th>
                   <th class="px-6 py-4">Representative</th>
@@ -724,7 +733,7 @@ INDEX_HTML = """<!DOCTYPE html>
                   <th class="px-6 py-4 text-right">KYC Action</th>
                 </tr>
               </thead>
-              <tbody id="admin-vendor-rows" class="divide-y divide-[#E5E7EB] text-[#111827]"></tbody>
+              <tbody id="admin-vendor-rows" class="divide-y divide-[#E5E7EB] text-black"></tbody>
             </table>
           </div>
         </div>
@@ -740,10 +749,10 @@ INDEX_HTML = """<!DOCTYPE html>
     <div class="w-full max-w-4xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
       <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#FAFAFA]">
         <div class="flex items-center gap-3">
-          <span id="pdp-badge" class="px-2.5 py-0.5 bg-[#F5EBE6] text-[#6D4C41] border border-[#E2D5CF] rounded-full text-xs font-bold">CATEGORY</span>
+          <span id="pdp-badge" class="px-2.5 py-0.5 bg-[#FEF9C3] text-[#854D0E] border border-[#FEF08A] rounded-full text-xs font-bold">CATEGORY</span>
           <span id="pdp-sku" class="text-xs font-mono text-[#6B7280]">SKU-0000</span>
         </div>
-        <button onclick="closePDPModal()" class="text-[#6B7280] hover:text-[#111827] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closePDPModal()" class="text-[#6B7280] hover:text-black text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-8 overflow-y-auto space-y-8 flex-1">
@@ -754,7 +763,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
           <div class="space-y-6 flex flex-col justify-between">
             <div class="space-y-3">
-              <h2 id="pdp-title" class="text-2xl sm:text-3xl font-black text-[#111827]">Product Title</h2>
+              <h2 id="pdp-title" class="text-2xl sm:text-3xl font-black text-black">Product Title</h2>
               <div class="flex items-center gap-3">
                 <div class="flex text-[#F59E0B] text-sm" id="pdp-stars">
                   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -768,7 +777,7 @@ INDEX_HTML = """<!DOCTYPE html>
               <div class="flex items-baseline justify-between">
                 <div>
                   <span class="text-xs text-[#6B7280] font-medium">Unit Price (₹ INR):</span>
-                  <div id="pdp-price" class="text-3xl font-black text-[#111827] font-mono">₹0</div>
+                  <div id="pdp-price" class="text-3xl font-black text-black font-mono">₹0</div>
                 </div>
                 <span id="pdp-stock-status" class="px-3 py-1 bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0] rounded-full text-xs font-bold">
                   In Stock
@@ -777,11 +786,12 @@ INDEX_HTML = """<!DOCTYPE html>
 
               <div class="flex items-center gap-3 pt-2">
                 <div class="flex items-center rounded-xl bg-white border border-[#E5E7EB] p-1">
-                  <button onclick="changePDPQty(-1)" class="w-8 h-8 rounded-lg text-[#6B7280] hover:text-[#111827] flex items-center justify-center font-bold text-base">-</button>
-                  <span id="pdp-qty-display" class="w-10 text-center text-sm font-bold text-[#111827] font-mono">1</span>
-                  <button onclick="changePDPQty(1)" class="w-8 h-8 rounded-lg text-[#6B7280] hover:text-[#111827] flex items-center justify-center font-bold text-base">+</button>
+                  <button onclick="changePDPQty(-1)" class="w-8 h-8 rounded-lg text-[#6B7280] hover:text-black flex items-center justify-center font-bold text-base">-</button>
+                  <span id="pdp-qty-display" class="w-10 text-center text-sm font-bold text-black font-mono">1</span>
+                  <button onclick="changePDPQty(1)" class="w-8 h-8 rounded-lg text-[#6B7280] hover:text-black flex items-center justify-center font-bold text-base">+</button>
                 </div>
-                <button onclick="addPDPToCart()" class="flex-1 py-3 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl font-bold text-sm shadow-sm flex items-center justify-center gap-2">
+                <!-- LIGHT YELLOW ADD TO CART BUTTON -->
+                <button onclick="addPDPToCart()" class="flex-1 py-3.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl font-bold text-sm border border-[#FDE047] shadow-xs flex items-center justify-center gap-2 transition-all">
                   <i class="fa-solid fa-cart-plus"></i> Add To Hardware Cart
                 </button>
               </div>
@@ -790,20 +800,20 @@ INDEX_HTML = """<!DOCTYPE html>
         </div>
 
         <div class="border-t border-[#E5E7EB] pt-6">
-          <h4 class="text-sm font-bold uppercase tracking-wider text-[#111827] mb-4">Engineering Specifications</h4>
+          <h4 class="text-sm font-bold uppercase tracking-wider text-black mb-4">Engineering Specifications</h4>
           <div id="pdp-specs-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs"></div>
         </div>
 
         <div class="border-t border-[#E5E7EB] pt-6 space-y-4">
           <div class="flex items-center justify-between">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-[#111827]">Verified Buyer Reviews</h4>
-            <button onclick="openReviewComposer()" class="text-xs font-bold text-[#6D4C41] hover:underline">+ Write Review</button>
+            <h4 class="text-sm font-bold uppercase tracking-wider text-black">Verified Buyer Reviews</h4>
+            <button onclick="openReviewComposer()" class="text-xs font-bold text-black underline hover:text-[#CA8A04]">+ Write Review</button>
           </div>
 
           <div id="review-composer" class="hidden p-4 rounded-xl bg-[#FAFAFA] border border-[#E5E7EB] space-y-3">
-            <input type="text" id="review-title-input" placeholder="Review headline (e.g. Unrivaled acoustic clarity)" class="w-full bg-white border border-[#E5E7EB] rounded-lg p-2.5 text-xs text-[#111827] focus:outline-none focus:border-[#18181B]">
-            <textarea id="review-comment-input" rows="3" placeholder="Share your experience..." class="w-full bg-white border border-[#E5E7EB] rounded-lg p-2.5 text-xs text-[#111827] focus:outline-none focus:border-[#18181B]"></textarea>
-            <button onclick="submitCustomerReview()" class="px-4 py-2 bg-[#18181B] hover:bg-[#27272A] text-white rounded-lg text-xs font-bold">Submit Review</button>
+            <input type="text" id="review-title-input" placeholder="Review headline (e.g. Unrivaled acoustic clarity)" class="w-full bg-white border border-[#E5E7EB] rounded-lg p-2.5 text-xs text-black focus:outline-none focus:border-black">
+            <textarea id="review-comment-input" rows="3" placeholder="Share your experience..." class="w-full bg-white border border-[#E5E7EB] rounded-lg p-2.5 text-xs text-black focus:outline-none focus:border-black"></textarea>
+            <button onclick="submitCustomerReview()" class="px-4 py-2 bg-[#FEF08A] hover:bg-[#FDE047] text-black border border-[#FDE047] rounded-lg text-xs font-bold">Submit Review</button>
           </div>
 
           <div id="pdp-reviews-list" class="space-y-3"></div>
@@ -820,10 +830,10 @@ INDEX_HTML = """<!DOCTYPE html>
       <div>
         <div class="flex items-center justify-between border-b border-[#E5E7EB] pb-4 mb-6">
           <div class="flex items-center gap-2">
-            <i class="fa-solid fa-cart-shopping text-[#111827]"></i>
-            <h3 class="text-xl font-bold text-[#111827]">Hardware Cart</h3>
+            <i class="fa-solid fa-cart-shopping text-black"></i>
+            <h3 class="text-xl font-bold text-black">Hardware Cart</h3>
           </div>
-          <button onclick="toggleCartDrawer()" class="text-[#6B7280] hover:text-[#111827] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="toggleCartDrawer()" class="text-[#6B7280] hover:text-black text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <div id="cart-items-container" class="space-y-4 max-h-[48vh] overflow-y-auto pr-1"></div>
@@ -831,18 +841,18 @@ INDEX_HTML = """<!DOCTYPE html>
 
       <div class="border-t border-[#E5E7EB] pt-6 space-y-4">
         <div class="flex gap-2">
-          <input type="text" id="coupon-input" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl px-3 py-2 text-xs font-mono text-[#111827] uppercase focus:outline-none focus:border-[#18181B]">
-          <button onclick="applyTypedCoupon()" class="px-4 py-2 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold">Apply</button>
+          <input type="text" id="coupon-input" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl px-3 py-2 text-xs font-mono text-black uppercase focus:outline-none focus:border-black">
+          <button onclick="applyTypedCoupon()" class="px-4 py-2 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold border border-[#FDE047]">Apply</button>
         </div>
-        <div id="coupon-applied-tag" class="hidden text-xs text-[#6D4C41] font-bold flex items-center justify-between">
-          <span><i class="fa-solid fa-tag mr-1"></i> Active: <span id="coupon-code-label"></span></span>
-          <button onclick="removeCoupon()" class="text-[#6B7280] hover:text-[#111827]">&times;</button>
+        <div id="coupon-applied-tag" class="hidden text-xs text-[#854D0E] font-bold flex items-center justify-between">
+          <span><i class="fa-solid fa-tag mr-1 text-[#CA8A04]"></i> Active: <span id="coupon-code-label"></span></span>
+          <button onclick="removeCoupon()" class="text-[#6B7280] hover:text-black">&times;</button>
         </div>
 
         <div class="space-y-2 text-xs text-[#6B7280]">
           <div class="flex justify-between">
             <span>Subtotal</span>
-            <span class="text-[#111827] font-bold font-mono" id="cart-subtotal-val">₹0</span>
+            <span class="text-black font-bold font-mono" id="cart-subtotal-val">₹0</span>
           </div>
           <div class="flex justify-between" id="cart-discount-row" style="display:none;">
             <span class="text-[#BE123C]">Discount Savings</span>
@@ -850,19 +860,20 @@ INDEX_HTML = """<!DOCTYPE html>
           </div>
           <div class="flex justify-between">
             <span>GST Tax (18%)</span>
-            <span class="text-[#111827] font-bold font-mono" id="cart-tax-val">₹0</span>
+            <span class="text-black font-bold font-mono" id="cart-tax-val">₹0</span>
           </div>
           <div class="flex justify-between">
             <span>Express Delivery</span>
             <span class="text-[#10B981] font-bold font-mono" id="cart-shipping-val">FREE</span>
           </div>
-          <div class="flex justify-between text-base font-bold text-[#111827] pt-3 border-t border-[#E5E7EB]">
+          <div class="flex justify-between text-base font-bold text-black pt-3 border-t border-[#E5E7EB]">
             <span>Total Amount</span>
-            <span class="text-[#111827] text-xl font-mono font-black" id="cart-total-val">₹0</span>
+            <span class="text-black text-xl font-mono font-black" id="cart-total-val">₹0</span>
           </div>
         </div>
 
-        <button onclick="openCheckoutModal()" id="cart-checkout-btn" class="w-full py-4 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl font-bold text-sm shadow-sm flex items-center justify-center gap-2">
+        <!-- LIGHT YELLOW PROCEED TO CHECKOUT BUTTON -->
+        <button onclick="openCheckoutModal()" id="cart-checkout-btn" class="w-full py-4 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl font-bold text-sm border border-[#FDE047] shadow-xs flex items-center justify-center gap-2 transition-all">
           <i class="fa-solid fa-lock"></i> Proceed to Multi-Step Checkout
         </button>
       </div>
@@ -876,63 +887,64 @@ INDEX_HTML = """<!DOCTYPE html>
     <div class="w-full max-w-2xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
       <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#FAFAFA]">
         <div class="flex items-center gap-3">
-          <i class="fa-solid fa-shield-halved text-[#111827] text-lg"></i>
-          <h3 class="text-lg font-bold text-[#111827]">256-Bit Encrypted Checkout (₹ INR)</h3>
+          <i class="fa-solid fa-shield-halved text-black text-lg"></i>
+          <h3 class="text-lg font-bold text-black">256-Bit Encrypted Checkout (₹ INR)</h3>
         </div>
-        <button onclick="closeCheckoutModal()" class="text-[#6B7280] hover:text-[#111827] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closeCheckoutModal()" class="text-[#6B7280] hover:text-black text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-8 space-y-6">
         <form id="checkout-form" onsubmit="handlePlaceOrder(event)" class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="text-xs font-bold text-[#111827]">Full Name</label>
-              <input required type="text" id="chk-name" value="John Doe" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+              <label class="text-xs font-bold text-black">Full Name</label>
+              <input required type="text" id="chk-name" value="John Doe" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#111827]">Email Address</label>
-              <input required type="email" id="chk-email" value="john.doe@enterprise.io" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+              <label class="text-xs font-bold text-black">Email Address</label>
+              <input required type="email" id="chk-email" value="john.doe@enterprise.io" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
             </div>
           </div>
 
           <div>
-            <label class="text-xs font-bold text-[#111827]">Delivery Address</label>
-            <input required type="text" id="chk-street" value="Brigade Road, 4th Block" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Delivery Address</label>
+            <input required type="text" id="chk-street" value="Brigade Road, 4th Block" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
           </div>
 
           <div class="grid grid-cols-3 gap-4">
             <div>
-              <label class="text-xs font-bold text-[#111827]">City</label>
-              <input required type="text" id="chk-city" value="Bengaluru" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+              <label class="text-xs font-bold text-black">City</label>
+              <input required type="text" id="chk-city" value="Bengaluru" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#111827]">State</label>
-              <input required type="text" id="chk-state" value="Karnataka" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+              <label class="text-xs font-bold text-black">State</label>
+              <input required type="text" id="chk-state" value="Karnataka" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#111827]">PIN Code</label>
-              <input required type="text" id="chk-zip" value="560001" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+              <label class="text-xs font-bold text-black">PIN Code</label>
+              <input required type="text" id="chk-zip" value="560001" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
             </div>
           </div>
 
           <div class="p-4 rounded-2xl bg-[#FAFAFA] border border-[#E5E7EB] space-y-3 mt-4">
-            <div class="flex items-center justify-between text-xs font-bold text-[#111827]">
+            <div class="flex items-center justify-between text-xs font-bold text-black">
               <span>UPI & Card Direct Gateway</span>
-              <div class="flex gap-2 text-[#6D4C41] text-sm">
+              <div class="flex gap-2 text-black text-sm">
                 <i class="fa-solid fa-qrcode"></i>
                 <i class="fa-brands fa-cc-visa"></i>
                 <i class="fa-brands fa-cc-mastercard"></i>
               </div>
             </div>
-            <input type="text" value="upi-merchant-instant@icici / 4242 •••• 4242" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-2.5 text-xs font-mono text-[#111827]" readonly>
+            <input type="text" value="upi-merchant-instant@icici / 4242 •••• 4242" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-2.5 text-xs font-mono text-black" readonly>
           </div>
 
           <div class="pt-4 flex items-center justify-between">
             <div>
               <span class="text-xs text-[#6B7280]">Total Authorized:</span>
-              <div class="text-2xl font-black text-[#111827] font-mono" id="chk-final-total">₹0</div>
+              <div class="text-2xl font-black text-black font-mono" id="chk-final-total">₹0</div>
             </div>
-            <button type="submit" id="btn-submit-order" class="px-8 py-3.5 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl font-bold text-sm shadow-sm flex items-center gap-2">
+            <!-- LIGHT YELLOW AUTHORIZE ORDER BUTTON -->
+            <button type="submit" id="btn-submit-order" class="px-8 py-3.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl font-bold text-sm border border-[#FDE047] shadow-xs flex items-center gap-2 transition-all">
               <i class="fa-solid fa-lock"></i> Authorize & Place Order
             </button>
           </div>
@@ -946,22 +958,22 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- ========================================================= -->
   <div id="order-success-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
     <div class="w-full max-w-lg bg-white border border-[#E5E7EB] rounded-3xl p-8 text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="h-16 w-16 rounded-full bg-[#ECFDF5] text-[#059669] flex items-center justify-center text-2xl mx-auto shadow-sm">
+      <div class="h-16 w-16 rounded-full bg-[#FEF9C3] text-[#854D0E] border border-[#FEF08A] flex items-center justify-center text-2xl mx-auto shadow-xs">
         <i class="fa-solid fa-check"></i>
       </div>
       <div class="space-y-2">
-        <h2 class="text-2xl font-black text-[#111827]">Payment Captured & Stock Reserved!</h2>
+        <h2 class="text-2xl font-black text-black">Payment Captured & Stock Reserved!</h2>
         <p class="text-xs text-[#6B7280]">Your hardware order has been routed to our Bengaluru Hub for automated packaging.</p>
       </div>
 
       <div class="p-4 rounded-2xl bg-[#FAFAFA] border border-[#E5E7EB] text-left text-xs space-y-2">
         <div class="flex justify-between">
           <span class="text-[#6B7280]">Order Reference:</span>
-          <span class="font-mono font-bold text-[#111827]" id="success-order-id">ORD-9826-VX1</span>
+          <span class="font-mono font-bold text-black" id="success-order-id">ORD-9826-VX1</span>
         </div>
         <div class="flex justify-between">
           <span class="text-[#6B7280]">Carrier Assigned:</span>
-          <span class="font-semibold text-[#111827]">Blue Dart Air Express (Tracking Generated)</span>
+          <span class="font-semibold text-black">Blue Dart Air Express (Tracking Generated)</span>
         </div>
         <div class="flex justify-between">
           <span class="text-[#6B7280]">Estimated Delivery:</span>
@@ -970,10 +982,10 @@ INDEX_HTML = """<!DOCTYPE html>
       </div>
 
       <div class="flex gap-3">
-        <button onclick="closeOrderSuccessModal(); openOrdersModal();" class="flex-1 py-3 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl font-bold text-xs shadow-sm">
+        <button onclick="closeOrderSuccessModal(); openOrdersModal();" class="flex-1 py-3 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl font-bold text-xs border border-[#FDE047] shadow-xs">
           Track in My Orders
         </button>
-        <button onclick="closeOrderSuccessModal()" class="px-6 py-3 bg-white hover:bg-[#FAFAFA] text-[#111827] rounded-xl font-semibold text-xs border border-[#E5E7EB]">
+        <button onclick="closeOrderSuccessModal()" class="px-6 py-3 bg-white hover:bg-[#FAFAFA] text-black rounded-xl font-semibold text-xs border border-[#E5E7EB]">
           Continue Shopping
         </button>
       </div>
@@ -987,10 +999,10 @@ INDEX_HTML = """<!DOCTYPE html>
     <div class="w-full max-w-3xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl animate-in zoom-in-95 duration-200">
       <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#FAFAFA]">
         <div class="flex items-center gap-3">
-          <i class="fa-solid fa-clock-rotate-left text-[#111827]"></i>
-          <h3 class="text-lg font-bold text-[#111827]">My Orders & Live Logistics Tracking</h3>
+          <i class="fa-solid fa-clock-rotate-left text-black"></i>
+          <h3 class="text-lg font-bold text-black">My Orders & Live Logistics Tracking</h3>
         </div>
-        <button onclick="closeOrdersModal()" class="text-[#6B7280] hover:text-[#111827] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closeOrdersModal()" class="text-[#6B7280] hover:text-black text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-6 overflow-y-auto space-y-6 flex-1" id="orders-list-container"></div>
@@ -1003,19 +1015,19 @@ INDEX_HTML = """<!DOCTYPE html>
   <div id="add-product-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
     <div class="w-full max-w-xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
       <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#FAFAFA]">
-        <h3 class="text-lg font-bold text-[#111827]">Publish New Hardware SKU (₹)</h3>
-        <button onclick="closeAddProductModal()" class="text-[#6B7280] hover:text-[#111827] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <h3 class="text-lg font-bold text-black">Publish New Hardware SKU (₹)</h3>
+        <button onclick="closeAddProductModal()" class="text-[#6B7280] hover:text-black text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <form onsubmit="handleVendorAddProduct(event)" class="p-6 space-y-4">
         <div>
-          <label class="text-xs font-bold text-[#111827]">Product Title</label>
-          <input required type="text" id="new-prod-title" placeholder="e.g. Apex 4K OLED Reference Monitor" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+          <label class="text-xs font-bold text-black">Product Title</label>
+          <input required type="text" id="new-prod-title" placeholder="e.g. Apex 4K OLED Reference Monitor" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-bold text-[#111827]">Category</label>
-            <select id="new-prod-category" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Category</label>
+            <select id="new-prod-category" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
               <option value="Audio & Acoustics">Audio & Acoustics</option>
               <option value="Computing & Rigs">Computing & Rigs</option>
               <option value="Optics & Cinema">Optics & Cinema</option>
@@ -1024,31 +1036,31 @@ INDEX_HTML = """<!DOCTYPE html>
             </select>
           </div>
           <div>
-            <label class="text-xs font-bold text-[#111827]">SKU Code</label>
-            <input required type="text" id="new-prod-sku" placeholder="APEX-OLED-4K" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 font-mono uppercase focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">SKU Code</label>
+            <input required type="text" id="new-prod-sku" placeholder="APEX-OLED-4K" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 font-mono uppercase focus:outline-none focus:border-black">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-bold text-[#111827]">Retail Unit Price (₹ INR)</label>
-            <input required type="number" step="1" id="new-prod-price" placeholder="64999" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 font-mono focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Retail Unit Price (₹ INR)</label>
+            <input required type="number" step="1" id="new-prod-price" placeholder="64999" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 font-mono focus:outline-none focus:border-black">
           </div>
           <div>
-            <label class="text-xs font-bold text-[#111827]">Initial Stock Units</label>
-            <input required type="number" id="new-prod-stock" placeholder="25" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 font-mono focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Initial Stock Units</label>
+            <input required type="number" id="new-prod-stock" placeholder="25" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 font-mono focus:outline-none focus:border-black">
           </div>
         </div>
         <div>
-          <label class="text-xs font-bold text-[#111827]">Short Description</label>
-          <input required type="text" id="new-prod-desc" placeholder="32-inch 4K RGB OLED panel with 99.8% DCI-P3 color accuracy." class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+          <label class="text-xs font-bold text-black">Short Description</label>
+          <input required type="text" id="new-prod-desc" placeholder="32-inch 4K RGB OLED panel with 99.8% DCI-P3 color accuracy." class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
         </div>
         <div>
-          <label class="text-xs font-bold text-[#111827]">High-Res Image URL</label>
-          <input required type="url" id="new-prod-image" value="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 font-mono focus:outline-none focus:border-[#18181B]">
+          <label class="text-xs font-bold text-black">High-Res Image URL</label>
+          <input required type="url" id="new-prod-image" value="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 font-mono focus:outline-none focus:border-black">
         </div>
         <div class="pt-4 flex justify-end gap-3">
           <button type="button" onclick="closeAddProductModal()" class="px-4 py-2.5 bg-white text-[#6B7280] rounded-xl text-xs font-semibold border border-[#E5E7EB]">Cancel</button>
-          <button type="submit" class="px-6 py-2.5 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold shadow-sm">
+          <button type="submit" class="px-6 py-2.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold border border-[#FDE047] shadow-xs">
             Publish Instantly
           </button>
         </div>
@@ -1062,34 +1074,34 @@ INDEX_HTML = """<!DOCTYPE html>
   <div id="new-coupon-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
       <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#FAFAFA]">
-        <h3 class="text-lg font-bold text-[#111827]">Create Promo Campaign (₹)</h3>
-        <button onclick="closeNewCouponModal()" class="text-[#6B7280] hover:text-[#111827] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <h3 class="text-lg font-bold text-black">Create Promo Campaign (₹)</h3>
+        <button onclick="closeNewCouponModal()" class="text-[#6B7280] hover:text-black text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <form onsubmit="handleAdminCreateCoupon(event)" class="p-6 space-y-4">
         <div>
-          <label class="text-xs font-bold text-[#111827]">Coupon Code</label>
-          <input required type="text" id="admin-coupon-code" placeholder="DIWALI20" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] font-mono uppercase mt-1 focus:outline-none focus:border-[#18181B]">
+          <label class="text-xs font-bold text-black">Coupon Code</label>
+          <input required type="text" id="admin-coupon-code" placeholder="DIWALI20" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black font-mono uppercase mt-1 focus:outline-none focus:border-black">
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-bold text-[#111827]">Discount Type</label>
-            <select id="admin-coupon-type" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Discount Type</label>
+            <select id="admin-coupon-type" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black mt-1 focus:outline-none focus:border-black">
               <option value="PERCENT">Percentage (%)</option>
               <option value="FIXED">Fixed Amount (₹)</option>
               <option value="SHIPPING">Free Shipping</option>
             </select>
           </div>
           <div>
-            <label class="text-xs font-bold text-[#111827]">Discount Value</label>
-            <input required type="number" id="admin-coupon-val" placeholder="20" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] font-mono mt-1 focus:outline-none focus:border-[#18181B]">
+            <label class="text-xs font-bold text-black">Discount Value</label>
+            <input required type="number" id="admin-coupon-val" placeholder="20" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black font-mono mt-1 focus:outline-none focus:border-black">
           </div>
         </div>
         <div>
-          <label class="text-xs font-bold text-[#111827]">Minimum Spend (₹ INR)</label>
-          <input required type="number" id="admin-coupon-min" placeholder="5000" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#111827] font-mono mt-1 focus:outline-none focus:border-[#18181B]">
+          <label class="text-xs font-bold text-black">Minimum Spend (₹ INR)</label>
+          <input required type="number" id="admin-coupon-min" placeholder="5000" class="w-full bg-[#FAFAFA] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-black font-mono mt-1 focus:outline-none focus:border-black">
         </div>
-        <button type="submit" class="w-full py-3 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold shadow-sm">
+        <button type="submit" class="w-full py-3 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold border border-[#FDE047] shadow-xs">
           Activate Campaign Instantly
         </button>
       </form>
@@ -1148,10 +1160,10 @@ INDEX_HTML = """<!DOCTYPE html>
       const icons = {
         success: '<i class="fa-solid fa-circle-check text-[#10B981] text-lg"></i>',
         error: '<i class="fa-solid fa-circle-exclamation text-[#BE123C] text-lg"></i>',
-        info: '<i class="fa-solid fa-circle-info text-[#18181B] text-lg"></i>'
+        info: '<i class="fa-solid fa-circle-info text-black text-lg"></i>'
       };
 
-      toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#E5E7EB] text-[#111827] text-xs shadow-xl transition-all duration-300 transform translate-y-2 opacity-0';
+      toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#E5E7EB] text-black text-xs shadow-xl transition-all duration-300 transform translate-y-2 opacity-0';
       toast.innerHTML = `
         ${icons[type] || icons.success}
         <div class="flex-1 font-bold">${message}</div>
@@ -1175,13 +1187,13 @@ INDEX_HTML = """<!DOCTYPE html>
       const formSignup = document.getElementById('gate-form-signup');
 
       if (tab === 'login') {
-        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#18181B] text-white shadow-sm transition-all';
-        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-[#111827] transition-all';
+        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#FEF08A] text-black border border-[#FDE047] shadow-xs transition-all';
+        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-black transition-all';
         formLogin.classList.remove('hidden');
         formSignup.classList.add('hidden');
       } else {
-        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#6D4C41] text-white shadow-sm transition-all';
-        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-[#111827] transition-all';
+        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#FEF08A] text-black border border-[#FDE047] shadow-xs transition-all';
+        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-black transition-all';
         formSignup.classList.remove('hidden');
         formLogin.classList.add('hidden');
       }
@@ -1242,13 +1254,13 @@ INDEX_HTML = """<!DOCTYPE html>
       }
     }
 
-    // STRICT AUTHENTICATION & ROLE-SEGREGATED INTERFACE
+    // STRICT ROLE-SEGREGATED INTERFACE REVEAL
     function authenticateAndReveal(user) {
       currentUser = user;
       document.getElementById('login-gatekeeper-screen').classList.add('hidden');
       document.getElementById('authenticated-app').classList.remove('hidden');
 
-      // Hide all portal pages
+      // Hide all portal views
       document.getElementById('page-customer').classList.add('hidden');
       document.getElementById('page-vendor').classList.add('hidden');
       document.getElementById('page-admin').classList.add('hidden');
@@ -1257,7 +1269,7 @@ INDEX_HTML = """<!DOCTYPE html>
       document.getElementById('vendor-header-actions').classList.add('hidden');
       document.getElementById('admin-header-actions').classList.add('hidden');
 
-      // STRICT RULE: Category filter options are ONLY for customer; strictly hidden for vendor and admin!
+      // STRICT RULE: Category filter navigation is ONLY for Customer, strictly hidden for Vendor & Admin!
       const customerCategoryNav = document.getElementById('customer-category-nav');
 
       if (user.role === 'customer') {
@@ -1293,21 +1305,21 @@ INDEX_HTML = """<!DOCTYPE html>
       if (!currentUser) return;
 
       const roleBadge = {
-        customer: 'bg-[#F5EBE6] text-[#6D4C41]',
-        vendor: 'bg-[#F3F4F6] text-[#1F2937]',
-        admin: 'bg-[#18181B] text-white'
+        customer: 'bg-[#FEF9C3] text-[#854D0E] border border-[#FEF08A]',
+        vendor: 'bg-[#F3F4F6] text-[#1F2937] border border-[#E5E7EB]',
+        admin: 'bg-black text-white border border-black'
       };
 
       widget.innerHTML = `
         <div class="flex items-center gap-2">
-          <div class="h-9 w-9 rounded-xl bg-[#18181B] text-white flex items-center justify-center font-bold text-xs shadow-xs">
+          <div class="h-9 w-9 rounded-xl bg-black text-white flex items-center justify-center font-bold text-xs shadow-xs">
             ${currentUser.name.charAt(0)}
           </div>
           <div class="hidden md:block text-left">
-            <div class="text-xs font-bold text-[#111827] leading-tight truncate max-w-[140px]">${currentUser.name}</div>
+            <div class="text-xs font-bold text-black leading-tight truncate max-w-[140px]">${currentUser.name}</div>
             <div class="text-[10px] font-bold uppercase tracking-wider ${roleBadge[currentUser.role]} px-1.5 py-0.2 rounded w-fit">${currentUser.role}</div>
           </div>
-          <button onclick="logoutToGatekeeper()" title="Sign Out to Login Screen" class="p-2 text-[#6B7280] hover:text-[#111827] text-xs transition-colors">
+          <button onclick="logoutToGatekeeper()" title="Sign Out to Login Screen" class="p-2 text-[#6B7280] hover:text-black text-xs transition-colors">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
           </button>
         </div>
@@ -1318,9 +1330,9 @@ INDEX_HTML = """<!DOCTYPE html>
       currentCategory = cat;
       document.querySelectorAll('.category-pill').forEach(el => {
         if (el.innerText.trim().toLowerCase().includes(cat.toLowerCase()) || (cat === 'All' && el.innerText.includes('All'))) {
-          el.className = 'category-pill active px-3 py-1.5 rounded-xl text-[#6D4C41] font-bold bg-[#F5EBE6] border border-[#E2D5CF] shadow-xs';
+          el.className = 'category-pill active px-3 py-1.5 rounded-xl text-black font-bold bg-[#FEF9C3] border border-[#FEF08A] shadow-xs';
         } else {
-          el.className = 'category-pill px-3 py-1.5 rounded-xl hover:text-[#111827] transition-all';
+          el.className = 'category-pill px-3 py-1.5 rounded-xl hover:text-black transition-all';
         }
       });
       renderProducts();
@@ -1359,34 +1371,35 @@ INDEX_HTML = """<!DOCTYPE html>
       grid.innerHTML = filtered.map(p => {
         const isWishlisted = wishlist.includes(p.id);
         return `
-          <div class="rounded-3xl bg-white border border-[#E5E7EB] overflow-hidden flex flex-col justify-between hover:border-[#18181B] hover:shadow-lg transition-all duration-300 p-6 group">
+          <div class="rounded-3xl bg-white border border-[#E5E7EB] overflow-hidden flex flex-col justify-between hover:border-black hover:shadow-md transition-all duration-300 p-6 group">
             <div class="relative aspect-square bg-[#FAFAFA] rounded-2xl overflow-hidden mb-5 cursor-pointer" onclick="openPDPModal('${p.id}')">
               <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
               <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 h-9 w-9 rounded-xl bg-white/90 backdrop-blur-xs border border-[#E5E7EB] text-[#6B7280] hover:text-[#BE123C] flex items-center justify-center transition-colors">
                 <i class="${isWishlisted ? 'fa-solid text-[#BE123C]' : 'fa-regular'} fa-heart"></i>
               </button>
-              <div class="absolute bottom-3 left-3 px-2.5 py-1 bg-white/95 backdrop-blur-xs rounded-lg text-[10px] font-mono font-bold text-[#111827] border border-[#E5E7EB]">
+              <div class="absolute bottom-3 left-3 px-2.5 py-1 bg-white/95 backdrop-blur-xs rounded-lg text-[10px] font-mono font-bold text-black border border-[#E5E7EB]">
                 ${p.stock > 0 ? `${p.stock} in stock` : 'Backorder'}
               </div>
             </div>
 
             <div class="space-y-2 flex-1 cursor-pointer" onclick="openPDPModal('${p.id}')">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-[#6D4C41]">${p.category}</span>
+                <span class="text-xs font-bold text-[#854D0E] bg-[#FEF9C3] px-2 py-0.5 rounded-full border border-[#FEF08A]">${p.category}</span>
                 <div class="flex items-center gap-1 text-[#F59E0B] text-xs font-bold">
                   <i class="fa-solid fa-star text-[10px]"></i> ${p.rating.toFixed(1)}
                 </div>
               </div>
-              <h3 class="text-lg font-black text-[#111827] group-hover:text-[#6D4C41] transition-colors">${p.title}</h3>
+              <h3 class="text-lg font-black text-black group-hover:text-black transition-colors">${p.title}</h3>
               <p class="text-xs text-[#6B7280] line-clamp-2 leading-relaxed">${p.shortDesc}</p>
             </div>
 
             <div class="mt-6 pt-4 border-t border-[#E5E7EB] flex items-center justify-between gap-3">
               <div>
                 <span class="text-[10px] text-[#6B7280] font-medium">Starting at</span>
-                <div class="text-xl font-black text-[#111827] font-mono">${formatRupees(p.price)}</div>
+                <div class="text-xl font-black text-black font-mono">${formatRupees(p.price)}</div>
               </div>
-              <button onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')" class="px-4 py-2.5 bg-[#18181B] hover:bg-[#27272A] text-white rounded-xl text-xs font-bold shadow-xs flex items-center gap-1.5 transition-all">
+              <!-- LIGHT YELLOW ADD TO CART BUTTON -->
+              <button onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')" class="px-4 py-2.5 bg-[#FEF08A] hover:bg-[#FDE047] text-black rounded-xl text-xs font-bold border border-[#FDE047] shadow-xs flex items-center gap-1.5 transition-all">
                 <i class="fa-solid fa-cart-plus"></i> + Add
               </button>
             </div>
@@ -1454,14 +1467,14 @@ INDEX_HTML = """<!DOCTYPE html>
         <div class="p-4 rounded-2xl bg-[#FAFAFA] border border-[#E5E7EB] flex items-center justify-between gap-3">
           <img src="${item.image}" class="h-12 w-12 rounded-xl object-cover bg-white border border-[#E5E7EB]">
           <div class="flex-1 min-w-0">
-            <div class="text-xs font-bold text-[#111827] truncate">${item.title}</div>
-            <div class="text-xs font-mono text-[#6D4C41] font-bold">${formatRupees(item.price)} each</div>
+            <div class="text-xs font-bold text-black truncate">${item.title}</div>
+            <div class="text-xs font-mono text-black font-bold">${formatRupees(item.price)} each</div>
           </div>
           <div class="flex items-center gap-2">
             <div class="flex items-center rounded-lg bg-white border border-[#E5E7EB]">
-              <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 text-[#6B7280] hover:text-[#111827] flex items-center justify-center font-bold text-xs">-</button>
-              <span class="w-6 text-center text-xs font-bold font-mono text-[#111827]">${item.quantity}</span>
-              <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 text-[#6B7280] hover:text-[#111827] flex items-center justify-center font-bold text-xs">+</button>
+              <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 text-[#6B7280] hover:text-black flex items-center justify-center font-bold text-xs">-</button>
+              <span class="w-6 text-center text-xs font-bold font-mono text-black">${item.quantity}</span>
+              <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 text-[#6B7280] hover:text-black flex items-center justify-center font-bold text-xs">+</button>
             </div>
             <button onclick="removeCartItem('${item.id}')" class="text-[#6B7280] hover:text-[#BE123C] p-1 text-xs">
               <i class="fa-regular fa-trash-can"></i>
@@ -1556,7 +1569,7 @@ INDEX_HTML = """<!DOCTYPE html>
       specsGrid.innerHTML = p.specs.map(s => `
         <div class="p-3 rounded-xl bg-[#FAFAFA] border border-[#E5E7EB]">
           <div class="text-[10px] text-[#6B7280] font-semibold">${s.key}</div>
-          <div class="text-xs font-bold text-[#111827] mt-0.5">${s.val}</div>
+          <div class="text-xs font-bold text-black mt-0.5">${s.val}</div>
         </div>
       `).join('');
 
@@ -1591,13 +1604,13 @@ INDEX_HTML = """<!DOCTYPE html>
       list.innerHTML = selectedPDPProduct.reviews.map(r => `
         <div class="p-4 rounded-xl bg-[#FAFAFA] border border-[#E5E7EB] space-y-1.5">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-[#111827]">${r.author} <span class="text-[#6D4C41] font-semibold">• Verified Buyer</span></span>
+            <span class="font-bold text-black">${r.author} <span class="text-[#854D0E] font-semibold">• Verified Buyer</span></span>
             <span class="text-[#6B7280] font-mono text-[10px]">${r.date}</span>
           </div>
           <div class="flex text-[#F59E0B] text-[10px]">
             ${Array(r.rating).fill('<i class="fa-solid fa-star"></i>').join('')}
           </div>
-          <div class="text-xs font-bold text-[#111827]">${r.title}</div>
+          <div class="text-xs font-bold text-black">${r.title}</div>
           <p class="text-xs text-[#6B7280]">${r.comment}</p>
         </div>
       `).join('');
@@ -1709,24 +1722,24 @@ INDEX_HTML = """<!DOCTYPE html>
           <div class="p-6 rounded-2xl bg-[#FAFAFA] border border-[#E5E7EB] space-y-4">
             <div class="flex items-center justify-between border-b border-[#E5E7EB] pb-3">
               <div>
-                <span class="text-xs font-mono font-bold text-[#111827]">${o.id}</span>
+                <span class="text-xs font-mono font-bold text-black">${o.id}</span>
                 <div class="text-xs text-[#6B7280] mt-0.5">${new Date(o.createdAt).toLocaleString()}</div>
               </div>
               <div class="text-right">
                 <span class="px-3 py-1 bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0] rounded-full text-xs font-bold">${o.status}</span>
-                <div class="text-xs font-mono font-bold text-[#111827] mt-1">${formatRupees(o.total)}</div>
+                <div class="text-xs font-mono font-bold text-black mt-1">${formatRupees(o.total)}</div>
               </div>
             </div>
 
-            <div class="space-y-1.5 text-xs text-[#111827]">
-              ${o.items.map(i => `<div class="flex justify-between"><span>${i.title} x ${i.quantity}</span> <span class="font-mono text-[#6D4C41] font-semibold">${formatRupees(i.price * i.quantity)}</span></div>`).join('')}
+            <div class="space-y-1.5 text-xs text-black">
+              ${o.items.map(i => `<div class="flex justify-between"><span>${i.title} x ${i.quantity}</span> <span class="font-mono text-black font-semibold">${formatRupees(i.price * i.quantity)}</span></div>`).join('')}
             </div>
 
             <div class="pt-3 border-t border-[#E5E7EB]">
-              <div class="text-[11px] font-bold text-[#111827] uppercase tracking-wider mb-2">Carrier Roadmap (${o.carrier})</div>
+              <div class="text-[11px] font-bold text-black uppercase tracking-wider mb-2">Carrier Roadmap (${o.carrier})</div>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                 ${(o.timeline || []).map(t => `
-                  <div class="p-2.5 rounded-lg ${t.done ? 'bg-white border border-[#111827] text-[#111827] font-bold' : 'bg-[#FAFAFA] border border-[#E5E7EB] text-[#6B7280]'}">
+                  <div class="p-2.5 rounded-lg ${t.done ? 'bg-white border border-black text-black font-bold' : 'bg-[#FAFAFA] border border-[#E5E7EB] text-[#6B7280]'}">
                     <div class="font-bold text-[11px]">${t.title}</div>
                     <div class="text-[10px] font-mono mt-0.5">${t.time}</div>
                   </div>
@@ -1756,17 +1769,17 @@ INDEX_HTML = """<!DOCTYPE html>
       rows.innerHTML = products.map(p => `
         <tr class="hover:bg-[#FAFAFA] transition-colors">
           <td class="px-6 py-4">
-            <div class="font-bold text-[#111827]">${p.title}</div>
+            <div class="font-bold text-black">${p.title}</div>
             <div class="text-xs font-mono text-[#6B7280]">${p.sku}</div>
           </td>
           <td class="px-6 py-4 text-xs text-[#6B7280]">${p.category}</td>
-          <td class="px-6 py-4 font-mono font-bold text-[#111827]">${formatRupees(p.price)}</td>
+          <td class="px-6 py-4 font-mono font-bold text-black">${formatRupees(p.price)}</td>
           <td class="px-6 py-4 font-mono font-bold ${p.stock < 10 ? 'text-[#BE123C]' : 'text-[#10B981]'}">${p.stock} units</td>
           <td class="px-6 py-4 text-[#F59E0B] font-bold text-xs"><i class="fa-solid fa-star"></i> ${p.rating.toFixed(1)} (${p.reviewCount})</td>
           <td class="px-6 py-4 text-right">
             <div class="inline-flex items-center gap-1.5">
-              <button onclick="updateProductStock('${p.id}', 10)" class="px-2.5 py-1 bg-[#18181B] hover:bg-[#27272A] text-white rounded text-xs font-bold">+10 Stock</button>
-              <button onclick="updateProductStock('${p.id}', -5)" class="px-2.5 py-1 bg-white hover:bg-[#FAFAFA] text-[#111827] border border-[#E5E7EB] rounded text-xs font-bold">-5</button>
+              <button onclick="updateProductStock('${p.id}', 10)" class="px-2.5 py-1 bg-[#FEF08A] hover:bg-[#FDE047] text-black border border-[#FDE047] rounded text-xs font-bold">+10 Stock</button>
+              <button onclick="updateProductStock('${p.id}', -5)" class="px-2.5 py-1 bg-white hover:bg-[#FAFAFA] text-black border border-[#E5E7EB] rounded text-xs font-bold">-5</button>
             </div>
           </td>
         </tr>
@@ -1840,18 +1853,18 @@ INDEX_HTML = """<!DOCTYPE html>
       if (orderRows) {
         orderRows.innerHTML = orders.map(o => `
           <tr class="hover:bg-[#FAFAFA] transition-colors">
-            <td class="px-6 py-4 font-mono font-bold text-[#111827]">${o.id}</td>
+            <td class="px-6 py-4 font-mono font-bold text-black">${o.id}</td>
             <td class="px-6 py-4">
-              <div class="font-bold text-[#111827]">${o.customerName}</div>
+              <div class="font-bold text-black">${o.customerName}</div>
               <div class="text-xs text-[#6B7280]">${o.customerEmail}</div>
             </td>
-            <td class="px-6 py-4 text-xs text-[#111827]">${o.items.length} item(s)</td>
-            <td class="px-6 py-4 font-mono font-bold text-[#111827]">${formatRupees(o.total)}</td>
-            <td class="px-6 py-4"><span class="px-2.5 py-1 bg-[#F5EBE6] text-[#6D4C41] border border-[#E2D5CF] rounded-full text-xs font-bold">${o.status}</span></td>
+            <td class="px-6 py-4 text-xs text-black">${o.items.length} item(s)</td>
+            <td class="px-6 py-4 font-mono font-bold text-black">${formatRupees(o.total)}</td>
+            <td class="px-6 py-4"><span class="px-2.5 py-1 bg-[#FEF9C3] text-[#854D0E] border border-[#FEF08A] rounded-full text-xs font-bold">${o.status}</span></td>
             <td class="px-6 py-4 text-right">
               <div class="inline-flex gap-2">
-                ${o.status === 'CONFIRMED' ? `<button onclick="transitionOrderStatus('${o.id}', 'PROCESSING')" class="px-3 py-1 bg-[#18181B] hover:bg-[#27272A] text-white rounded text-xs font-bold">Process</button>` : ''}
-                ${o.status === 'PROCESSING' ? `<button onclick="transitionOrderStatus('${o.id}', 'SHIPPED')" class="px-3 py-1 bg-[#6D4C41] hover:bg-[#4E342E] text-white rounded text-xs font-bold">Dispatch</button>` : ''}
+                ${o.status === 'CONFIRMED' ? `<button onclick="transitionOrderStatus('${o.id}', 'PROCESSING')" class="px-3 py-1 bg-[#FEF08A] hover:bg-[#FDE047] text-black border border-[#FDE047] rounded text-xs font-bold">Process</button>` : ''}
+                ${o.status === 'PROCESSING' ? `<button onclick="transitionOrderStatus('${o.id}', 'SHIPPED')" class="px-3 py-1 bg-[#FEF08A] hover:bg-[#FDE047] text-black border border-[#FDE047] rounded text-xs font-bold">Dispatch</button>` : ''}
                 ${o.status === 'SHIPPED' ? `<button onclick="transitionOrderStatus('${o.id}', 'DELIVERED')" class="px-3 py-1 bg-[#10B981] hover:bg-[#059669] text-white rounded text-xs font-bold">Deliver</button>` : ''}
               </div>
             </td>
@@ -1863,18 +1876,18 @@ INDEX_HTML = """<!DOCTYPE html>
       if (vendorRows) {
         vendorRows.innerHTML = vendors.map(v => `
           <tr class="hover:bg-[#FAFAFA] transition-colors">
-            <td class="px-6 py-4 font-bold text-[#111827]">${v.name}</td>
+            <td class="px-6 py-4 font-bold text-black">${v.name}</td>
             <td class="px-6 py-4 text-[#6B7280] text-xs">${v.contact}</td>
             <td class="px-6 py-4 font-mono text-xs text-[#6B7280]">${v.taxId}</td>
-            <td class="px-6 py-4 font-mono font-bold text-[#111827]">${(v.commission * 100).toFixed(0)}%</td>
+            <td class="px-6 py-4 font-mono font-bold text-black">${(v.commission * 100).toFixed(0)}%</td>
             <td class="px-6 py-4">
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${v.status === 'VERIFIED' ? 'bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]' : 'bg-[#FEF3C7] text-[#B45309] border border-[#FDE68A]'}">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${v.status === 'VERIFIED' ? 'bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]' : 'bg-[#FEF9C3] text-[#854D0E] border border-[#FEF08A]'}">
                 ${v.status}
               </span>
             </td>
             <td class="px-6 py-4 text-right">
               ${v.status === 'PENDING' ? `
-                <button onclick="approveVendor('${v.id}')" class="px-3 py-1 bg-[#18181B] hover:bg-[#27272A] text-white rounded text-xs font-bold">Approve KYC</button>
+                <button onclick="approveVendor('${v.id}')" class="px-3 py-1 bg-[#FEF08A] hover:bg-[#FDE047] text-black border border-[#FDE047] rounded text-xs font-bold">Approve KYC</button>
               ` : '<span class="text-xs text-[#6B7280]">Verified</span>'}
             </td>
           </tr>
@@ -2019,7 +2032,7 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
                 "tests_passing": 212,
                 "currency": "INR (₹)",
                 "loc_total": 56200,
-                "theme": "White Minimalist Edition"
+                "theme": "White & Minimal Light Yellow Edition"
             }).encode("utf-8"))
             return
 
@@ -2245,7 +2258,7 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
 def start_server():
     print(f"VERTEX Platform server listening on port {PORT}")
     with socketserver.TCPServer(("", PORT), EnterpriseHandler) as httpd:
-        print(f"VERTEX White & Minimal Brown/Black Theme online at http://localhost:{PORT}")
+        print(f"VERTEX White & Light Yellow Accent Theme online at http://localhost:{PORT}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
