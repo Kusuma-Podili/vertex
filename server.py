@@ -9,7 +9,7 @@ import datetime
 PORT = 3000
 
 # -------------------------------------------------------------
-# REAL-TIME IN-MEMORY DATA STORE (INR RUPEES CURRENCY & AUTH)
+# REAL-TIME IN-MEMORY DATA STORE (INR RUPEES & AUTH GATEWAY)
 # -------------------------------------------------------------
 DATA_STORE = {
     "users": [
@@ -129,7 +129,7 @@ DATA_STORE = {
             "image": "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800",
             "vendor": "AURA Optics",
             "shortDesc": "Full-frame 2.0x squeeze anamorphic cinema prime with titanium PL mount.",
-            "description": "Organic horizontal emerald/amber flares, buttery smooth oval bokeh, and tack-sharp focus resolution from T1.5 wide open across entire 8K cinema sensors.",
+            "description": "Organic horizontal flares, buttery smooth oval bokeh, and tack-sharp focus resolution from T1.5 wide open across entire 8K cinema sensors.",
             "specs": [
                 {"key": "Aperture", "val": "T1.5 to T22 (16-Blade Iris)"},
                 {"key": "Focus Throw", "val": "300° Continuous De-clicked Gear"},
@@ -279,550 +279,558 @@ DATA_STORE = {
 }
 
 # -------------------------------------------------------------
-# LUXURY EMERALD / TEAL / AMBER THEME SPA HTML / JS / CSS
+# EXACT SPECIFIED COLOR PALETTE & GATED AUTH SPA HTML / CSS / JS
 # -------------------------------------------------------------
 INDEX_HTML = """<!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VERTEX | Enterprise E-Commerce Platform (₹ INR Edition)</title>
+  <title>VERTEX | Enterprise Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
     
-    /* Emerald / Teal Luxury Theme Palette */
+    /* Exact Palette Token Variables */
     :root {
-      --bg-main: #031410;
-      --bg-card: #06241c;
-      --bg-surface: #0a3328;
-      --border-color: #114c3d;
-      --border-light: #16604e;
-      --accent-emerald: #10b981;
-      --accent-teal: #14b8a6;
-      --accent-gold: #f59e0b;
+      --color-main-bg: #F7F3EC;
+      --color-header: #DDE7DF;
+      --color-card: #FFFDF9;
+      --color-btn-primary: #557A68;
+      --color-btn-hover: #456653;
+      --color-accent-terracotta: #C9826B;
+      --color-highlight-peach: #F0D5C8;
+      --color-sale-rose: #C96F6F;
+      --color-success-sage: #8EAF98;
+      --color-warning-amber: #D9AE6A;
+      --color-text-charcoal: #29332E;
+      --color-text-muted: #6F7772;
+      --color-borders: #E4DDD2;
     }
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      background-color: var(--bg-main);
-      color: #ecfdf5;
+      background-color: var(--color-main-bg);
+      color: var(--color-text-charcoal);
     }
 
     .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Custom Theme Overrides */
-    .bg-theme-main { background-color: #031410; }
-    .bg-theme-card { background-color: #06241c; }
-    .bg-theme-surface { background-color: #0a3328; }
-    .border-theme { border-color: #114c3d; }
-    .border-theme-light { border-color: #16604e; }
+    /* Custom Theme Classes */
+    .bg-main-cream { background-color: #F7F3EC; }
+    .bg-header-sage { background-color: #DDE7DF; }
+    .bg-card-warm { background-color: #FFFDF9; }
+    .bg-btn-deep-sage { background-color: #557A68; }
+    .bg-btn-deep-sage:hover { background-color: #456653; }
+    .bg-accent-terracotta { background-color: #C9826B; }
+    .bg-highlight-peach { background-color: #F0D5C8; }
+    .bg-sale-rose { background-color: #C96F6F; }
+    .bg-success-sage { background-color: #8EAF98; }
+    .bg-warning-amber { background-color: #D9AE6A; }
+
+    .text-charcoal { color: #29332E; }
+    .text-muted-gray { color: #6F7772; }
+    .text-deep-sage { color: #557A68; }
+    .text-terracotta { color: #C9826B; }
+    .text-sale-rose { color: #C96F6F; }
+
+    .border-beige-gray { border-color: #E4DDD2; }
+    .border-deep-sage { border-color: #557A68; }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #031410; }
-    ::-webkit-scrollbar-thumb { background: #114c3d; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #10b981; }
+    ::-webkit-scrollbar-track { background: #F7F3EC; }
+    ::-webkit-scrollbar-thumb { background: #E4DDD2; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #557A68; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-600 selection:text-white pb-20">
+<body class="min-h-screen flex flex-col antialiased selection:bg-[#557A68] selection:text-white">
 
   <!-- ========================================================= -->
-  <!-- TOP ANNOUNCEMENT & PRESET CREDENTIAL BAR -->
+  <!-- GATEWAY: INITIAL LOGIN DASHBOARD (SHOWN BEFORE LOGIN) -->
   <!-- ========================================================= -->
-  <div class="bg-gradient-to-r from-emerald-950 via-teal-950 to-stone-950 border-b border-emerald-900/40 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 text-emerald-300">
-    <div class="flex items-center gap-2">
-      <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-      <span class="font-bold text-white tracking-wide">VERTEX Core Enterprise</span>
-      <span class="text-emerald-700">•</span>
-      <span class="text-emerald-200">54,290+ LOC Monorepo • 212 Tests Passing • All Prices in Indian Rupees (₹)</span>
-    </div>
-
-    <!-- ROLE INDICATOR / QUICK SWITCH PILLS -->
-    <div class="flex items-center gap-2">
-      <span class="text-emerald-400/80 font-medium hidden sm:inline">Active Persona:</span>
-      <div class="inline-flex rounded-lg bg-black/40 p-1 border border-emerald-800/40" id="role-pill-group">
-        <button onclick="loginPreset('customer')" id="role-btn-customer" class="px-2.5 py-1 text-xs font-bold rounded-md transition-all bg-emerald-600 text-white shadow-sm">
-          <i class="fa-solid fa-user mr-1"></i> Customer
-        </button>
-        <button onclick="loginPreset('vendor')" id="role-btn-vendor" class="px-2.5 py-1 text-xs font-bold rounded-md transition-all text-emerald-400 hover:text-white">
-          <i class="fa-solid fa-store mr-1"></i> Vendor
-        </button>
-        <button onclick="loginPreset('admin')" id="role-btn-admin" class="px-2.5 py-1 text-xs font-bold rounded-md transition-all text-emerald-400 hover:text-white">
-          <i class="fa-solid fa-shield-halved mr-1"></i> Super Admin
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ========================================================= -->
-  <!-- GLOBAL HEADER -->
-  <!-- ========================================================= -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#031410]/90 border-b border-emerald-900/50 transition-all">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+  <div id="gatekeeper-view" class="fixed inset-0 z-50 bg-[#F7F3EC] flex flex-col items-center justify-center p-4 overflow-y-auto">
+    <div class="w-full max-w-xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl p-8 sm:p-10 shadow-xl space-y-8 animate-in zoom-in-95 duration-200">
       
-      <!-- Brand Logo -->
-      <div class="flex items-center gap-8">
-        <a href="javascript:void(0)" onclick="switchView('storefront')" class="text-2xl font-black tracking-widest text-white flex items-center gap-2.5 group">
-          <div class="h-11 w-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 group-hover:scale-105 transition-transform">
-            <i class="fa-solid fa-cube text-xl"></i>
-          </div>
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-200 via-white to-teal-300">VERTEX</span>
-        </a>
-
-        <!-- Category Nav Links (Always Functional Across All Views) -->
-        <nav class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-emerald-300/80" id="main-nav-links">
-          <button onclick="handleCategoryClick('All')" class="category-pill active px-3 py-1.5 rounded-xl text-white font-semibold transition-all bg-[#0a3328] border border-emerald-700/50 shadow-sm">All Hardware</button>
-          <button onclick="handleCategoryClick('Audio & Acoustics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-white transition-all">Audio & Acoustics</button>
-          <button onclick="handleCategoryClick('Computing & Rigs')" class="category-pill px-3 py-1.5 rounded-xl hover:text-white transition-all">Computing</button>
-          <button onclick="handleCategoryClick('Optics & Cinema')" class="category-pill px-3 py-1.5 rounded-xl hover:text-white transition-all">Cinema Optics</button>
-          <button onclick="handleCategoryClick('Power & Energy')" class="category-pill px-3 py-1.5 rounded-xl hover:text-white transition-all">Power Hubs</button>
-          <button onclick="handleCategoryClick('Workspace & Ergonomics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-white transition-all">Ergonomics</button>
-        </nav>
+      <!-- Brand Header -->
+      <div class="text-center space-y-2">
+        <div class="h-16 w-16 rounded-2xl bg-[#557A68] text-white flex items-center justify-center text-2xl mx-auto shadow-lg shadow-[#557A68]/20">
+          <i class="fa-solid fa-cube"></i>
+        </div>
+        <h1 class="text-3xl font-black text-[#29332E] tracking-tight mt-3">VERTEX Enterprise</h1>
+        <p class="text-xs text-[#6F7772]">Please authenticate to access the live E-Commerce Platform & Telemetry.</p>
       </div>
 
-      <!-- Action Utilities & Auth Widget -->
-      <div class="flex items-center gap-3">
-        <!-- Currency Pill (INR Rupees Only) -->
-        <div class="px-3 py-1.5 rounded-xl bg-[#06241c] border border-emerald-800/50 text-emerald-300 font-mono font-bold text-xs flex items-center gap-1.5">
-          <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-          <span>INR (₹)</span>
+      <!-- 3 ONE-CLICK PRESET LOGIN CREDENTIALS -->
+      <div class="space-y-3 p-5 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2]">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold uppercase tracking-wider text-[#C9826B] flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt"></i> 1-Click Demo Login Credentials
+          </span>
+          <span class="text-[10px] text-[#6F7772]">Instant Access</span>
         </div>
 
-        <!-- Customer Actions -->
-        <div id="customer-header-actions" class="flex items-center gap-2">
-          <!-- My Orders Button -->
-          <button onclick="openOrdersModal()" class="px-3.5 py-2 bg-[#06241c] hover:bg-[#0a3328] text-emerald-100 rounded-xl text-xs font-bold border border-emerald-800/50 flex items-center gap-2 transition-colors">
-            <i class="fa-solid fa-clock-rotate-left text-teal-400"></i>
-            <span class="hidden sm:inline">My Orders</span>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <!-- 1. Customer -->
+          <button onclick="loginPreset('customer')" class="p-3 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-left hover:border-[#557A68] hover:shadow-sm transition-all group">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-[#29332E] group-hover:text-[#557A68]">1. Customer</span>
+              <i class="fa-solid fa-user text-[#557A68] text-xs"></i>
+            </div>
+            <div class="text-[10px] text-[#6F7772] font-mono mt-0.5 truncate">john.doe@enterprise.io</div>
+            <div class="text-[10px] text-[#557A68] font-mono font-semibold">Pass: customer123</div>
           </button>
 
-          <!-- Wishlist Button -->
-          <button onclick="toggleWishlistDrawer()" class="relative p-2.5 bg-[#06241c] hover:bg-[#0a3328] text-emerald-200 rounded-xl border border-emerald-800/50 transition-colors">
-            <i class="fa-regular fa-heart"></i>
-            <span id="wishlist-count-badge" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-rose-600 text-white text-[10px] font-bold flex items-center justify-center">0</span>
+          <!-- 2. Vendor -->
+          <button onclick="loginPreset('vendor')" class="p-3 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-left hover:border-[#C9826B] hover:shadow-sm transition-all group">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-[#29332E] group-hover:text-[#C9826B]">2. Merchant</span>
+              <i class="fa-solid fa-store text-[#C9826B] text-xs"></i>
+            </div>
+            <div class="text-[10px] text-[#6F7772] font-mono mt-0.5 truncate">elena@aeroacoustics.io</div>
+            <div class="text-[10px] text-[#C9826B] font-mono font-semibold">Pass: vendor123</div>
           </button>
 
-          <!-- Cart Button -->
-          <button onclick="toggleCartDrawer()" class="relative px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/20 transition-all">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Cart</span>
-            <span id="cart-count-badge" class="ml-1 px-1.5 py-0.5 rounded-full bg-black/30 text-emerald-100 text-[11px] font-bold">1</span>
-          </button>
-        </div>
-
-        <!-- Vendor Actions -->
-        <div id="vendor-header-actions" class="hidden flex items-center gap-2">
-          <button onclick="openAddProductModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/20">
-            <i class="fa-solid fa-plus"></i> + Add New SKU
-          </button>
-        </div>
-
-        <!-- Admin Actions -->
-        <div id="admin-header-actions" class="hidden flex items-center gap-2">
-          <button onclick="simulateTrafficOrder()" class="px-3.5 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-amber-500/20">
-            <i class="fa-solid fa-bolt"></i> Simulate Live Order
-          </button>
-        </div>
-
-        <!-- User Profile / Login Modal Trigger -->
-        <div id="auth-header-widget" class="pl-2 border-l border-emerald-800/40">
-          <!-- Rendered dynamically (User avatar or Login button) -->
-        </div>
-
-      </div>
-    </div>
-  </header>
-
-  <!-- ========================================================= -->
-  <!-- MAIN CONTAINER (DYNAMIC VIEWS) -->
-  <!-- ========================================================= -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex-1 w-full">
-
-    <!-- ------------------------------------------------------- -->
-    <!-- VIEW 1: CUSTOMER STOREFRONT & CATALOG -->
-    <!-- ------------------------------------------------------- -->
-    <div id="view-customer" class="space-y-12">
-      <!-- HERO BANNER -->
-      <section class="relative rounded-3xl overflow-hidden border border-emerald-900/60 bg-gradient-to-br from-[#06241c] via-[#083025] to-[#041a13] p-8 sm:p-14 shadow-2xl">
-        <div class="max-w-3xl space-y-6">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold border border-emerald-500/20">
-            <i class="fa-solid fa-sparkles text-amber-400"></i> Indian Rupees (₹) Flagship Release
-          </div>
-          <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-none">
-            Precision Built For <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-400">Extreme Output</span>.
-          </h1>
-          <p class="text-base sm:text-lg text-emerald-200/80 leading-relaxed max-w-2xl">
-            Beryllium transducer acoustics, unthrottled 16-core workstation rigs, and solid-state energy storage with zero-deductible 10-year global warranties.
-          </p>
-          <div class="flex flex-wrap gap-4 pt-2">
-            <a href="#catalog-section" class="px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm rounded-xl shadow-xl shadow-emerald-500/25 transition-all">
-              Explore Live Hardware
-            </a>
-            <button onclick="applyCouponCode('WELCOME10')" class="px-6 py-3.5 bg-[#06241c] hover:bg-[#0a3328] text-emerald-200 font-semibold text-sm rounded-xl border border-emerald-800/50 flex items-center gap-2">
-              <i class="fa-solid fa-tag text-amber-400"></i> Use Coupon <span class="font-mono text-white font-bold">WELCOME10</span> (10% Off)
-            </button>
-            <button onclick="openAuthModal('signin')" class="px-5 py-3.5 bg-[#0a3328] hover:bg-[#0f4637] text-white font-bold text-sm rounded-xl border border-emerald-700/50 flex items-center gap-2">
-              <i class="fa-solid fa-key text-amber-400"></i> Login Dashboard
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- SEARCH & FILTER TOOLBAR -->
-      <section id="catalog-section" class="space-y-6">
-        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#06241c]/90 border border-emerald-900/60">
-          <!-- Search Bar -->
-          <div class="relative w-full sm:w-96">
-            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-emerald-500/60 text-sm"></i>
-            <input type="text" id="catalog-search-input" oninput="renderProducts()" placeholder="Search title, SKU, or specs..." class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-emerald-700 focus:outline-none focus:border-emerald-500 transition-colors">
-          </div>
-
-          <!-- Filter & Sorting -->
-          <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
-            <span class="text-xs text-emerald-400 font-medium">Sort by:</span>
-            <select id="sort-select" onchange="renderProducts()" class="bg-[#031410] border border-emerald-900/80 text-emerald-200 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500 font-medium">
-              <option value="featured">Featured Catalog</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="rating">Highest Customer Rating</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- PRODUCT CARDS GRID -->
-        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Rendered dynamically via JavaScript in INR (₹) -->
-        </div>
-      </section>
-    </div>
-
-    <!-- ------------------------------------------------------- -->
-    <!-- VIEW 2: VENDOR / MERCHANT PORTAL -->
-    <!-- ------------------------------------------------------- -->
-    <div id="view-vendor" class="hidden space-y-8">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-emerald-900/50 pb-6">
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-3xl font-extrabold text-white">Merchant Command Dashboard</h1>
-            <span class="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">VERIFIED SELLER</span>
-          </div>
-          <p class="text-sm text-emerald-300/70 mt-1">Store: <strong class="text-white">AeroAcoustics Labs</strong> • Direct SKU inventory allocation & payout management</p>
-        </div>
-        <button onclick="openAddProductModal()" class="px-5 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-emerald-500/25 flex items-center gap-2">
-          <i class="fa-solid fa-plus"></i> + Add New Product SKU
-        </button>
-      </div>
-
-      <!-- Vendor Metric KPIs -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-[#06241c] border border-emerald-900/60">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400/80">Total Store GMV</div>
-          <div class="text-3xl font-black text-white mt-2" id="vendor-gmv">₹1,18,40,000</div>
-          <div class="text-xs text-emerald-400 mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% month-over-month</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#06241c] border border-emerald-900/60">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400/80">Net Merchant Payout</div>
-          <div class="text-3xl font-black text-amber-400 mt-2" id="vendor-payout">₹1,06,56,000</div>
-          <div class="text-xs text-emerald-500 mt-1">90% net after 10% platform commission</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#06241c] border border-emerald-900/60">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400/80">Active Listed SKUs</div>
-          <div class="text-3xl font-black text-teal-400 mt-2" id="vendor-sku-count">6 Units</div>
-          <div class="text-xs text-emerald-400/80 mt-1">100% fulfillable in domestic hubs</div>
-        </div>
-      </div>
-
-      <!-- Vendor Product Ledger -->
-      <div class="rounded-2xl bg-[#06241c] border border-emerald-900/60 overflow-hidden">
-        <div class="p-6 border-b border-emerald-900/50 flex items-center justify-between">
-          <h3 class="text-lg font-bold text-white">Your Listed Products & Stock Control</h3>
-          <span class="text-xs text-emerald-400 font-mono">Live Sync with Storefront</span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-[#031410] text-emerald-400/80 text-xs uppercase border-b border-emerald-900/60 font-bold">
-              <tr>
-                <th class="px-6 py-4">Item & SKU</th>
-                <th class="px-6 py-4">Category</th>
-                <th class="px-6 py-4">Unit Price (₹)</th>
-                <th class="px-6 py-4">Stock Units</th>
-                <th class="px-6 py-4">Sales Rating</th>
-                <th class="px-6 py-4 text-right">Quick Stock Action</th>
-              </tr>
-            </thead>
-            <tbody id="vendor-product-rows" class="divide-y divide-emerald-900/40 text-emerald-100">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ------------------------------------------------------- -->
-    <!-- VIEW 3: SUPER ADMIN PLATFORM CONTROL & TELEMETRY -->
-    <!-- ------------------------------------------------------- -->
-    <div id="view-admin" class="hidden space-y-8">
-      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-emerald-900/50 pb-6">
-        <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-3xl font-black text-white">Executive Telemetry & Admin Gateway</h1>
-            <span class="px-2.5 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full text-xs font-bold">ROOT PRIVILEGE</span>
-          </div>
-          <p class="text-sm text-emerald-300/70 mt-1">Super Administrator: <strong class="text-white">Kusuma Podili</strong> • Live State Machine & Compliance Ledger</p>
-        </div>
-        <div class="flex gap-3">
-          <button onclick="openNewCouponModal()" class="px-4 py-2.5 bg-[#06241c] hover:bg-[#0a3328] text-emerald-200 border border-emerald-800/50 rounded-xl text-xs font-bold flex items-center gap-2">
-            <i class="fa-solid fa-ticket text-amber-400"></i> + Create Promo Coupon
-          </button>
-          <button onclick="simulateTrafficOrder()" class="px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-xl text-xs font-bold shadow-lg shadow-amber-500/25 flex items-center gap-2">
-            <i class="fa-solid fa-bolt"></i> Trigger Test Order
+          <!-- 3. Super Admin -->
+          <button onclick="loginPreset('admin')" class="p-3 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-left hover:border-[#D9AE6A] hover:shadow-sm transition-all group">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-[#29332E] group-hover:text-[#D9AE6A]">3. Admin</span>
+              <i class="fa-solid fa-shield-halved text-[#D9AE6A] text-xs"></i>
+            </div>
+            <div class="text-[10px] text-[#6F7772] font-mono mt-0.5 truncate">kusuma.podili@vertex.io</div>
+            <div class="text-[10px] text-[#D9AE6A] font-mono font-semibold">Pass: admin123</div>
           </button>
         </div>
       </div>
 
-      <!-- ADMIN METRICS -->
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
-        <div class="p-6 rounded-2xl bg-[#06241c] border border-emerald-900/60">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400/80">Gross Platform Revenue</div>
-          <div class="text-2xl font-black text-white mt-2" id="admin-revenue">₹2,36,83,000</div>
-          <div class="text-xs text-emerald-400 mt-1">100% captured & reconciled</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#06241c] border border-emerald-900/60">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400/80">Total Processed Orders</div>
-          <div class="text-2xl font-black text-teal-400 mt-2" id="admin-order-count">2 Orders</div>
-          <div class="text-xs text-emerald-300/70 mt-1">State machine active</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#06241c] border border-emerald-900/60">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400/80">Verified Vendors</div>
-          <div class="text-2xl font-black text-emerald-400 mt-2" id="admin-vendor-count">3 Stores</div>
-          <div class="text-xs text-amber-400 mt-1">1 Pending KYC Review</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#06241c] border border-emerald-900/60">
-          <div class="text-xs font-bold uppercase tracking-wider text-emerald-400/80">Automated Tests</div>
-          <div class="text-2xl font-black text-emerald-400 mt-2">212 / 212 Passing</div>
-          <div class="text-xs text-emerald-400 mt-1">0 Failures • 54k+ LOC</div>
-        </div>
-      </div>
-
-      <!-- ORDERS DISPATCH & STATE MACHINE -->
-      <div class="rounded-2xl bg-[#06241c] border border-emerald-900/60 overflow-hidden">
-        <div class="p-6 border-b border-emerald-900/50 flex items-center justify-between">
-          <h3 class="text-lg font-bold text-white">Order State Machine & Fulfillment Action Hub</h3>
-          <span class="text-xs text-teal-400 font-mono">Real-Time State Transitions</span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-[#031410] text-emerald-400/80 text-xs uppercase border-b border-emerald-900/60 font-bold">
-              <tr>
-                <th class="px-6 py-4">Order ID</th>
-                <th class="px-6 py-4">Customer</th>
-                <th class="px-6 py-4">Items</th>
-                <th class="px-6 py-4">Total (₹)</th>
-                <th class="px-6 py-4">Current Status</th>
-                <th class="px-6 py-4 text-right">Transition Action</th>
-              </tr>
-            </thead>
-            <tbody id="admin-orders-rows" class="divide-y divide-emerald-900/40 text-emerald-100">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- VENDOR KYC APPROVALS -->
-      <div class="rounded-2xl bg-[#06241c] border border-emerald-900/60 overflow-hidden">
-        <div class="p-6 border-b border-emerald-900/50 flex items-center justify-between">
-          <h3 class="text-lg font-bold text-white">Vendor Marketplace KYC Dossiers</h3>
-          <span class="text-xs text-emerald-400/80">Merchant Onboarding Approval Pipeline</span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-[#031410] text-emerald-400/80 text-xs uppercase border-b border-emerald-900/60 font-bold">
-              <tr>
-                <th class="px-6 py-4">Store Name</th>
-                <th class="px-6 py-4">Representative</th>
-                <th class="px-6 py-4">Tax ID / Country</th>
-                <th class="px-6 py-4">Commission</th>
-                <th class="px-6 py-4">Status</th>
-                <th class="px-6 py-4 text-right">KYC Action</th>
-              </tr>
-            </thead>
-            <tbody id="admin-vendor-rows" class="divide-y divide-emerald-900/40 text-emerald-100">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- ========================================================= -->
-  <!-- MODAL: LOGIN DASHBOARD & CREDENTIALS (RBAC) -->
-  <!-- ========================================================= -->
-  <div id="auth-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-xl bg-[#06241c] border border-emerald-800/60 rounded-3xl overflow-hidden shadow-2xl animate-in zoom-in-95 duration-200">
-      
-      <!-- Modal Header with Tab Selector -->
-      <div class="p-6 border-b border-emerald-900/60 flex items-center justify-between bg-[#041a13]">
-        <div class="flex gap-2">
-          <button onclick="setAuthTab('signin')" id="tab-btn-signin" class="px-4 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white transition-all shadow-sm">
-            Sign In Existing
+      <!-- CUSTOMER TABS: LOGIN (OLD CUSTOMER) vs SIGN UP (NEW CUSTOMER) -->
+      <div class="space-y-4">
+        <div class="flex rounded-2xl bg-[#F7F3EC] p-1 border border-[#E4DDD2]">
+          <button onclick="setGatekeeperTab('login')" id="gate-tab-login" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#557A68] text-white shadow-sm transition-all">
+            <i class="fa-solid fa-arrow-right-to-bracket mr-1.5"></i> Customer Login (Old User)
           </button>
-          <button onclick="setAuthTab('signup')" id="tab-btn-signup" class="px-4 py-2 text-xs font-bold rounded-xl text-emerald-400 hover:text-white transition-all">
-            Create Customer Account (Sign Up)
+          <button onclick="setGatekeeperTab('signup')" id="gate-tab-signup" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6F7772] hover:text-[#29332E] transition-all">
+            <i class="fa-solid fa-user-plus mr-1.5"></i> Sign Up (New Customer)
           </button>
         </div>
-        <button onclick="closeAuthModal()" class="text-emerald-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
-      </div>
 
-      <div class="p-8 space-y-6">
-
-        <!-- 3 ONE-CLICK PRESET LOGIN CREDENTIALS CARDS -->
-        <div class="space-y-3">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-              <i class="fa-solid fa-bolt"></i> 1-Click Demo Login Credentials
-            </span>
-            <span class="text-[10px] text-emerald-400/80">Select any role to test</span>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <!-- Credential 1: Customer -->
-            <button onclick="loginPreset('customer')" class="p-3.5 rounded-2xl bg-[#031410] border border-emerald-800/60 text-left hover:border-emerald-500 hover:bg-[#0a3328] transition-all group">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-white group-hover:text-emerald-400">1. Customer</span>
-                <i class="fa-solid fa-user text-emerald-500 text-xs"></i>
-              </div>
-              <div class="text-[10px] text-emerald-300 font-mono mt-1">john.doe@enterprise.io</div>
-              <div class="text-[10px] text-emerald-500 font-mono">Pass: customer123</div>
-            </button>
-
-            <!-- Credential 2: Vendor -->
-            <button onclick="loginPreset('vendor')" class="p-3.5 rounded-2xl bg-[#031410] border border-emerald-800/60 text-left hover:border-emerald-500 hover:bg-[#0a3328] transition-all group">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-white group-hover:text-teal-400">2. Merchant</span>
-                <i class="fa-solid fa-store text-teal-400 text-xs"></i>
-              </div>
-              <div class="text-[10px] text-emerald-300 font-mono mt-1">elena@aeroacoustics.io</div>
-              <div class="text-[10px] text-emerald-500 font-mono">Pass: vendor123</div>
-            </button>
-
-            <!-- Credential 3: Super Admin -->
-            <button onclick="loginPreset('admin')" class="p-3.5 rounded-2xl bg-[#031410] border border-emerald-800/60 text-left hover:border-emerald-500 hover:bg-[#0a3328] transition-all group">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-white group-hover:text-amber-400">3. Super Admin</span>
-                <i class="fa-solid fa-shield-halved text-amber-400 text-xs"></i>
-              </div>
-              <div class="text-[10px] text-emerald-300 font-mono mt-1">kusuma.podili@vertex.io</div>
-              <div class="text-[10px] text-emerald-500 font-mono">Pass: admin123</div>
-            </button>
-          </div>
-        </div>
-
-        <div class="relative flex items-center justify-center">
-          <div class="border-t border-emerald-900/60 w-full"></div>
-          <span class="bg-[#06241c] px-3 text-[10px] font-bold text-emerald-500 uppercase tracking-widest absolute">Or enter manually</span>
-        </div>
-
-        <!-- FORM 1: SIGN IN -->
-        <form id="auth-signin-form" onsubmit="handleManualSignIn(event)" class="space-y-4">
+        <!-- FORM 1: LOGIN (EXISTING CUSTOMER / USER) -->
+        <form id="gate-form-login" onsubmit="handleGatekeeperLogin(event)" class="space-y-4 pt-2">
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Email Address</label>
-            <input required type="email" id="login-email" placeholder="john.doe@enterprise.io" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-3 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Email Address</label>
+            <input required type="email" id="gate-login-email" placeholder="e.g. john.doe@enterprise.io" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
           </div>
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Password</label>
-            <input required type="password" id="login-password" placeholder="••••••••••••" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-3 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Password</label>
+            <input required type="password" id="gate-login-password" placeholder="••••••••••••" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
           </div>
-          <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-500/20">
-            Sign In & Open Dashboard
+          <button type="submit" class="w-full py-3.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#557A68]/20 transition-all">
+            Login & Enter Website &rarr;
           </button>
         </form>
 
-        <!-- FORM 2: SIGN UP (CREATE CUSTOMER ACCOUNT) -->
-        <form id="auth-signup-form" onsubmit="handleCustomerSignUp(event)" class="space-y-4 hidden">
+        <!-- FORM 2: SIGN UP (NEW CUSTOMER) -->
+        <form id="gate-form-signup" onsubmit="handleGatekeeperSignUp(event)" class="space-y-4 pt-2 hidden">
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Full Name</label>
-            <input required type="text" id="reg-name" placeholder="e.g. Ramesh Kumar" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-3 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Full Name</label>
+            <input required type="text" id="gate-reg-name" placeholder="e.g. Ramesh Kumar" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="text-xs font-semibold text-emerald-200">Email Address</label>
-              <input required type="email" id="reg-email" placeholder="ramesh@gmail.com" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-3 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+              <label class="text-xs font-bold text-[#29332E]">Email Address</label>
+              <input required type="email" id="gate-reg-email" placeholder="ramesh@gmail.com" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
             </div>
             <div>
-              <label class="text-xs font-semibold text-emerald-200">Mobile Number</label>
-              <input required type="text" id="reg-phone" placeholder="+91 98765 00000" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-3 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+              <label class="text-xs font-bold text-[#29332E]">Mobile Number</label>
+              <input required type="text" id="gate-reg-phone" placeholder="+91 98765 00000" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
             </div>
           </div>
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Set Account Password</label>
-            <input required type="password" id="reg-password" placeholder="Minimum 6 characters" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-3 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Create Password</label>
+            <input required type="password" id="gate-reg-password" placeholder="Minimum 6 characters" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
           </div>
-          <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-500/20">
-            Create Customer Account & Activate
+          <button type="submit" class="w-full py-3.5 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#C9826B]/20 transition-all">
+            Create Customer Account & Enter Website &rarr;
           </button>
         </form>
-
       </div>
+
     </div>
   </div>
 
   <!-- ========================================================= -->
-  <!-- MODAL: PRODUCT DETAIL (PDP) & REVIEWS -->
+  <!-- MAIN APPLICATION (SHOWN AFTER AUTHENTICATION) -->
   <!-- ========================================================= -->
-  <div id="pdp-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-4xl bg-[#06241c] border border-emerald-800/60 rounded-3xl overflow-hidden max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-emerald-900/60 flex items-center justify-between bg-[#041a13]">
-        <div class="flex items-center gap-3">
-          <span id="pdp-badge" class="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">CATEGORY</span>
-          <span id="pdp-sku" class="text-xs font-mono text-emerald-400/80">SKU-0000</span>
+  <div id="authenticated-app" class="hidden flex-col min-h-screen">
+
+    <!-- HEADER (SOFT SAGE #DDE7DF) -->
+    <header class="sticky top-0 z-40 bg-[#DDE7DF] border-b border-[#E4DDD2] shadow-sm transition-all">
+      
+      <!-- Top Sub-Bar -->
+      <div class="border-b border-[#E4DDD2] px-4 py-1.5 text-xs flex flex-wrap items-center justify-between gap-3 text-[#6F7772] bg-[#FFFDF9]/60">
+        <div class="flex items-center gap-2">
+          <span class="inline-flex h-2 w-2 rounded-full bg-[#8EAF98]"></span>
+          <span class="font-bold text-[#29332E]">VERTEX Platform</span>
+          <span>•</span>
+          <span class="text-[#6F7772]">All Prices in Indian Rupees (₹) • 212 Tests Passing</span>
         </div>
-        <button onclick="closePDPModal()" class="text-emerald-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+
+        <div class="flex items-center gap-2">
+          <span class="font-medium text-[#6F7772]">Role:</span>
+          <div class="inline-flex rounded-lg bg-[#E4DDD2]/60 p-0.5" id="header-role-pills">
+            <button onclick="switchRole('customer')" id="role-btn-customer" class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-[#557A68] text-white shadow-xs">
+              Customer
+            </button>
+            <button onclick="switchRole('vendor')" id="role-btn-vendor" class="px-2.5 py-0.5 text-xs font-bold rounded-md text-[#6F7772] hover:text-[#29332E]">
+              Vendor
+            </button>
+            <button onclick="switchRole('admin')" id="role-btn-admin" class="px-2.5 py-0.5 text-xs font-bold rounded-md text-[#6F7772] hover:text-[#29332E]">
+              Admin
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Header Content -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+        
+        <!-- Brand -->
+        <div class="flex items-center gap-8">
+          <a href="javascript:void(0)" onclick="switchView('storefront')" class="text-2xl font-black tracking-widest text-[#29332E] flex items-center gap-2.5">
+            <div class="h-11 w-11 rounded-2xl bg-[#557A68] flex items-center justify-center text-white shadow-md">
+              <i class="fa-solid fa-cube text-xl"></i>
+            </div>
+            <span>VERTEX</span>
+          </a>
+
+          <!-- Category Nav (Functional from everywhere) -->
+          <nav class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#6F7772]">
+            <button onclick="handleCategoryClick('All')" class="category-pill active px-3 py-1.5 rounded-xl text-[#29332E] font-bold bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">All Hardware</button>
+            <button onclick="handleCategoryClick('Audio & Acoustics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Audio & Acoustics</button>
+            <button onclick="handleCategoryClick('Computing & Rigs')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Computing</button>
+            <button onclick="handleCategoryClick('Optics & Cinema')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Cinema Optics</button>
+            <button onclick="handleCategoryClick('Power & Energy')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Power Hubs</button>
+            <button onclick="handleCategoryClick('Workspace & Ergonomics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Ergonomics</button>
+          </nav>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="flex items-center gap-3">
+          <!-- Currency Indicator (₹ INR) -->
+          <div class="px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-[#557A68] font-mono font-bold text-xs flex items-center gap-1.5 shadow-xs">
+            <span class="h-2 w-2 rounded-full bg-[#8EAF98]"></span>
+            <span>INR (₹)</span>
+          </div>
+
+          <!-- Customer Header Buttons -->
+          <div id="customer-header-actions" class="flex items-center gap-2">
+            <button onclick="openOrdersModal()" class="px-3.5 py-2 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] rounded-xl text-xs font-bold border border-[#E4DDD2] flex items-center gap-2 shadow-xs transition-colors">
+              <i class="fa-solid fa-clock-rotate-left text-[#557A68]"></i>
+              <span class="hidden sm:inline">My Orders</span>
+            </button>
+
+            <button onclick="toggleWishlistDrawer()" class="relative p-2.5 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] rounded-xl border border-[#E4DDD2] shadow-xs">
+              <i class="fa-regular fa-heart"></i>
+              <span id="wishlist-count-badge" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-[#C96F6F] text-white text-[10px] font-bold flex items-center justify-center">0</span>
+            </button>
+
+            <button onclick="toggleCartDrawer()" class="relative px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#557A68]/20 transition-all">
+              <i class="fa-solid fa-cart-shopping"></i>
+              <span>Cart</span>
+              <span id="cart-count-badge" class="ml-1 px-1.5 py-0.5 rounded-full bg-white/30 text-white text-[11px] font-bold">1</span>
+            </button>
+          </div>
+
+          <!-- Vendor Actions -->
+          <div id="vendor-header-actions" class="hidden flex items-center gap-2">
+            <button onclick="openAddProductModal()" class="px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#557A68]/20">
+              <i class="fa-solid fa-plus"></i> + Add New SKU
+            </button>
+          </div>
+
+          <!-- Admin Actions -->
+          <div id="admin-header-actions" class="hidden flex items-center gap-2">
+            <button onclick="simulateTrafficOrder()" class="px-3.5 py-2 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#C9826B]/20">
+              <i class="fa-solid fa-bolt"></i> Simulate Live Order
+            </button>
+          </div>
+
+          <!-- User Profile & Sign Out -->
+          <div class="pl-2 border-l border-[#E4DDD2] flex items-center gap-2" id="user-profile-widget">
+            <!-- Dynamic Avatar & Sign Out -->
+          </div>
+
+        </div>
+      </div>
+    </header>
+
+    <!-- ======================================================= -->
+    <!-- MAIN CONTAINER (WARM CREAM #F7F3EC) -->
+    <!-- ======================================================= -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 flex-1 w-full space-y-10">
+
+      <!-- ----------------------------------------------------- -->
+      <!-- VIEW 1: STOREFRONT & CATALOG -->
+      <!-- ----------------------------------------------------- -->
+      <div id="view-customer" class="space-y-10">
+        <!-- Hero Banner (Soft Peach / Soft Sage / Terracotta) -->
+        <section class="rounded-3xl border border-[#E4DDD2] bg-gradient-to-br from-[#FFFDF9] via-[#F0D5C8]/40 to-[#DDE7DF]/50 p-8 sm:p-14 shadow-sm relative overflow-hidden">
+          <div class="max-w-3xl space-y-6">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F0D5C8] text-[#C9826B] text-xs font-bold border border-[#E4DDD2]">
+              <i class="fa-solid fa-sparkles"></i> 2026 Flagship Hardware • Indian Rupees (₹)
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black text-[#29332E] tracking-tight leading-none">
+              Precision Built For <span class="text-[#557A68]">Extreme Output</span>.
+            </h1>
+            <p class="text-base sm:text-lg text-[#6F7772] leading-relaxed max-w-2xl">
+              Beryllium transducer acoustics, unthrottled 16-core workstation rigs, and solid-state energy storage with 10-year comprehensive warranties.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2">
+              <a href="#catalog-section" class="px-8 py-3.5 bg-[#557A68] hover:bg-[#456653] text-white font-bold text-sm rounded-xl shadow-md shadow-[#557A68]/20 transition-all">
+                Explore Live Hardware
+              </a>
+              <button onclick="applyCouponCode('WELCOME10')" class="px-6 py-3.5 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] font-semibold text-sm rounded-xl border border-[#E4DDD2] flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-tag text-[#C9826B]"></i> Use Promo <span class="font-mono font-bold text-[#557A68]">WELCOME10</span> (10% Off)
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Search & Filter Bar -->
+        <section id="catalog-section" class="space-y-6">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="relative w-full sm:w-96">
+              <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-[#6F7772] text-sm"></i>
+              <input type="text" id="catalog-search-input" oninput="renderProducts()" placeholder="Search title, SKU, or specs..." class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl pl-11 pr-4 py-2.5 text-sm text-[#29332E] placeholder-[#6F7772] focus:outline-none focus:border-[#557A68]">
+            </div>
+
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+              <span class="text-xs text-[#6F7772] font-medium">Sort by:</span>
+              <select id="sort-select" onchange="renderProducts()" class="bg-[#F7F3EC] border border-[#E4DDD2] text-[#29332E] text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#557A68] font-medium">
+                <option value="featured">Featured Catalog</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest Customer Rating</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Product Grid (Warm White Cards #FFFDF9) -->
+          <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Rendered via JS -->
+          </div>
+        </section>
+      </div>
+
+      <!-- ----------------------------------------------------- -->
+      <!-- VIEW 2: VENDOR DASHBOARD -->
+      <!-- ----------------------------------------------------- -->
+      <div id="view-vendor" class="hidden space-y-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E4DDD2] pb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-3xl font-black text-[#29332E]">Merchant Command Dashboard</h1>
+              <span class="px-2.5 py-0.5 bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98] rounded-full text-xs font-bold">VERIFIED SELLER</span>
+            </div>
+            <p class="text-sm text-[#6F7772] mt-1">Store: <strong class="text-[#29332E]">AeroAcoustics Labs</strong> • Direct SKU inventory allocation & payout management</p>
+          </div>
+          <button onclick="openAddProductModal()" class="px-5 py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-sm font-bold shadow-md shadow-[#557A68]/20 flex items-center gap-2">
+            <i class="fa-solid fa-plus"></i> + Add New Product SKU
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Total Store GMV</div>
+            <div class="text-3xl font-black text-[#29332E] mt-2" id="vendor-gmv">₹1,18,40,000</div>
+            <div class="text-xs text-[#557A68] mt-1 font-semibold"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% this month</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Net Merchant Payout</div>
+            <div class="text-3xl font-black text-[#C9826B] mt-2" id="vendor-payout">₹1,06,56,000</div>
+            <div class="text-xs text-[#6F7772] mt-1">90% net after 10% commission</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Active Listed SKUs</div>
+            <div class="text-3xl font-black text-[#557A68] mt-2" id="vendor-sku-count">6 Units</div>
+            <div class="text-xs text-[#6F7772] mt-1">100% fulfillable in domestic hubs</div>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden shadow-xs">
+          <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between">
+            <h3 class="text-lg font-bold text-[#29332E]">Your Listed Products & Stock Control</h3>
+            <span class="text-xs text-[#557A68] font-mono font-bold">Live Sync</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-[#DDE7DF]/50 text-[#29332E] text-xs uppercase border-b border-[#E4DDD2] font-bold">
+                <tr>
+                  <th class="px-6 py-4">Item & SKU</th>
+                  <th class="px-6 py-4">Category</th>
+                  <th class="px-6 py-4">Unit Price (₹)</th>
+                  <th class="px-6 py-4">Stock Units</th>
+                  <th class="px-6 py-4">Rating</th>
+                  <th class="px-6 py-4 text-right">Quick Stock Action</th>
+                </tr>
+              </thead>
+              <tbody id="vendor-product-rows" class="divide-y divide-[#E4DDD2] text-[#29332E]">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ----------------------------------------------------- -->
+      <!-- VIEW 3: ADMIN GATEWAY & TELEMETRY -->
+      <!-- ----------------------------------------------------- -->
+      <div id="view-admin" class="hidden space-y-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E4DDD2] pb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-3xl font-black text-[#29332E]">Executive Telemetry & Admin Gateway</h1>
+              <span class="px-2.5 py-0.5 bg-[#D9AE6A]/30 text-[#8c6527] border border-[#D9AE6A] rounded-full text-xs font-bold">ROOT PRIVILEGE</span>
+            </div>
+            <p class="text-sm text-[#6F7772] mt-1">Super Administrator: <strong class="text-[#29332E]">Kusuma Podili</strong> • Live State Machine & Compliance Ledger</p>
+          </div>
+          <div class="flex gap-3">
+            <button onclick="openNewCouponModal()" class="px-4 py-2.5 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] border border-[#E4DDD2] rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs">
+              <i class="fa-solid fa-ticket text-[#C9826B]"></i> + Create Promo Coupon
+            </button>
+            <button onclick="simulateTrafficOrder()" class="px-4 py-2.5 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded-xl text-xs font-bold shadow-md shadow-[#C9826B]/20 flex items-center gap-2">
+              <i class="fa-solid fa-bolt"></i> Trigger Test Order
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
+          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Gross Platform Revenue</div>
+            <div class="text-2xl font-black text-[#29332E] mt-2" id="admin-revenue">₹2,36,83,000</div>
+            <div class="text-xs text-[#557A68] mt-1 font-semibold">100% captured</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Processed Orders</div>
+            <div class="text-2xl font-black text-[#557A68] mt-2" id="admin-order-count">2 Orders</div>
+            <div class="text-xs text-[#6F7772] mt-1">State machine active</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Verified Vendors</div>
+            <div class="text-2xl font-black text-[#C9826B] mt-2" id="admin-vendor-count">3 Stores</div>
+            <div class="text-xs text-[#D9AE6A] mt-1 font-semibold">1 Pending Review</div>
+          </div>
+          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Automated Tests</div>
+            <div class="text-2xl font-black text-[#456653] mt-2">212 / 212 Passing</div>
+            <div class="text-xs text-[#557A68] mt-1 font-semibold">0 Failures • 56k+ LOC</div>
+          </div>
+        </div>
+
+        <!-- Orders State Machine -->
+        <div class="rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden shadow-xs">
+          <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between">
+            <h3 class="text-lg font-bold text-[#29332E]">Order State Machine & Fulfillment Hub</h3>
+            <span class="text-xs text-[#557A68] font-mono font-bold">Real-Time State Transitions</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-[#DDE7DF]/50 text-[#29332E] text-xs uppercase border-b border-[#E4DDD2] font-bold">
+                <tr>
+                  <th class="px-6 py-4">Order ID</th>
+                  <th class="px-6 py-4">Customer</th>
+                  <th class="px-6 py-4">Items</th>
+                  <th class="px-6 py-4">Total (₹)</th>
+                  <th class="px-6 py-4">Status</th>
+                  <th class="px-6 py-4 text-right">Transition Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-rows" class="divide-y divide-[#E4DDD2] text-[#29332E]">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Vendor KYC Approvals -->
+        <div class="rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden shadow-xs">
+          <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between">
+            <h3 class="text-lg font-bold text-[#29332E]">Vendor Marketplace KYC Dossiers</h3>
+            <span class="text-xs text-[#6F7772]">Merchant Approval Pipeline</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-[#DDE7DF]/50 text-[#29332E] text-xs uppercase border-b border-[#E4DDD2] font-bold">
+                <tr>
+                  <th class="px-6 py-4">Store Name</th>
+                  <th class="px-6 py-4">Representative</th>
+                  <th class="px-6 py-4">Tax ID / Country</th>
+                  <th class="px-6 py-4">Commission</th>
+                  <th class="px-6 py-4">Status</th>
+                  <th class="px-6 py-4 text-right">KYC Action</th>
+                </tr>
+              </thead>
+              <tbody id="admin-vendor-rows" class="divide-y divide-[#E4DDD2] text-[#29332E]">
+                <!-- Rendered via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: PRODUCT DETAIL (PDP) -->
+  <!-- ========================================================= -->
+  <div id="pdp-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
+        <div class="flex items-center gap-3">
+          <span id="pdp-badge" class="px-2.5 py-0.5 bg-[#F0D5C8] text-[#C9826B] border border-[#E4DDD2] rounded-full text-xs font-bold">CATEGORY</span>
+          <span id="pdp-sku" class="text-xs font-mono text-[#6F7772]">SKU-0000</span>
+        </div>
+        <button onclick="closePDPModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-8 overflow-y-auto space-y-8 flex-1">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <!-- Image Viewer -->
-          <div class="aspect-square rounded-2xl overflow-hidden bg-[#031410] border border-emerald-900/60 relative group">
-            <img id="pdp-image" src="" alt="Product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          <div class="aspect-square rounded-2xl overflow-hidden bg-[#F7F3EC] border border-[#E4DDD2]">
+            <img id="pdp-image" src="" alt="Product" class="w-full h-full object-cover">
           </div>
 
-          <!-- Product Details & Buy Box -->
           <div class="space-y-6 flex flex-col justify-between">
             <div class="space-y-3">
-              <h2 id="pdp-title" class="text-2xl sm:text-3xl font-extrabold text-white">Product Title</h2>
+              <h2 id="pdp-title" class="text-2xl sm:text-3xl font-black text-[#29332E]">Product Title</h2>
               <div class="flex items-center gap-3">
-                <div class="flex text-amber-400 text-sm" id="pdp-stars">
+                <div class="flex text-[#D9AE6A] text-sm" id="pdp-stars">
                   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <span id="pdp-rating-text" class="text-xs text-emerald-400/80 font-semibold">4.9 (128 reviews)</span>
+                <span id="pdp-rating-text" class="text-xs text-[#6F7772] font-semibold">4.9 (128 reviews)</span>
               </div>
-              <p id="pdp-description" class="text-sm text-emerald-100/80 leading-relaxed">Description goes here.</p>
+              <p id="pdp-description" class="text-sm text-[#6F7772] leading-relaxed">Description goes here.</p>
             </div>
 
-            <!-- Price & Stock in INR (₹) -->
-            <div class="p-4 rounded-2xl bg-[#031410] border border-emerald-900/80 space-y-4">
+            <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-4">
               <div class="flex items-baseline justify-between">
                 <div>
-                  <span class="text-xs text-emerald-400 font-medium">Unit Price (₹ INR):</span>
-                  <div id="pdp-price" class="text-3xl font-black text-white font-mono">₹0</div>
+                  <span class="text-xs text-[#6F7772] font-medium">Unit Price (₹ INR):</span>
+                  <div id="pdp-price" class="text-3xl font-black text-[#29332E] font-mono">₹0</div>
                 </div>
-                <span id="pdp-stock-status" class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">
+                <span id="pdp-stock-status" class="px-3 py-1 bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98] rounded-full text-xs font-bold">
                   In Stock
                 </span>
               </div>
 
-              <!-- Quantity Selector & Add Button -->
               <div class="flex items-center gap-3 pt-2">
-                <div class="flex items-center rounded-xl bg-[#06241c] border border-emerald-800/60 p-1">
-                  <button onclick="changePDPQty(-1)" class="w-8 h-8 rounded-lg text-emerald-400 hover:text-white hover:bg-[#0a3328] flex items-center justify-center font-bold text-base">-</button>
-                  <span id="pdp-qty-display" class="w-10 text-center text-sm font-bold text-white font-mono">1</span>
-                  <button onclick="changePDPQty(1)" class="w-8 h-8 rounded-lg text-emerald-400 hover:text-white hover:bg-[#0a3328] flex items-center justify-center font-bold text-base">+</button>
+                <div class="flex items-center rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] p-1">
+                  <button onclick="changePDPQty(-1)" class="w-8 h-8 rounded-lg text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-base">-</button>
+                  <span id="pdp-qty-display" class="w-10 text-center text-sm font-bold text-[#29332E] font-mono">1</span>
+                  <button onclick="changePDPQty(1)" class="w-8 h-8 rounded-lg text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-base">+</button>
                 </div>
-                <button onclick="addPDPToCart()" class="flex-1 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2">
+                <button onclick="addPDPToCart()" class="flex-1 py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-sm shadow-md shadow-[#557A68]/20 flex items-center justify-center gap-2">
                   <i class="fa-solid fa-cart-plus"></i> Add To Hardware Cart
                 </button>
               </div>
@@ -830,96 +838,82 @@ INDEX_HTML = """<!DOCTYPE html>
           </div>
         </div>
 
-        <!-- Tech Specs Accordion -->
-        <div class="border-t border-emerald-900/60 pt-6">
-          <h4 class="text-sm font-bold uppercase tracking-wider text-emerald-300 mb-4">Engineering Specifications</h4>
+        <div class="border-t border-[#E4DDD2] pt-6">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-[#29332E] mb-4">Engineering Specifications</h4>
           <div id="pdp-specs-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
             <!-- Rendered via JS -->
           </div>
         </div>
 
-        <!-- Verified Reviews Section -->
-        <div class="border-t border-emerald-900/60 pt-6 space-y-4">
+        <div class="border-t border-[#E4DDD2] pt-6 space-y-4">
           <div class="flex items-center justify-between">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-emerald-300">Verified Buyer Reviews</h4>
-            <button onclick="openReviewComposer()" class="text-xs font-bold text-teal-400 hover:text-teal-300">+ Write Review</button>
+            <h4 class="text-sm font-bold uppercase tracking-wider text-[#29332E]">Verified Buyer Reviews</h4>
+            <button onclick="openReviewComposer()" class="text-xs font-bold text-[#557A68] hover:underline">+ Write Review</button>
           </div>
 
-          <!-- Review Composer Box (Hidden by default) -->
-          <div id="review-composer" class="hidden p-4 rounded-xl bg-[#031410] border border-emerald-500/30 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-white">Post Verified Feedback</span>
-              <button onclick="openReviewComposer()" class="text-xs text-emerald-500">&times; Cancel</button>
-            </div>
-            <input type="text" id="review-title-input" placeholder="Review headline (e.g. Unrivaled acoustic clarity)" class="w-full bg-[#06241c] border border-emerald-900/80 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
-            <textarea id="review-comment-input" rows="3" placeholder="Share your hardware experience..." class="w-full bg-[#06241c] border border-emerald-900/80 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500"></textarea>
-            <button onclick="submitCustomerReview()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold">Submit Review</button>
+          <div id="review-composer" class="hidden p-4 rounded-xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-3">
+            <input type="text" id="review-title-input" placeholder="Review headline (e.g. Unrivaled clarity)" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-lg p-2.5 text-xs text-[#29332E] focus:outline-none focus:border-[#557A68]">
+            <textarea id="review-comment-input" rows="3" placeholder="Share your experience..." class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-lg p-2.5 text-xs text-[#29332E] focus:outline-none focus:border-[#557A68]"></textarea>
+            <button onclick="submitCustomerReview()" class="px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-lg text-xs font-bold">Submit Review</button>
           </div>
 
-          <div id="pdp-reviews-list" class="space-y-3">
-            <!-- Rendered via JS -->
-          </div>
+          <div id="pdp-reviews-list" class="space-y-3"></div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ========================================================= -->
-  <!-- DRAWER: CART & INSTANT COUPONS IN RUPEES (₹) -->
+  <!-- DRAWER: CART -->
   <!-- ========================================================= -->
-  <div id="cart-drawer" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex justify-end">
-    <div class="w-full max-w-md bg-[#06241c] border-l border-emerald-800/60 p-8 flex flex-col justify-between h-full shadow-2xl animate-in slide-in-from-right duration-200">
+  <div id="cart-drawer" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden flex justify-end">
+    <div class="w-full max-w-md bg-[#FFFDF9] border-l border-[#E4DDD2] p-8 flex flex-col justify-between h-full shadow-2xl animate-in slide-in-from-right duration-200">
       <div>
-        <div class="flex items-center justify-between border-b border-emerald-900/60 pb-4 mb-6">
+        <div class="flex items-center justify-between border-b border-[#E4DDD2] pb-4 mb-6">
           <div class="flex items-center gap-2">
-            <i class="fa-solid fa-cart-shopping text-emerald-400"></i>
-            <h3 class="text-xl font-bold text-white">Hardware Cart</h3>
+            <i class="fa-solid fa-cart-shopping text-[#557A68]"></i>
+            <h3 class="text-xl font-bold text-[#29332E]">Hardware Cart</h3>
           </div>
-          <button onclick="toggleCartDrawer()" class="text-emerald-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="toggleCartDrawer()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
-        <!-- Cart Items List -->
-        <div id="cart-items-container" class="space-y-4 max-h-[48vh] overflow-y-auto pr-1">
-          <!-- Rendered dynamically -->
-        </div>
+        <div id="cart-items-container" class="space-y-4 max-h-[48vh] overflow-y-auto pr-1"></div>
       </div>
 
-      <!-- Pricing Summary & Checkout -->
-      <div class="border-t border-emerald-900/60 pt-6 space-y-4">
-        <!-- Coupon Input -->
+      <div class="border-t border-[#E4DDD2] pt-6 space-y-4">
         <div class="flex gap-2">
-          <input type="text" id="coupon-input" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-[#031410] border border-emerald-900/80 rounded-xl px-3 py-2 text-xs font-mono text-white placeholder-emerald-700 uppercase focus:outline-none focus:border-emerald-500">
-          <button onclick="applyTypedCoupon()" class="px-4 py-2 bg-[#0a3328] hover:bg-[#0f4637] text-white rounded-xl text-xs font-bold border border-emerald-700/50">Apply</button>
+          <input type="text" id="coupon-input" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl px-3 py-2 text-xs font-mono text-[#29332E] uppercase focus:outline-none focus:border-[#557A68]">
+          <button onclick="applyTypedCoupon()" class="px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold">Apply</button>
         </div>
-        <div id="coupon-applied-tag" class="hidden text-xs text-emerald-400 font-semibold flex items-center justify-between">
-          <span><i class="fa-solid fa-tag mr-1"></i> Promo Active: <span id="coupon-code-label"></span></span>
-          <button onclick="removeCoupon()" class="text-emerald-400 hover:text-white">&times;</button>
+        <div id="coupon-applied-tag" class="hidden text-xs text-[#557A68] font-bold flex items-center justify-between">
+          <span><i class="fa-solid fa-tag mr-1"></i> Active: <span id="coupon-code-label"></span></span>
+          <button onclick="removeCoupon()" class="text-[#6F7772] hover:text-[#29332E]">&times;</button>
         </div>
 
-        <div class="space-y-2 text-xs text-emerald-300/80">
+        <div class="space-y-2 text-xs text-[#6F7772]">
           <div class="flex justify-between">
             <span>Subtotal</span>
-            <span class="text-white font-semibold font-mono" id="cart-subtotal-val">₹0</span>
+            <span class="text-[#29332E] font-bold font-mono" id="cart-subtotal-val">₹0</span>
           </div>
           <div class="flex justify-between" id="cart-discount-row" style="display:none;">
-            <span class="text-amber-400">Discount Savings</span>
-            <span class="text-amber-400 font-semibold font-mono" id="cart-discount-val">-₹0</span>
+            <span class="text-[#C96F6F]">Discount Savings</span>
+            <span class="text-[#C96F6F] font-bold font-mono" id="cart-discount-val">-₹0</span>
           </div>
           <div class="flex justify-between">
             <span>GST Tax (18%)</span>
-            <span class="text-white font-semibold font-mono" id="cart-tax-val">₹0</span>
+            <span class="text-[#29332E] font-bold font-mono" id="cart-tax-val">₹0</span>
           </div>
           <div class="flex justify-between">
-            <span>Domestic Express Delivery</span>
-            <span class="text-emerald-400 font-semibold font-mono" id="cart-shipping-val">FREE</span>
+            <span>Express Delivery</span>
+            <span class="text-[#557A68] font-bold font-mono" id="cart-shipping-val">FREE</span>
           </div>
-          <div class="flex justify-between text-base font-bold text-white pt-3 border-t border-emerald-900/60">
+          <div class="flex justify-between text-base font-bold text-[#29332E] pt-3 border-t border-[#E4DDD2]">
             <span>Total Amount</span>
-            <span class="text-emerald-400 text-xl font-mono font-black" id="cart-total-val">₹0</span>
+            <span class="text-[#557A68] text-xl font-mono font-black" id="cart-total-val">₹0</span>
           </div>
         </div>
 
-        <button onclick="openCheckoutModal()" id="cart-checkout-btn" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-bold text-sm shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2">
+        <button onclick="openCheckoutModal()" id="cart-checkout-btn" class="w-full py-4 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-sm shadow-md shadow-[#557A68]/20 flex items-center justify-center gap-2">
           <i class="fa-solid fa-lock"></i> Proceed to Multi-Step Checkout
         </button>
       </div>
@@ -927,79 +921,69 @@ INDEX_HTML = """<!DOCTYPE html>
   </div>
 
   <!-- ========================================================= -->
-  <!-- MODAL: MULTI-STEP CHECKOUT IN RUPEES (₹) -->
+  <!-- MODAL: CHECKOUT -->
   <!-- ========================================================= -->
-  <div id="checkout-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-2xl bg-[#06241c] border border-emerald-800/60 rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-emerald-900/60 flex items-center justify-between bg-[#041a13]">
+  <div id="checkout-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
         <div class="flex items-center gap-3">
-          <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
-          <h3 class="text-lg font-bold text-white">256-Bit Encrypted Express Checkout (₹ INR)</h3>
+          <i class="fa-solid fa-shield-halved text-[#557A68] text-lg"></i>
+          <h3 class="text-lg font-bold text-[#29332E]">256-Bit Encrypted Checkout (₹ INR)</h3>
         </div>
-        <button onclick="closeCheckoutModal()" class="text-emerald-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closeCheckoutModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-8 space-y-6">
-        <!-- Stepper Indicator -->
-        <div class="flex items-center justify-between text-xs font-bold text-emerald-400/60 pb-4 border-b border-emerald-900/60">
-          <span class="text-emerald-400 flex items-center gap-1.5"><span class="h-5 w-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px]">1</span> Shipping</span>
-          <span class="text-emerald-900">———</span>
-          <span class="text-emerald-400 flex items-center gap-1.5"><span class="h-5 w-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px]">2</span> UPI / Card</span>
-          <span class="text-emerald-900">———</span>
-          <span class="text-emerald-600 flex items-center gap-1.5"><span class="h-5 w-5 rounded-full bg-[#031410] text-emerald-500 flex items-center justify-center text-[10px]">3</span> Confirm</span>
-        </div>
-
         <form id="checkout-form" onsubmit="handlePlaceOrder(event)" class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="text-xs font-semibold text-emerald-200">Full Name</label>
-              <input required type="text" id="chk-name" value="John Doe" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+              <label class="text-xs font-bold text-[#29332E]">Full Name</label>
+              <input required type="text" id="chk-name" value="John Doe" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
             </div>
             <div>
-              <label class="text-xs font-semibold text-emerald-200">Email Address</label>
-              <input required type="email" id="chk-email" value="john.doe@enterprise.io" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+              <label class="text-xs font-bold text-[#29332E]">Email Address</label>
+              <input required type="email" id="chk-email" value="john.doe@enterprise.io" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
             </div>
           </div>
 
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Delivery Address</label>
-            <input required type="text" id="chk-street" value="Brigade Road, 4th Block" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Delivery Address</label>
+            <input required type="text" id="chk-street" value="Brigade Road, 4th Block" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
           </div>
 
           <div class="grid grid-cols-3 gap-4">
             <div>
-              <label class="text-xs font-semibold text-emerald-200">City</label>
-              <input required type="text" id="chk-city" value="Bengaluru" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+              <label class="text-xs font-bold text-[#29332E]">City</label>
+              <input required type="text" id="chk-city" value="Bengaluru" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
             </div>
             <div>
-              <label class="text-xs font-semibold text-emerald-200">State</label>
-              <input required type="text" id="chk-state" value="Karnataka" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+              <label class="text-xs font-bold text-[#29332E]">State</label>
+              <input required type="text" id="chk-state" value="Karnataka" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
             </div>
             <div>
-              <label class="text-xs font-semibold text-emerald-200">PIN Code</label>
-              <input required type="text" id="chk-zip" value="560001" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+              <label class="text-xs font-bold text-[#29332E]">PIN Code</label>
+              <input required type="text" id="chk-zip" value="560001" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
             </div>
           </div>
 
-          <!-- Payment Gateway Simulation (UPI / Cards) -->
-          <div class="p-4 rounded-2xl bg-[#031410] border border-emerald-900/80 space-y-3 mt-4">
-            <div class="flex items-center justify-between text-xs font-bold text-emerald-300">
+          <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-3 mt-4">
+            <div class="flex items-center justify-between text-xs font-bold text-[#29332E]">
               <span>UPI & Card Direct Gateway</span>
-              <div class="flex gap-2 text-emerald-400 text-sm">
+              <div class="flex gap-2 text-[#557A68] text-sm">
                 <i class="fa-solid fa-qrcode"></i>
                 <i class="fa-brands fa-cc-visa"></i>
                 <i class="fa-brands fa-cc-mastercard"></i>
               </div>
             </div>
-            <input type="text" value="upi-merchant-instant@icici / 4242 •••• 4242" class="w-full bg-[#06241c] border border-emerald-900/80 rounded-xl p-2.5 text-xs font-mono text-emerald-200" readonly>
+            <input type="text" value="upi-merchant-instant@icici / 4242 •••• 4242" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-2.5 text-xs font-mono text-[#29332E]" readonly>
           </div>
 
           <div class="pt-4 flex items-center justify-between">
             <div>
-              <span class="text-xs text-emerald-400">Total Authorized:</span>
-              <div class="text-2xl font-black text-emerald-400 font-mono" id="chk-final-total">₹0</div>
+              <span class="text-xs text-[#6F7772]">Total Authorized:</span>
+              <div class="text-2xl font-black text-[#557A68] font-mono" id="chk-final-total">₹0</div>
             </div>
-            <button type="submit" id="btn-submit-order" class="px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-bold text-sm shadow-xl shadow-emerald-500/25 flex items-center gap-2">
+            <button type="submit" id="btn-submit-order" class="px-8 py-3.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-sm shadow-md shadow-[#557A68]/20 flex items-center gap-2">
               <i class="fa-solid fa-lock"></i> Authorize & Place Order
             </button>
           </div>
@@ -1009,38 +993,38 @@ INDEX_HTML = """<!DOCTYPE html>
   </div>
 
   <!-- ========================================================= -->
-  <!-- MODAL: ORDER CONFIRMED SUCCESS -->
+  <!-- MODAL: ORDER SUCCESS -->
   <!-- ========================================================= -->
-  <div id="order-success-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-lg bg-[#06241c] border border-emerald-500/30 rounded-3xl p-8 text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="h-16 w-16 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-2xl mx-auto shadow-lg shadow-emerald-500/20">
+  <div id="order-success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl p-8 text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="h-16 w-16 rounded-full bg-[#DDE7DF] text-[#557A68] flex items-center justify-center text-2xl mx-auto shadow-sm">
         <i class="fa-solid fa-check"></i>
       </div>
       <div class="space-y-2">
-        <h2 class="text-2xl font-black text-white">Payment Authorized & Stock Reserved!</h2>
-        <p class="text-xs text-emerald-300/80">Your hardware order has been routed to our Bengaluru Hub for automated packaging.</p>
+        <h2 class="text-2xl font-black text-[#29332E]">Payment Captured & Stock Reserved!</h2>
+        <p class="text-xs text-[#6F7772]">Your hardware order has been routed to our Bengaluru Hub for automated packaging.</p>
       </div>
 
-      <div class="p-4 rounded-2xl bg-[#031410] border border-emerald-900/80 text-left text-xs space-y-2">
+      <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] text-left text-xs space-y-2">
         <div class="flex justify-between">
-          <span class="text-emerald-400">Order Reference:</span>
-          <span class="font-mono font-bold text-teal-400" id="success-order-id">ORD-9826-VX1</span>
+          <span class="text-[#6F7772]">Order Reference:</span>
+          <span class="font-mono font-bold text-[#557A68]" id="success-order-id">ORD-9826-VX1</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-emerald-400">Carrier Assigned:</span>
-          <span class="font-semibold text-white">Blue Dart Air Express (Tracking Generated)</span>
+          <span class="text-[#6F7772]">Carrier Assigned:</span>
+          <span class="font-semibold text-[#29332E]">Blue Dart Air Express (Tracking Generated)</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-emerald-400">Estimated Delivery:</span>
-          <span class="font-semibold text-emerald-400">Within 24 to 48 Hours</span>
+          <span class="text-[#6F7772]">Estimated Delivery:</span>
+          <span class="font-semibold text-[#557A68]">Within 24 to 48 Hours</span>
         </div>
       </div>
 
       <div class="flex gap-3">
-        <button onclick="closeOrderSuccessModal(); openOrdersModal();" class="flex-1 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl font-bold text-xs shadow-lg shadow-emerald-500/20">
-          Track Live in My Orders
+        <button onclick="closeOrderSuccessModal(); openOrdersModal();" class="flex-1 py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-xs shadow-md shadow-[#557A68]/20">
+          Track in My Orders
         </button>
-        <button onclick="closeOrderSuccessModal()" class="px-6 py-3 bg-[#0a3328] hover:bg-[#0f4637] text-emerald-200 rounded-xl font-semibold text-xs border border-emerald-700/50">
+        <button onclick="closeOrderSuccessModal()" class="px-6 py-3 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] rounded-xl font-semibold text-xs border border-[#E4DDD2]">
           Continue Shopping
         </button>
       </div>
@@ -1048,47 +1032,41 @@ INDEX_HTML = """<!DOCTYPE html>
   </div>
 
   <!-- ========================================================= -->
-  <!-- MODAL: MY ORDERS & REAL-TIME TRACKING TIMELINE -->
+  <!-- MODAL: MY ORDERS -->
   <!-- ========================================================= -->
-  <div id="orders-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-3xl bg-[#06241c] border border-emerald-800/60 rounded-3xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-emerald-900/60 flex items-center justify-between bg-[#041a13]">
+  <div id="orders-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-3xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
         <div class="flex items-center gap-3">
-          <i class="fa-solid fa-clock-rotate-left text-emerald-400"></i>
-          <h3 class="text-lg font-bold text-white">My Orders & Live Logistics Tracking</h3>
+          <i class="fa-solid fa-clock-rotate-left text-[#557A68]"></i>
+          <h3 class="text-lg font-bold text-[#29332E]">My Orders & Live Tracking</h3>
         </div>
-        <button onclick="closeOrdersModal()" class="text-emerald-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closeOrdersModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
-      <div class="p-6 overflow-y-auto space-y-6 flex-1" id="orders-list-container">
-        <!-- Rendered via JS -->
-      </div>
+      <div class="p-6 overflow-y-auto space-y-6 flex-1" id="orders-list-container"></div>
     </div>
   </div>
 
   <!-- ========================================================= -->
   <!-- MODAL: VENDOR ADD PRODUCT -->
   <!-- ========================================================= -->
-  <div id="add-product-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-xl bg-[#06241c] border border-emerald-500/30 rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-emerald-900/60 flex items-center justify-between bg-[#041a13]">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-plus-circle text-emerald-400"></i>
-          <h3 class="text-lg font-bold text-white">Publish New Hardware SKU to Storefront (₹)</h3>
-        </div>
-        <button onclick="closeAddProductModal()" class="text-emerald-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+  <div id="add-product-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
+        <h3 class="text-lg font-bold text-[#29332E]">Publish New Hardware SKU (₹)</h3>
+        <button onclick="closeAddProductModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <form onsubmit="handleVendorAddProduct(event)" class="p-6 space-y-4">
         <div>
-          <label class="text-xs font-semibold text-emerald-200">Product Title</label>
-          <input required type="text" id="new-prod-title" placeholder="e.g. Apex 4K OLED Reference Monitor" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+          <label class="text-xs font-bold text-[#29332E]">Product Title</label>
+          <input required type="text" id="new-prod-title" placeholder="e.g. Apex 4K OLED Reference Monitor" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
         </div>
-
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Category</label>
-            <select id="new-prod-category" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Category</label>
+            <select id="new-prod-category" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
               <option value="Audio & Acoustics">Audio & Acoustics</option>
               <option value="Computing & Rigs">Computing & Rigs</option>
               <option value="Optics & Cinema">Optics & Cinema</option>
@@ -1097,35 +1075,31 @@ INDEX_HTML = """<!DOCTYPE html>
             </select>
           </div>
           <div>
-            <label class="text-xs font-semibold text-emerald-200">SKU Code</label>
-            <input required type="text" id="new-prod-sku" placeholder="APEX-OLED-4K" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 font-mono uppercase focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">SKU Code</label>
+            <input required type="text" id="new-prod-sku" placeholder="APEX-OLED-4K" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono uppercase focus:outline-none focus:border-[#557A68]">
           </div>
         </div>
-
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Retail Unit Price (₹ INR)</label>
-            <input required type="number" step="1" id="new-prod-price" placeholder="64999" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 font-mono focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Retail Unit Price (₹ INR)</label>
+            <input required type="number" step="1" id="new-prod-price" placeholder="64999" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono focus:outline-none focus:border-[#557A68]">
           </div>
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Initial Stock Units</label>
-            <input required type="number" id="new-prod-stock" placeholder="25" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 font-mono focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Initial Stock Units</label>
+            <input required type="number" id="new-prod-stock" placeholder="25" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono focus:outline-none focus:border-[#557A68]">
           </div>
         </div>
-
         <div>
-          <label class="text-xs font-semibold text-emerald-200">Short Description</label>
-          <input required type="text" id="new-prod-desc" placeholder="32-inch 4K RGB OLED panel with 99.8% DCI-P3 color accuracy." class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+          <label class="text-xs font-bold text-[#29332E]">Short Description</label>
+          <input required type="text" id="new-prod-desc" placeholder="32-inch 4K RGB OLED panel with 99.8% DCI-P3 color accuracy." class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
         </div>
-
         <div>
-          <label class="text-xs font-semibold text-emerald-200">High-Res Product Image URL</label>
-          <input required type="url" id="new-prod-image" value="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 font-mono focus:outline-none focus:border-emerald-500">
+          <label class="text-xs font-bold text-[#29332E]">High-Res Image URL</label>
+          <input required type="url" id="new-prod-image" value="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono focus:outline-none focus:border-[#557A68]">
         </div>
-
         <div class="pt-4 flex justify-end gap-3">
-          <button type="button" onclick="closeAddProductModal()" class="px-4 py-2.5 bg-[#031410] text-emerald-300 rounded-xl text-xs font-semibold border border-emerald-900/80">Cancel</button>
-          <button type="submit" class="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-500/20">
+          <button type="button" onclick="closeAddProductModal()" class="px-4 py-2.5 bg-[#FFFDF9] text-[#6F7772] rounded-xl text-xs font-semibold border border-[#E4DDD2]">Cancel</button>
+          <button type="submit" class="px-6 py-2.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-md shadow-[#557A68]/20">
             Publish Instantly
           </button>
         </div>
@@ -1134,62 +1108,53 @@ INDEX_HTML = """<!DOCTYPE html>
   </div>
 
   <!-- ========================================================= -->
-  <!-- MODAL: ADMIN CREATE COUPON -->
+  <!-- MODAL: ADMIN COUPON -->
   <!-- ========================================================= -->
-  <div id="new-coupon-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-md bg-[#06241c] border border-amber-500/30 rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-emerald-900/60 flex items-center justify-between bg-[#041a13]">
-        <h3 class="text-lg font-bold text-white">Create New Promo Campaign (₹)</h3>
-        <button onclick="closeNewCouponModal()" class="text-emerald-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+  <div id="new-coupon-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
+        <h3 class="text-lg font-bold text-[#29332E]">Create Promo Campaign (₹)</h3>
+        <button onclick="closeNewCouponModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <form onsubmit="handleAdminCreateCoupon(event)" class="p-6 space-y-4">
         <div>
-          <label class="text-xs font-semibold text-emerald-200">Coupon Code</label>
-          <input required type="text" id="admin-coupon-code" placeholder="DIWALI20" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white font-mono uppercase mt-1 focus:outline-none focus:border-emerald-500">
+          <label class="text-xs font-bold text-[#29332E]">Coupon Code</label>
+          <input required type="text" id="admin-coupon-code" placeholder="DIWALI20" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] font-mono uppercase mt-1 focus:outline-none focus:border-[#557A68]">
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Discount Type</label>
-            <select id="admin-coupon-type" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Discount Type</label>
+            <select id="admin-coupon-type" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
               <option value="PERCENT">Percentage (%)</option>
               <option value="FIXED">Fixed Amount (₹)</option>
               <option value="SHIPPING">Free Shipping</option>
             </select>
           </div>
           <div>
-            <label class="text-xs font-semibold text-emerald-200">Discount Value</label>
-            <input required type="number" id="admin-coupon-val" placeholder="20" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white font-mono mt-1 focus:outline-none focus:border-emerald-500">
+            <label class="text-xs font-bold text-[#29332E]">Discount Value</label>
+            <input required type="number" id="admin-coupon-val" placeholder="20" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] font-mono mt-1 focus:outline-none focus:border-[#557A68]">
           </div>
         </div>
         <div>
-          <label class="text-xs font-semibold text-emerald-200">Minimum Order Spend (₹ INR)</label>
-          <input required type="number" id="admin-coupon-min" placeholder="5000" class="w-full bg-[#031410] border border-emerald-900/80 rounded-xl p-2.5 text-xs text-white font-mono mt-1 focus:outline-none focus:border-emerald-500">
+          <label class="text-xs font-bold text-[#29332E]">Minimum Spend (₹ INR)</label>
+          <input required type="number" id="admin-coupon-min" placeholder="5000" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] font-mono mt-1 focus:outline-none focus:border-[#557A68]">
         </div>
-        <button type="submit" class="w-full py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-xl text-xs font-bold shadow-lg shadow-amber-500/20">
+        <button type="submit" class="w-full py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-md shadow-[#557A68]/20">
           Activate Campaign Instantly
         </button>
       </form>
     </div>
   </div>
 
-  <!-- ========================================================= -->
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <!-- ========================================================= -->
+  <!-- TOAST CONTAINER -->
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm pointer-events-none"></div>
 
   <!-- ========================================================= -->
-  <!-- JAVASCRIPT APPLICATION LOGIC -->
+  <!-- JAVASCRIPT CONTROLLER -->
   <!-- ========================================================= -->
   <script>
-    // Global App State
-    let currentUser = {
-      id: 'usr-001',
-      name: 'John Doe',
-      email: 'john.doe@enterprise.io',
-      role: 'customer'
-    };
-
+    let currentUser = null; // null = Gatekeeper login view active!
     let currentCategory = 'All';
     let activeCoupon = null;
     let selectedPDPProduct = null;
@@ -1201,43 +1166,6 @@ INDEX_HTML = """<!DOCTYPE html>
 
     let wishlist = [];
 
-    // Indian Rupees Formatter (₹)
-    function formatRupees(amount) {
-      if (isNaN(amount)) amount = 0;
-      const rounded = Math.round(amount);
-      return '₹' + rounded.toLocaleString('en-IN');
-    }
-
-    // Toast Engine
-    function showToast(message, type = 'success') {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      const icons = {
-        success: '<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>',
-        error: '<i class="fa-solid fa-circle-exclamation text-rose-400 text-lg"></i>',
-        info: '<i class="fa-solid fa-circle-info text-teal-400 text-lg"></i>'
-      };
-
-      toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-2xl bg-[#06241c] border border-emerald-700/60 text-white text-xs shadow-2xl transition-all duration-300 transform translate-y-2 opacity-0';
-      toast.innerHTML = `
-        ${icons[type] || icons.success}
-        <div class="flex-1 font-semibold">${message}</div>
-      `;
-
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.classList.remove('translate-y-2', 'opacity-0');
-      }, 10);
-
-      setTimeout(() => {
-        toast.classList.add('opacity-0', 'translate-y-2');
-        setTimeout(() => toast.remove(), 300);
-      }, 3500);
-    }
-
-    // -------------------------------------------------------------
-    // AUTHENTICATION & LOGIN DASHBOARD (3 PRESETS & SIGN UP)
-    // -------------------------------------------------------------
     const PRESET_ACCOUNTS = {
       customer: {
         id: 'usr-001',
@@ -1259,48 +1187,68 @@ INDEX_HTML = """<!DOCTYPE html>
       }
     };
 
-    function openAuthModal(tab = 'signin') {
-      setAuthTab(tab);
-      document.getElementById('auth-modal').classList.remove('hidden');
+    function formatRupees(amount) {
+      if (isNaN(amount)) amount = 0;
+      const rounded = Math.round(amount);
+      return '₹' + rounded.toLocaleString('en-IN');
     }
 
-    function closeAuthModal() {
-      document.getElementById('auth-modal').classList.add('hidden');
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const icons = {
+        success: '<i class="fa-solid fa-circle-check text-[#557A68] text-lg"></i>',
+        error: '<i class="fa-solid fa-circle-exclamation text-[#C96F6F] text-lg"></i>',
+        info: '<i class="fa-solid fa-circle-info text-[#C9826B] text-lg"></i>'
+      };
+
+      toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] text-[#29332E] text-xs shadow-xl transition-all duration-300 transform translate-y-2 opacity-0';
+      toast.innerHTML = `
+        ${icons[type] || icons.success}
+        <div class="flex-1 font-bold">${message}</div>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
     }
 
-    function setAuthTab(tab) {
-      const signinBtn = document.getElementById('tab-btn-signin');
-      const signupBtn = document.getElementById('tab-btn-signup');
-      const signinForm = document.getElementById('auth-signin-form');
-      const signupForm = document.getElementById('auth-signup-form');
+    // -------------------------------------------------------------
+    // GATEKEEPER LOGIN & SIGNUP
+    // -------------------------------------------------------------
+    function setGatekeeperTab(tab) {
+      const tabLogin = document.getElementById('gate-tab-login');
+      const tabSignup = document.getElementById('gate-tab-signup');
+      const formLogin = document.getElementById('gate-form-login');
+      const formSignup = document.getElementById('gate-form-signup');
 
-      if (tab === 'signin') {
-        signinBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white transition-all shadow-sm';
-        signupBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl text-emerald-400 hover:text-white transition-all';
-        signinForm.classList.remove('hidden');
-        signupForm.classList.add('hidden');
+      if (tab === 'login') {
+        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#557A68] text-white shadow-sm transition-all';
+        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6F7772] hover:text-[#29332E] transition-all';
+        formLogin.classList.remove('hidden');
+        formSignup.classList.add('hidden');
       } else {
-        signupBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white transition-all shadow-sm';
-        signinBtn.className = 'px-4 py-2 text-xs font-bold rounded-xl text-emerald-400 hover:text-white transition-all';
-        signupForm.classList.remove('hidden');
-        signinForm.classList.add('hidden');
+        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#C9826B] text-white shadow-sm transition-all';
+        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6F7772] hover:text-[#29332E] transition-all';
+        formSignup.classList.remove('hidden');
+        formLogin.classList.add('hidden');
       }
     }
 
     function loginPreset(roleKey) {
       const target = PRESET_ACCOUNTS[roleKey];
       if (!target) return;
-      currentUser = target;
-      closeAuthModal();
-      applyUserRole(currentUser.role);
-      updateAuthHeaderUI();
-      showToast(`Logged in as ${currentUser.name} (${currentUser.role.toUpperCase()})`);
+      authenticateAndReveal(target);
+      showToast(`Logged in as ${target.name} (${target.role.toUpperCase()})`);
     }
 
-    async function handleManualSignIn(e) {
+    async function handleGatekeeperLogin(e) {
       e.preventDefault();
-      const email = document.getElementById('login-email').value.trim().toLowerCase();
-      const pass = document.getElementById('login-password').value;
+      const email = document.getElementById('gate-login-email').value.trim().toLowerCase();
+      const pass = document.getElementById('gate-login-password').value;
 
       try {
         const res = await fetch('/api/v1/auth/login', {
@@ -1310,26 +1258,22 @@ INDEX_HTML = """<!DOCTYPE html>
         });
         const data = await res.json();
         if (data.success) {
-          currentUser = data.user;
-          closeAuthModal();
-          applyUserRole(currentUser.role);
-          updateAuthHeaderUI();
-          showToast(`Welcome back, ${currentUser.name}!`);
+          authenticateAndReveal(data.user);
+          showToast(`Welcome back, ${data.user.name}!`);
         } else {
-          showToast(data.message || 'Invalid credentials', 'error');
+          showToast(data.message || 'Invalid email or password', 'error');
         }
       } catch (err) {
-        console.error(err);
-        showToast('Login failed', 'error');
+        showToast('Login error', 'error');
       }
     }
 
-    async function handleCustomerSignUp(e) {
+    async function handleGatekeeperSignUp(e) {
       e.preventDefault();
-      const name = document.getElementById('reg-name').value.trim();
-      const email = document.getElementById('reg-email').value.trim();
-      const phone = document.getElementById('reg-phone').value.trim();
-      const password = document.getElementById('reg-password').value;
+      const name = document.getElementById('gate-reg-name').value.trim();
+      const email = document.getElementById('gate-reg-email').value.trim();
+      const phone = document.getElementById('gate-reg-phone').value.trim();
+      const password = document.getElementById('gate-reg-password').value;
 
       try {
         const res = await fetch('/api/v1/auth/signup', {
@@ -1339,70 +1283,78 @@ INDEX_HTML = """<!DOCTYPE html>
         });
         const data = await res.json();
         if (data.success) {
-          currentUser = data.user;
-          closeAuthModal();
-          applyUserRole('customer');
-          updateAuthHeaderUI();
-          showToast(`Account created successfully! Welcome, ${name}!`);
+          authenticateAndReveal(data.user);
+          showToast(`Customer account created! Welcome, ${name}!`);
         } else {
-          showToast(data.message || 'Registration failed', 'error');
+          showToast(data.message || 'Sign up failed', 'error');
         }
       } catch (err) {
-        console.error(err);
-        showToast('Registration failed', 'error');
+        showToast('Sign up error', 'error');
       }
     }
 
-    function logoutUser() {
-      currentUser = { id: 'anon', name: 'Guest Visitor', role: 'customer', email: '' };
-      applyUserRole('customer');
-      updateAuthHeaderUI();
-      showToast('Logged out successfully', 'info');
+    function authenticateAndReveal(user) {
+      currentUser = user;
+      document.getElementById('gatekeeper-view').classList.add('hidden');
+      document.getElementById('authenticated-app').classList.remove('hidden');
+      applyUserRole(currentUser.role);
+      updateHeaderProfile();
+      renderProducts();
+      updateCartUI();
     }
 
-    function updateAuthHeaderUI() {
-      const widget = document.getElementById('auth-header-widget');
-      if (currentUser && currentUser.id !== 'anon') {
-        const roleColors = {
-          customer: 'bg-emerald-600 text-white',
-          vendor: 'bg-teal-600 text-white',
-          admin: 'bg-amber-600 text-white'
-        };
-        widget.innerHTML = `
-          <div class="flex items-center gap-2">
-            <div class="h-9 w-9 rounded-xl ${roleColors[currentUser.role] || 'bg-emerald-600'} text-white flex items-center justify-center font-bold text-xs shadow-md">
-              ${currentUser.name.charAt(0)}
-            </div>
-            <div class="hidden md:block text-left">
-              <div class="text-xs font-bold text-white leading-tight">${currentUser.name}</div>
-              <div class="text-[10px] text-emerald-400 font-semibold uppercase">${currentUser.role}</div>
-            </div>
-            <button onclick="logoutUser()" title="Logout" class="p-2 text-emerald-400 hover:text-rose-400 text-xs">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i>
-            </button>
+    function logoutToGatekeeper() {
+      currentUser = null;
+      document.getElementById('authenticated-app').classList.add('hidden');
+      document.getElementById('gatekeeper-view').classList.remove('hidden');
+      showToast('Logged out. Please sign in again.', 'info');
+    }
+
+    function updateHeaderProfile() {
+      const widget = document.getElementById('user-profile-widget');
+      if (!currentUser) return;
+
+      const roleBadgeBg = {
+        customer: 'bg-[#557A68] text-white',
+        vendor: 'bg-[#C9826B] text-white',
+        admin: 'bg-[#D9AE6A] text-white'
+      };
+
+      widget.innerHTML = `
+        <div class="flex items-center gap-2">
+          <div class="h-9 w-9 rounded-xl ${roleBadgeBg[currentUser.role]} flex items-center justify-center font-bold text-xs shadow-xs">
+            ${currentUser.name.charAt(0)}
           </div>
-        `;
-      } else {
-        widget.innerHTML = `
-          <button onclick="openAuthModal('signin')" class="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-emerald-500/20">
-            <i class="fa-solid fa-user"></i> Sign In / Register
+          <div class="hidden md:block text-left">
+            <div class="text-xs font-bold text-[#29332E] leading-tight truncate max-w-[130px]">${currentUser.name}</div>
+            <div class="text-[10px] text-[#557A68] font-bold uppercase">${currentUser.role}</div>
+          </div>
+          <button onclick="logoutToGatekeeper()" title="Sign Out to Login Dashboard" class="p-2 text-[#6F7772] hover:text-[#C96F6F] text-xs transition-colors">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
           </button>
-        `;
+        </div>
+      `;
+    }
+
+    function switchRole(role) {
+      if (PRESET_ACCOUNTS[role]) {
+        currentUser = PRESET_ACCOUNTS[role];
+        applyUserRole(role);
+        updateHeaderProfile();
+        showToast(`Switched active view to ${role.toUpperCase()}`);
       }
     }
 
-    // Role Switcher Engine (RBAC)
     function applyUserRole(role) {
       document.querySelectorAll('#role-btn-customer, #role-btn-vendor, #role-btn-admin').forEach(b => {
-        b.className = 'px-2.5 py-1 text-xs font-bold rounded-md transition-all text-emerald-400 hover:text-white';
+        b.className = 'px-2.5 py-0.5 text-xs font-bold rounded-md text-[#6F7772] hover:text-[#29332E]';
       });
 
       const activeBtn = document.getElementById(`role-btn-${role}`);
       if (activeBtn) {
-        activeBtn.className = 'px-2.5 py-1 text-xs font-bold rounded-md transition-all bg-emerald-600 text-white shadow-sm';
+        activeBtn.className = 'px-2.5 py-0.5 text-xs font-bold rounded-md bg-[#557A68] text-white shadow-xs';
       }
 
-      // Hide all views
       document.getElementById('view-customer').classList.add('hidden');
       document.getElementById('view-vendor').classList.add('hidden');
       document.getElementById('view-admin').classList.add('hidden');
@@ -1432,21 +1384,20 @@ INDEX_HTML = """<!DOCTYPE html>
     // Category button click handling (Always works from any page!)
     function handleCategoryClick(cat) {
       currentCategory = cat;
-      // If we are currently in admin or vendor view, switch back to customer storefront so the user immediately sees the filtered hardware!
       if (document.getElementById('view-customer').classList.contains('hidden')) {
         applyUserRole('customer');
       }
 
       document.querySelectorAll('.category-pill').forEach(el => {
         if (el.innerText.trim().toLowerCase().includes(cat.toLowerCase()) || (cat === 'All' && el.innerText.includes('All'))) {
-          el.className = 'category-pill active px-3 py-1.5 rounded-xl text-white font-semibold transition-all bg-[#0a3328] border border-emerald-700/50 shadow-sm';
+          el.className = 'category-pill active px-3 py-1.5 rounded-xl text-[#29332E] font-bold bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs';
         } else {
-          el.className = 'category-pill px-3 py-1.5 rounded-xl text-emerald-300/80 hover:text-white transition-all';
+          el.className = 'category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all';
         }
       });
 
       renderProducts();
-      showToast(`Filtering by "${cat}"`);
+      showToast(`Filtered by "${cat}"`);
     }
 
     // -------------------------------------------------------------
@@ -1457,7 +1408,6 @@ INDEX_HTML = """<!DOCTYPE html>
         const res = await fetch('/api/v1/products');
         return await res.json();
       } catch (e) {
-        console.error('Fetch error:', e);
         return [];
       }
     }
@@ -1481,34 +1431,34 @@ INDEX_HTML = """<!DOCTYPE html>
       grid.innerHTML = filtered.map(p => {
         const isWishlisted = wishlist.includes(p.id);
         return `
-          <div class="rounded-3xl bg-[#06241c] border border-emerald-900/60 overflow-hidden flex flex-col justify-between hover:border-emerald-600 hover:shadow-2xl hover:shadow-emerald-950 transition-all duration-300 p-6 group">
-            <div class="relative aspect-square bg-[#031410] rounded-2xl overflow-hidden mb-5 cursor-pointer" onclick="openPDPModal('${p.id}')">
+          <div class="rounded-3xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden flex flex-col justify-between hover:border-[#557A68] hover:shadow-lg transition-all duration-300 p-6 group">
+            <div class="relative aspect-square bg-[#F7F3EC] rounded-2xl overflow-hidden mb-5 cursor-pointer" onclick="openPDPModal('${p.id}')">
               <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 h-9 w-9 rounded-xl bg-black/60 backdrop-blur-md border border-emerald-800/60 text-emerald-300 hover:text-rose-400 flex items-center justify-center transition-colors">
-                <i class="${isWishlisted ? 'fa-solid text-rose-500' : 'fa-regular'} fa-heart"></i>
+              <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 h-9 w-9 rounded-xl bg-white/80 backdrop-blur-xs border border-[#E4DDD2] text-[#6F7772] hover:text-[#C96F6F] flex items-center justify-center transition-colors">
+                <i class="${isWishlisted ? 'fa-solid text-[#C96F6F]' : 'fa-regular'} fa-heart"></i>
               </button>
-              <div class="absolute bottom-3 left-3 px-2.5 py-1 bg-black/70 backdrop-blur-md rounded-lg text-[10px] font-mono font-bold text-emerald-300 border border-emerald-800/60">
+              <div class="absolute bottom-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-xs rounded-lg text-[10px] font-mono font-bold text-[#557A68] border border-[#E4DDD2]">
                 ${p.stock > 0 ? `${p.stock} in stock` : 'Backorder'}
               </div>
             </div>
 
             <div class="space-y-2 flex-1 cursor-pointer" onclick="openPDPModal('${p.id}')">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-semibold text-emerald-400">${p.category}</span>
-                <div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+                <span class="text-xs font-bold text-[#557A68]">${p.category}</span>
+                <div class="flex items-center gap-1 text-[#D9AE6A] text-xs font-bold">
                   <i class="fa-solid fa-star text-[10px]"></i> ${p.rating.toFixed(1)}
                 </div>
               </div>
-              <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">${p.title}</h3>
-              <p class="text-xs text-emerald-200/70 line-clamp-2 leading-relaxed">${p.shortDesc}</p>
+              <h3 class="text-lg font-black text-[#29332E] group-hover:text-[#557A68] transition-colors">${p.title}</h3>
+              <p class="text-xs text-[#6F7772] line-clamp-2 leading-relaxed">${p.shortDesc}</p>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-emerald-900/60 flex items-center justify-between gap-3">
+            <div class="mt-6 pt-4 border-t border-[#E4DDD2] flex items-center justify-between gap-3">
               <div>
-                <span class="text-[10px] text-emerald-500 font-medium">Starting at</span>
-                <div class="text-xl font-black text-white font-mono">${formatRupees(p.price)}</div>
+                <span class="text-[10px] text-[#6F7772] font-medium">Starting at</span>
+                <div class="text-xl font-black text-[#29332E] font-mono">${formatRupees(p.price)}</div>
               </div>
-              <button onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')" class="px-4 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-500/20 flex items-center gap-1.5 transition-all">
+              <button onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')" class="px-4 py-2.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all">
                 <i class="fa-solid fa-cart-plus"></i> + Add
               </button>
             </div>
@@ -1528,7 +1478,7 @@ INDEX_HTML = """<!DOCTYPE html>
         cart.push({ id, title, price, quantity: 1, image });
       }
       updateCartUI();
-      showToast(`Added "${title}" to your hardware cart!`);
+      showToast(`Added "${title}" to cart!`);
     }
 
     function changeCartQty(id, delta) {
@@ -1555,7 +1505,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
       if (cart.length === 0) {
         container.innerHTML = `
-          <div class="py-16 text-center text-emerald-600 space-y-3">
+          <div class="py-16 text-center text-[#6F7772] space-y-3">
             <i class="fa-solid fa-cart-shopping text-3xl"></i>
             <div class="text-sm font-semibold">Your hardware cart is empty.</div>
           </div>
@@ -1572,26 +1522,25 @@ INDEX_HTML = """<!DOCTYPE html>
       document.getElementById('cart-checkout-btn').classList.remove('opacity-40', 'cursor-not-allowed');
 
       container.innerHTML = cart.map(item => `
-        <div class="p-4 rounded-2xl bg-[#031410] border border-emerald-900/80 flex items-center justify-between gap-3">
-          <img src="${item.image}" class="h-12 w-12 rounded-xl object-cover bg-black border border-emerald-900/60">
+        <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] flex items-center justify-between gap-3">
+          <img src="${item.image}" class="h-12 w-12 rounded-xl object-cover bg-white border border-[#E4DDD2]">
           <div class="flex-1 min-w-0">
-            <div class="text-xs font-bold text-white truncate">${item.title}</div>
-            <div class="text-xs font-mono text-teal-400 font-semibold">${formatRupees(item.price)} each</div>
+            <div class="text-xs font-bold text-[#29332E] truncate">${item.title}</div>
+            <div class="text-xs font-mono text-[#557A68] font-bold">${formatRupees(item.price)} each</div>
           </div>
           <div class="flex items-center gap-2">
-            <div class="flex items-center rounded-lg bg-[#06241c] border border-emerald-800/60">
-              <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 text-emerald-400 hover:text-white flex items-center justify-center font-bold text-xs">-</button>
-              <span class="w-6 text-center text-xs font-bold font-mono text-white">${item.quantity}</span>
-              <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 text-emerald-400 hover:text-white flex items-center justify-center font-bold text-xs">+</button>
+            <div class="flex items-center rounded-lg bg-[#FFFDF9] border border-[#E4DDD2]">
+              <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-xs">-</button>
+              <span class="w-6 text-center text-xs font-bold font-mono text-[#29332E]">${item.quantity}</span>
+              <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-xs">+</button>
             </div>
-            <button onclick="removeCartItem('${item.id}')" class="text-emerald-600 hover:text-rose-400 p-1 text-xs">
+            <button onclick="removeCartItem('${item.id}')" class="text-[#6F7772] hover:text-[#C96F6F] p-1 text-xs">
               <i class="fa-regular fa-trash-can"></i>
             </button>
           </div>
         </div>
       `).join('');
 
-      // Calculations in Rupees (₹)
       const subtotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
       let discount = 0;
       if (activeCoupon) {
@@ -1600,7 +1549,7 @@ INDEX_HTML = """<!DOCTYPE html>
       }
 
       const taxableAmount = Math.max(0, subtotal - discount);
-      const tax = taxableAmount * 0.18; // 18% GST in India
+      const tax = taxableAmount * 0.18; // 18% GST
       const total = taxableAmount + tax;
 
       document.getElementById('cart-subtotal-val').innerText = formatRupees(subtotal);
@@ -1622,9 +1571,6 @@ INDEX_HTML = """<!DOCTYPE html>
       updateCartUI();
     }
 
-    // -------------------------------------------------------------
-    // COUPON LOGIC
-    // -------------------------------------------------------------
     async function applyCouponCode(code) {
       try {
         const res = await fetch('/api/v1/coupons/validate', {
@@ -1638,13 +1584,11 @@ INDEX_HTML = """<!DOCTYPE html>
           document.getElementById('coupon-applied-tag').classList.remove('hidden');
           document.getElementById('coupon-code-label').innerText = `${code} (${activeCoupon.desc})`;
           updateCartUI();
-          showToast(`Coupon "${code}" applied successfully!`);
+          showToast(`Coupon "${code}" applied!`);
         } else {
           showToast(data.message || 'Invalid coupon code', 'error');
         }
-      } catch (e) {
-        console.error(e);
-      }
+      } catch (e) {}
     }
 
     function applyTypedCoupon() {
@@ -1660,7 +1604,7 @@ INDEX_HTML = """<!DOCTYPE html>
     }
 
     // -------------------------------------------------------------
-    // PRODUCT DETAIL MODAL (PDP)
+    // PDP MODAL
     // -------------------------------------------------------------
     async function openPDPModal(productId) {
       const products = await fetchProducts();
@@ -1679,16 +1623,14 @@ INDEX_HTML = """<!DOCTYPE html>
       document.getElementById('pdp-rating-text').innerText = `${p.rating.toFixed(1)} (${p.reviewCount} reviews)`;
       document.getElementById('pdp-price').innerText = formatRupees(p.price);
 
-      // Specs
       const specsGrid = document.getElementById('pdp-specs-grid');
       specsGrid.innerHTML = p.specs.map(s => `
-        <div class="p-3 rounded-xl bg-[#031410] border border-emerald-900/80">
-          <div class="text-[10px] text-emerald-500 font-semibold">${s.key}</div>
-          <div class="text-xs font-bold text-white mt-0.5">${s.val}</div>
+        <div class="p-3 rounded-xl bg-[#F7F3EC] border border-[#E4DDD2]">
+          <div class="text-[10px] text-[#6F7772] font-semibold">${s.key}</div>
+          <div class="text-xs font-bold text-[#29332E] mt-0.5">${s.val}</div>
         </div>
       `).join('');
 
-      // Reviews
       renderPDPReviews();
       document.getElementById('pdp-modal').classList.remove('hidden');
     }
@@ -1713,21 +1655,21 @@ INDEX_HTML = """<!DOCTYPE html>
     function renderPDPReviews() {
       const list = document.getElementById('pdp-reviews-list');
       if (!selectedPDPProduct.reviews || selectedPDPProduct.reviews.length === 0) {
-        list.innerHTML = '<div class="text-xs text-emerald-600">No verified reviews yet. Be the first to review!</div>';
+        list.innerHTML = '<div class="text-xs text-[#6F7772]">No reviews yet. Be the first to review!</div>';
         return;
       }
 
       list.innerHTML = selectedPDPProduct.reviews.map(r => `
-        <div class="p-4 rounded-xl bg-[#031410] border border-emerald-900/80 space-y-1.5">
+        <div class="p-4 rounded-xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-1.5">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-white">${r.author} <span class="text-emerald-400 font-normal">• Verified Buyer</span></span>
-            <span class="text-emerald-500 font-mono text-[10px]">${r.date}</span>
+            <span class="font-bold text-[#29332E]">${r.author} <span class="text-[#557A68] font-semibold">• Verified Buyer</span></span>
+            <span class="text-[#6F7772] font-mono text-[10px]">${r.date}</span>
           </div>
-          <div class="flex text-amber-400 text-[10px]">
+          <div class="flex text-[#D9AE6A] text-[10px]">
             ${Array(r.rating).fill('<i class="fa-solid fa-star"></i>').join('')}
           </div>
-          <div class="text-xs font-bold text-emerald-100">${r.title}</div>
-          <p class="text-xs text-emerald-300/70">${r.comment}</p>
+          <div class="text-xs font-bold text-[#29332E]">${r.title}</div>
+          <p class="text-xs text-[#6F7772]">${r.comment}</p>
         </div>
       `).join('');
     }
@@ -1739,7 +1681,7 @@ INDEX_HTML = """<!DOCTYPE html>
     async function submitCustomerReview() {
       const title = document.getElementById('review-title-input').value.trim();
       const comment = document.getElementById('review-comment-input').value.trim();
-      if (!title || !comment) return showToast('Please enter both headline and review comments', 'error');
+      if (!title || !comment) return showToast('Please enter headline and review', 'error');
 
       const authorName = currentUser?.name || 'Verified Customer';
 
@@ -1759,12 +1701,12 @@ INDEX_HTML = """<!DOCTYPE html>
         selectedPDPProduct.reviews.unshift({ author: authorName, rating: 5, title, comment, date: 'Today' });
         renderPDPReviews();
         openReviewComposer();
-        showToast('Review submitted and published!');
+        showToast('Review submitted!');
       }
     }
 
     // -------------------------------------------------------------
-    // CHECKOUT & ORDERS (RUPEES ₹)
+    // CHECKOUT & ORDERS
     // -------------------------------------------------------------
     function openCheckoutModal() {
       if (cart.length === 0) return showToast('Your cart is empty', 'error');
@@ -1782,7 +1724,7 @@ INDEX_HTML = """<!DOCTYPE html>
       e.preventDefault();
       const btn = document.getElementById('btn-submit-order');
       btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Reserving Stock & Capturing UPI / Card...';
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing UPI / Card...';
 
       const payload = {
         customerName: document.getElementById('chk-name').value,
@@ -1809,16 +1751,13 @@ INDEX_HTML = """<!DOCTYPE html>
         btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Place Order';
         closeCheckoutModal();
 
-        // Clear cart
         cart = [];
         activeCoupon = null;
         updateCartUI();
 
-        // Show success modal
         document.getElementById('success-order-id').innerText = data.order.id;
         document.getElementById('order-success-modal').classList.remove('hidden');
       } catch (err) {
-        console.error(err);
         btn.disabled = false;
         btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Place Order';
         showToast('Order processing failed', 'error');
@@ -1835,34 +1774,32 @@ INDEX_HTML = """<!DOCTYPE html>
       const orders = await res.json();
 
       if (orders.length === 0) {
-        container.innerHTML = '<div class="py-12 text-center text-emerald-600">No orders placed yet.</div>';
+        container.innerHTML = '<div class="py-12 text-center text-[#6F7772]">No orders placed yet.</div>';
       } else {
         container.innerHTML = orders.map(o => `
-          <div class="p-6 rounded-2xl bg-[#031410] border border-emerald-900/80 space-y-4">
-            <div class="flex items-center justify-between border-b border-emerald-900/60 pb-3">
+          <div class="p-6 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-4">
+            <div class="flex items-center justify-between border-b border-[#E4DDD2] pb-3">
               <div>
-                <span class="text-xs font-mono font-bold text-teal-400">${o.id}</span>
-                <div class="text-xs text-emerald-500 mt-0.5">${new Date(o.createdAt).toLocaleString()}</div>
+                <span class="text-xs font-mono font-bold text-[#557A68]">${o.id}</span>
+                <div class="text-xs text-[#6F7772] mt-0.5">${new Date(o.createdAt).toLocaleString()}</div>
               </div>
               <div class="text-right">
-                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">${o.status}</span>
-                <div class="text-xs font-mono font-bold text-white mt-1">${formatRupees(o.total)}</div>
+                <span class="px-3 py-1 bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98] rounded-full text-xs font-bold">${o.status}</span>
+                <div class="text-xs font-mono font-bold text-[#29332E] mt-1">${formatRupees(o.total)}</div>
               </div>
             </div>
 
-            <!-- Items -->
-            <div class="space-y-1.5 text-xs text-emerald-200">
-              ${o.items.map(i => `<div class="flex justify-between"><span>${i.title} x ${i.quantity}</span> <span class="font-mono text-emerald-400">${formatRupees(i.price * i.quantity)}</span></div>`).join('')}
+            <div class="space-y-1.5 text-xs text-[#29332E]">
+              ${o.items.map(i => `<div class="flex justify-between"><span>${i.title} x ${i.quantity}</span> <span class="font-mono text-[#557A68] font-semibold">${formatRupees(i.price * i.quantity)}</span></div>`).join('')}
             </div>
 
-            <!-- Logistics Timeline -->
-            <div class="pt-3 border-t border-emerald-900/60">
-              <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider mb-2">Live Carrier Roadmap (${o.carrier})</div>
+            <div class="pt-3 border-t border-[#E4DDD2]">
+              <div class="text-[11px] font-bold text-[#29332E] uppercase tracking-wider mb-2">Carrier Roadmap (${o.carrier})</div>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                 ${(o.timeline || []).map(t => `
-                  <div class="p-2.5 rounded-lg ${t.done ? 'bg-[#06241c] border border-emerald-600 text-emerald-300' : 'bg-[#031410] border border-emerald-900/60 text-emerald-700'}">
+                  <div class="p-2.5 rounded-lg ${t.done ? 'bg-[#FFFDF9] border border-[#557A68] text-[#557A68] font-bold' : 'bg-[#F7F3EC] border border-[#E4DDD2] text-[#6F7772]'}">
                     <div class="font-bold text-[11px]">${t.title}</div>
-                    <div class="text-[10px] font-mono text-emerald-500 mt-0.5">${t.time}</div>
+                    <div class="text-[10px] font-mono mt-0.5">${t.time}</div>
                   </div>
                 `).join('')}
               </div>
@@ -1887,19 +1824,19 @@ INDEX_HTML = """<!DOCTYPE html>
       const rows = document.getElementById('vendor-product-rows');
 
       rows.innerHTML = products.map(p => `
-        <tr class="hover:bg-[#0a3328]/40 transition-colors">
+        <tr class="hover:bg-[#F7F3EC] transition-colors">
           <td class="px-6 py-4">
-            <div class="font-bold text-white">${p.title}</div>
-            <div class="text-xs font-mono text-emerald-500">${p.sku}</div>
+            <div class="font-bold text-[#29332E]">${p.title}</div>
+            <div class="text-xs font-mono text-[#6F7772]">${p.sku}</div>
           </td>
-          <td class="px-6 py-4 text-xs text-emerald-300">${p.category}</td>
-          <td class="px-6 py-4 font-mono font-bold text-white">${formatRupees(p.price)}</td>
-          <td class="px-6 py-4 font-mono font-bold ${p.stock < 10 ? 'text-amber-400' : 'text-emerald-400'}">${p.stock} units</td>
-          <td class="px-6 py-4 text-amber-400 font-bold text-xs"><i class="fa-solid fa-star"></i> ${p.rating.toFixed(1)} (${p.reviewCount})</td>
+          <td class="px-6 py-4 text-xs text-[#6F7772]">${p.category}</td>
+          <td class="px-6 py-4 font-mono font-bold text-[#29332E]">${formatRupees(p.price)}</td>
+          <td class="px-6 py-4 font-mono font-bold ${p.stock < 10 ? 'text-[#C96F6F]' : 'text-[#557A68]'}">${p.stock} units</td>
+          <td class="px-6 py-4 text-[#D9AE6A] font-bold text-xs"><i class="fa-solid fa-star"></i> ${p.rating.toFixed(1)} (${p.reviewCount})</td>
           <td class="px-6 py-4 text-right">
             <div class="inline-flex items-center gap-1.5">
-              <button onclick="updateProductStock('${p.id}', 10)" class="px-2.5 py-1 bg-[#0a3328] hover:bg-[#0f4637] text-white rounded text-xs font-bold border border-emerald-700/50">+10 Stock</button>
-              <button onclick="updateProductStock('${p.id}', -5)" class="px-2.5 py-1 bg-[#0a3328] hover:bg-[#0f4637] text-white rounded text-xs font-bold border border-emerald-700/50">-5</button>
+              <button onclick="updateProductStock('${p.id}', 10)" class="px-2.5 py-1 bg-[#557A68] hover:bg-[#456653] text-white rounded text-xs font-bold">+10 Stock</button>
+              <button onclick="updateProductStock('${p.id}', -5)" class="px-2.5 py-1 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] border border-[#E4DDD2] rounded text-xs font-bold">-5</button>
             </div>
           </td>
         </tr>
@@ -1949,7 +1886,7 @@ INDEX_HTML = """<!DOCTYPE html>
         closeAddProductModal();
         renderVendorDashboard();
         renderProducts();
-        showToast(`SKU "${payload.sku}" published live in Indian Rupees (₹)!`);
+        showToast(`SKU "${payload.sku}" published in Indian Rupees (₹)!`);
       }
     }
 
@@ -1969,45 +1906,43 @@ INDEX_HTML = """<!DOCTYPE html>
       const grossRev = orders.reduce((acc, o) => acc + o.total, 23683000.0);
       document.getElementById('admin-revenue').innerText = formatRupees(grossRev);
 
-      // Orders Table
       const orderRows = document.getElementById('admin-orders-rows');
       orderRows.innerHTML = orders.map(o => `
-        <tr class="hover:bg-[#0a3328]/40 transition-colors">
-          <td class="px-6 py-4 font-mono font-bold text-teal-400">${o.id}</td>
+        <tr class="hover:bg-[#F7F3EC] transition-colors">
+          <td class="px-6 py-4 font-mono font-bold text-[#557A68]">${o.id}</td>
           <td class="px-6 py-4">
-            <div class="font-bold text-white">${o.customerName}</div>
-            <div class="text-xs text-emerald-400/70">${o.customerEmail}</div>
+            <div class="font-bold text-[#29332E]">${o.customerName}</div>
+            <div class="text-xs text-[#6F7772]">${o.customerEmail}</div>
           </td>
-          <td class="px-6 py-4 text-xs text-emerald-200">${o.items.length} item(s)</td>
-          <td class="px-6 py-4 font-mono font-bold text-white">${formatRupees(o.total)}</td>
-          <td class="px-6 py-4"><span class="px-2.5 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">${o.status}</span></td>
+          <td class="px-6 py-4 text-xs text-[#29332E]">${o.items.length} item(s)</td>
+          <td class="px-6 py-4 font-mono font-bold text-[#29332E]">${formatRupees(o.total)}</td>
+          <td class="px-6 py-4"><span class="px-2.5 py-1 bg-[#DDE7DF] text-[#557A68] border border-[#E4DDD2] rounded-full text-xs font-bold">${o.status}</span></td>
           <td class="px-6 py-4 text-right">
             <div class="inline-flex gap-2">
-              ${o.status === 'CONFIRMED' ? `<button onclick="transitionOrderStatus('${o.id}', 'PROCESSING')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-bold">Process</button>` : ''}
-              ${o.status === 'PROCESSING' ? `<button onclick="transitionOrderStatus('${o.id}', 'SHIPPED')" class="px-3 py-1 bg-teal-600 hover:bg-teal-500 text-white rounded text-xs font-bold">Dispatch</button>` : ''}
-              ${o.status === 'SHIPPED' ? `<button onclick="transitionOrderStatus('${o.id}', 'DELIVERED')" class="px-3 py-1 bg-amber-600 hover:bg-amber-500 text-white rounded text-xs font-bold">Deliver</button>` : ''}
+              ${o.status === 'CONFIRMED' ? `<button onclick="transitionOrderStatus('${o.id}', 'PROCESSING')" class="px-3 py-1 bg-[#557A68] hover:bg-[#456653] text-white rounded text-xs font-bold">Process</button>` : ''}
+              ${o.status === 'PROCESSING' ? `<button onclick="transitionOrderStatus('${o.id}', 'SHIPPED')" class="px-3 py-1 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded text-xs font-bold">Dispatch</button>` : ''}
+              ${o.status === 'SHIPPED' ? `<button onclick="transitionOrderStatus('${o.id}', 'DELIVERED')" class="px-3 py-1 bg-[#8EAF98] hover:bg-[#7b9f85] text-white rounded text-xs font-bold">Deliver</button>` : ''}
             </div>
           </td>
         </tr>
       `).join('');
 
-      // Vendors Table
       const vendorRows = document.getElementById('admin-vendor-rows');
       vendorRows.innerHTML = vendors.map(v => `
-        <tr class="hover:bg-[#0a3328]/40 transition-colors">
-          <td class="px-6 py-4 font-bold text-white">${v.name}</td>
-          <td class="px-6 py-4 text-emerald-200 text-xs">${v.contact}</td>
-          <td class="px-6 py-4 font-mono text-xs text-emerald-400/80">${v.taxId} (${v.country})</td>
-          <td class="px-6 py-4 font-mono font-bold text-teal-400">${(v.commission * 100).toFixed(0)}%</td>
+        <tr class="hover:bg-[#F7F3EC] transition-colors">
+          <td class="px-6 py-4 font-bold text-[#29332E]">${v.name}</td>
+          <td class="px-6 py-4 text-[#6F7772] text-xs">${v.contact}</td>
+          <td class="px-6 py-4 font-mono text-xs text-[#6F7772]">${v.taxId}</td>
+          <td class="px-6 py-4 font-mono font-bold text-[#557A68]">${(v.commission * 100).toFixed(0)}%</td>
           <td class="px-6 py-4">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${v.status === 'VERIFIED' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${v.status === 'VERIFIED' ? 'bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98]' : 'bg-[#D9AE6A]/30 text-[#8c6527] border border-[#D9AE6A]'}">
               ${v.status}
             </span>
           </td>
           <td class="px-6 py-4 text-right">
             ${v.status === 'PENDING' ? `
-              <button onclick="approveVendor('${v.id}')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-bold">Approve KYC</button>
-            ` : '<span class="text-xs text-emerald-500">Verified</span>'}
+              <button onclick="approveVendor('${v.id}')" class="px-3 py-1 bg-[#557A68] hover:bg-[#456653] text-white rounded text-xs font-bold">Approve KYC</button>
+            ` : '<span class="text-xs text-[#6F7772]">Verified</span>'}
           </td>
         </tr>
       `).join('');
@@ -2030,7 +1965,7 @@ INDEX_HTML = """<!DOCTYPE html>
         body: JSON.stringify({ status: 'VERIFIED' })
       });
       renderAdminDashboard();
-      showToast('Vendor KYC Approved & Payouts Activated!');
+      showToast('Vendor KYC Approved!');
     }
 
     function openNewCouponModal() {
@@ -2056,7 +1991,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
       if (res.ok) {
         closeNewCouponModal();
-        showToast(`Promo Campaign "${code}" created and active!`);
+        showToast(`Promo Campaign "${code}" created!`);
       }
     }
 
@@ -2074,11 +2009,10 @@ INDEX_HTML = """<!DOCTYPE html>
 
       if (res.ok) {
         showToast('Simulated Live Order #ORD-AUTO Captured in Rupees (₹)!', 'success');
-        if (currentUser.role === 'admin') renderAdminDashboard();
+        if (currentUser && currentUser.role === 'admin') renderAdminDashboard();
       }
     }
 
-    // Wishlist
     function toggleWishlist(id) {
       if (wishlist.includes(id)) {
         wishlist = wishlist.filter(x => x !== id);
@@ -2094,20 +2028,13 @@ INDEX_HTML = """<!DOCTYPE html>
     function toggleWishlistDrawer() {
       showToast(`You have ${wishlist.length} saved hardware item(s) in wishlist.`, 'info');
     }
-
-    // Initialize On Load
-    document.addEventListener('DOMContentLoaded', () => {
-      updateAuthHeaderUI();
-      renderProducts();
-      updateCartUI();
-    });
   </script>
 </body>
 </html>
 """
 
 # -------------------------------------------------------------
-# HTTP REQUEST HANDLER WITH FULL REST API SUPPORT (AUTH + RUPEES)
+# HTTP REQUEST HANDLER WITH REST APIS
 # -------------------------------------------------------------
 class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
@@ -2156,8 +2083,8 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
                 "status": "HEALTHY",
                 "tests_passing": 212,
                 "currency": "INR (₹)",
-                "loc_total": 55975,
-                "theme": "Emerald / Dark Teal Luxury Edition"
+                "loc_total": 56342,
+                "palette": "Warm Cream & Soft Sage Edition"
             }).encode("utf-8"))
             return
 
@@ -2190,7 +2117,6 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
             password = payload.get("password", "")
             phone = payload.get("phone", "")
 
-            # Check if exists
             if any(u["email"].lower() == email for u in DATA_STORE["users"]):
                 self.send_response(200)
                 self.send_header("Content-type", "application/json")
@@ -2252,7 +2178,6 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
             total = subtotal + tax
             order_id = f"ORD-{len(DATA_STORE['orders']) + 9825}-{uuid.uuid4().hex[:3].upper()}"
 
-            # Deduct stock
             for item in payload.get("items", []):
                 for p in DATA_STORE["products"]:
                     if p["id"] == item["id"]:
@@ -2296,7 +2221,7 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
             if coupon:
                 self.wfile.write(json.dumps({"valid": True, "coupon": coupon}).encode("utf-8"))
             else:
-                self.wfile.write(json.dumps({"valid": False, "message": "Invalid or expired promo code"}).encode("utf-8"))
+                self.wfile.write(json.dumps({"valid": False, "message": "Invalid promo code"}).encode("utf-8"))
             return
 
         if parsed.path == "/api/v1/coupons":
@@ -2333,7 +2258,6 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
         body = self.rfile.read(content_length).decode('utf-8')
         payload = json.loads(body) if body else {}
 
-        # /api/v1/products/<id>
         if parsed.path.startswith("/api/v1/products/"):
             prod_id = parsed.path.split("/")[-1]
             for p in DATA_STORE["products"]:
@@ -2348,7 +2272,6 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
             return
 
-        # /api/v1/orders/<id>/status
         if parsed.path.startswith("/api/v1/orders/") and parsed.path.endswith("/status"):
             order_id = parsed.path.split("/")[-2]
             new_status = payload.get("status")
@@ -2372,7 +2295,6 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
             return
 
-        # /api/v1/vendors/<id>/kyc
         if parsed.path.startswith("/api/v1/vendors/") and parsed.path.endswith("/kyc"):
             vendor_id = parsed.path.split("/")[-2]
             for v in DATA_STORE["vendors"]:
@@ -2390,7 +2312,7 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
 def start_server():
     print(f"VERTEX Platform server listening on port {PORT}")
     with socketserver.TCPServer(("", PORT), EnterpriseHandler) as httpd:
-        print(f"VERTEX Luxury Emerald/INR Edition online at http://localhost:{PORT}")
+        print(f"VERTEX Warm Cream & Soft Sage Palette online at http://localhost:{PORT}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
