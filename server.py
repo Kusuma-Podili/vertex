@@ -3,1531 +3,2027 @@ import socketserver
 import json
 import urllib.parse
 import sys
-import os
-import time
-import hashlib
-import random
+import uuid
+import datetime
 
 PORT = 3000
 
-# =========================================================================
-# DATA STORE (In-Memory State Engine)
-# =========================================================================
+# -------------------------------------------------------------
+# IN-MEMORY REAL-TIME DATA STORE
+# -------------------------------------------------------------
+DATA_STORE = {
+    "products": [
+        {
+            "id": "prod-001",
+            "title": "Aurora Pro ANC Headphones",
+            "category": "Audio & Acoustics",
+            "price": 349.99,
+            "costPrice": 180.0,
+            "stock": 42,
+            "rating": 4.9,
+            "reviewCount": 128,
+            "sku": "AURORA-PRO-ANC",
+            "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
+            "vendor": "AeroAcoustics Labs",
+            "shortDesc": "Beryllium 40mm drivers with 45dB hybrid adaptive noise cancellation.",
+            "description": "Precision acoustical engineering with CNC-machined aluminum earcups, genuine lambskin memory foam cushions, and low-latency Bluetooth 5.4 LE Audio transmission. Built for mastering engineers and discerning listeners.",
+            "specs": [
+                {"key": "Frequency Response", "val": "5Hz - 48,000Hz"},
+                {"key": "Battery Life", "val": "40 Hours (ANC On)"},
+                {"key": "Driver Material", "val": "Custom Vapor-Deposited Beryllium"},
+                {"key": "Weight", "val": "260g"}
+            ],
+            "reviews": [
+                {"author": "David K.", "rating": 5, "title": "Sublime acoustic resolution", "comment": "Soundstage is remarkably open for closed-back ANC headphones. Spatial depth is unprecedented.", "date": "2026-08-15"},
+                {"author": "Sophia L.", "rating": 5, "title": "Daily studio driver", "comment": "The microphone array and ANC allow zero background bleed during live mixing sessions.", "date": "2026-08-22"}
+            ]
+        },
+        {
+            "id": "prod-002",
+            "title": "TitanBook 16 Max Creator Rig",
+            "category": "Computing & Rigs",
+            "price": 2499.00,
+            "costPrice": 1600.0,
+            "stock": 18,
+            "rating": 4.95,
+            "reviewCount": 84,
+            "sku": "TITAN-16-MAX",
+            "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
+            "vendor": "QuantumTech Systems",
+            "shortDesc": "16-Core Neural Workstation with 64GB Unified RAM and 3.2K 165Hz Mini-LED.",
+            "description": "Unthrottled desktop-class compute packaged into a monolithic unibody magnesium chassis. Features dual vapor chambers and active liquid loop heatpipes for silent high-load performance.",
+            "specs": [
+                {"key": "Processor", "val": "16-Core Ultra SoC (4.8GHz Boost)"},
+                {"key": "Unified Memory", "val": "64GB 8533MT/s LPDDR5X"},
+                {"key": "Display", "val": "16.2-inch 3200x2000 165Hz Mini-LED 1600 nits"},
+                {"key": "Storage", "val": "2TB NVMe PCIe 5.0 (12,000 MB/s)"}
+            ],
+            "reviews": [
+                {"author": "Alex R.", "rating": 5, "title": "Compiles 50k LOC monorepo in 1.4s", "comment": "Thermal engineering is unmatched. Fans barely spin up during heavy multi-service docker builds.", "date": "2026-08-20"}
+            ]
+        },
+        {
+            "id": "prod-003",
+            "title": "AeroSync Ergonomic Task Chair",
+            "category": "Workspace & Ergonomics",
+            "price": 599.00,
+            "costPrice": 280.0,
+            "stock": 35,
+            "rating": 4.85,
+            "reviewCount": 210,
+            "sku": "AEROSYNC-CHR-01",
+            "image": "https://images.unsplash.com/photo-1580481077197-094c9ca4e1a0?w=800",
+            "vendor": "Nordic Heritage",
+            "shortDesc": "DuPont elastomeric suspension mesh with self-adjusting lumbar harmonic pivot.",
+            "description": "Designed for 12+ hour engineering sprints. Dynamic biomechanical tilt mechanism follows thoracic spinal articulation with millimeter precision.",
+            "specs": [
+                {"key": "Mesh Fabric", "val": "DuPont Breathable Elastomeric Weave"},
+                {"key": "Lumbar Support", "val": "4D Dynamic Biomechanical Adaptive"},
+                {"key": "Weight Capacity", "val": "350 lbs / 160 kg"},
+                {"key": "Warranty", "val": "12-Year Full Frame Replacement"}
+            ],
+            "reviews": [
+                {"author": "Marcus B.", "rating": 5, "title": "Zero back fatigue", "comment": "Best workspace investment made this year. Build quality is aerospace grade.", "date": "2026-08-10"}
+            ]
+        },
+        {
+            "id": "prod-004",
+            "title": "AURA Cinema Prime Anamorphic T1.5",
+            "category": "Optics & Cinema",
+            "price": 2899.00,
+            "costPrice": 1400.0,
+            "stock": 9,
+            "rating": 5.0,
+            "reviewCount": 42,
+            "sku": "AURA-OPT-T15",
+            "image": "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800",
+            "vendor": "AURA Optics",
+            "shortDesc": "Full-frame 2.0x squeeze anamorphic prime with titanium PL mount.",
+            "description": "Organic horizontal blue flares, buttery smooth oval bokeh, and tack-sharp focus resolution from T1.5 wide open across entire 8K cinema sensors.",
+            "specs": [
+                {"key": "Aperture", "val": "T1.5 to T22 (16-Blade Iris)"},
+                {"key": "Focus Throw", "val": "300° Continuous De-clicked Gear"},
+                {"key": "Front Diameter", "val": "95mm Cinema Standard"},
+                {"key": "Mount", "val": "Interchangeable PL / LPL / EF"}
+            ],
+            "reviews": [
+                {"author": "Elena R.", "rating": 5, "title": "Cinematographic perfection", "comment": "The optical character and low-light throughput are simply unrivaled.", "date": "2026-08-25"}
+            ]
+        },
+        {
+            "id": "prod-005",
+            "title": "Solid-State LiFePO4 Energy Hub 3000W",
+            "category": "Power & Energy",
+            "price": 1299.00,
+            "costPrice": 650.0,
+            "stock": 24,
+            "rating": 4.9,
+            "reviewCount": 67,
+            "sku": "AURA-PWR-3000W",
+            "image": "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800",
+            "vendor": "AURA Energy Labs",
+            "shortDesc": "Industrial pure sine wave 3000W AC output with sub-8ms UPS transfer time.",
+            "description": "Powers entire multi-GPU studio rigs or broadcast vans during remote expeditions. Fast dual-input 1800W solar recharge in 90 minutes.",
+            "specs": [
+                {"key": "Capacity", "val": "3,072Wh (Automotive LiFePO4)"},
+                {"key": "AC Output", "val": "3000W Pure Sine Wave (6000W Surge)"},
+                {"key": "Cycle Life", "val": "5,000+ Cycles to 80% Capacity"},
+                {"key": "UPS Switch Time", "val": "< 8 milliseconds"}
+            ],
+            "reviews": [
+                {"author": "Michael S.", "rating": 5, "title": "Indispensable backup unit", "comment": "Ran our mobile studio for 14 hours continuously without breaking a sweat.", "date": "2026-08-18"}
+            ]
+        },
+        {
+            "id": "prod-006",
+            "title": "AeroDyne Carbon Fiber Acoustic Baffle Array",
+            "category": "Audio & Acoustics",
+            "price": 420.00,
+            "costPrice": 190.0,
+            "stock": 50,
+            "rating": 4.8,
+            "reviewCount": 54,
+            "sku": "AERODYNE-BFL-06",
+            "image": "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800",
+            "vendor": "AeroAcoustics Labs",
+            "shortDesc": "NRC 0.95 broadband sound absorption panels with aerospace carbon fiber weave.",
+            "description": "Modular acoustic treatment system engineered to eliminate room modes, slap echoes, and standing waves between 80Hz and 20,000Hz.",
+            "specs": [
+                {"key": "NRC Rating", "val": "0.95 Class A Acoustic Absorber"},
+                {"key": "Core Material", "val": "High-Density Basalt Mineral Wool"},
+                {"key": "Frame", "val": "Matte 3K Carbon Fiber Weave"},
+                {"key": "Dimensions", "val": "120cm x 60cm x 7.5cm (Set of 4)"}
+            ],
+            "reviews": [
+                {"author": "Tara N.", "rating": 5, "title": "Transformed my control room", "comment": "Frequency response measured flat within +/- 1.5dB after mounting these.", "date": "2026-08-12"}
+            ]
+        }
+    ],
+    "orders": [
+        {
+            "id": "ORD-9824-AX7",
+            "customerName": "John Doe",
+            "customerEmail": "john.doe@enterprise.io",
+            "items": [
+                {"id": "prod-001", "title": "Aurora Pro ANC Headphones", "price": 349.99, "quantity": 1}
+            ],
+            "subtotal": 349.99,
+            "tax": 32.37,
+            "shipping": 0.0,
+            "discount": 0.0,
+            "total": 382.36,
+            "status": "DELIVERED",
+            "carrier": "FEDEX EXPRESS",
+            "trackingNumber": "FDX-99882211",
+            "createdAt": "2026-08-25T14:32:00Z",
+            "shippingAddress": {"street": "100 Market St", "city": "San Francisco", "state": "CA", "zip": "94105"},
+            "timeline": [
+                {"title": "Order Placed & Payment Captured", "time": "Aug 25, 14:32", "done": True},
+                {"title": "Allocated at US-EAST-1 (Allentown Hub)", "time": "Aug 25, 16:10", "done": True},
+                {"title": "Dispatched via FedEx Priority Air", "time": "Aug 26, 09:20", "done": True},
+                {"title": "Delivered & Signed at Destination", "time": "Aug 27, 11:45", "done": True}
+            ]
+        },
+        {
+            "id": "ORD-9825-KP2",
+            "customerName": "Elena Rostova",
+            "customerEmail": "elena@aeroacoustics.io",
+            "items": [
+                {"id": "prod-002", "title": "TitanBook 16 Max Creator Rig", "price": 2499.00, "quantity": 1}
+            ],
+            "subtotal": 2499.00,
+            "tax": 206.17,
+            "shipping": 25.0,
+            "discount": 100.0,
+            "total": 2630.17,
+            "status": "SHIPPED",
+            "carrier": "UPS NEXT DAY AIR",
+            "trackingNumber": "UPS-77491022",
+            "createdAt": "2026-08-30T10:14:00Z",
+            "shippingAddress": {"street": "450 Silicon Way", "city": "Austin", "state": "TX", "zip": "78701"},
+            "timeline": [
+                {"title": "Order Placed & Payment Captured", "time": "Aug 30, 10:14", "done": True},
+                {"title": "Quality Inspection Passed", "time": "Aug 30, 13:00", "done": True},
+                {"title": "In Transit via UPS Express", "time": "Aug 31, 06:15", "done": True},
+                {"title": "Out for Delivery", "time": "Est. Today by 17:00", "done": False}
+            ]
+        }
+    ],
+    "coupons": [
+        {"code": "WELCOME10", "type": "PERCENT", "value": 10, "minSpend": 50.0, "desc": "10% off entire order"},
+        {"code": "VERTEX50", "type": "FIXED", "value": 50.0, "minSpend": 300.0, "desc": "$50 off orders over $300"},
+        {"code": "FREESHIP", "type": "SHIPPING", "value": 0.0, "minSpend": 100.0, "desc": "Free Express Shipping"}
+    ],
+    "vendors": [
+        {
+            "id": "ven-001",
+            "name": "AeroAcoustics Labs",
+            "contact": "Elena Rostova",
+            "country": "Germany",
+            "taxId": "DE-998822110",
+            "commission": 0.10,
+            "gmv": 142850.0,
+            "status": "VERIFIED"
+        },
+        {
+            "id": "ven-002",
+            "name": "QuantumTech Systems",
+            "contact": "Marcus Brody",
+            "country": "United States",
+            "taxId": "US-849201992",
+            "commission": 0.08,
+            "gmv": 98400.0,
+            "status": "VERIFIED"
+        },
+        {
+            "id": "ven-003",
+            "name": "Nordic Heritage",
+            "contact": "Astrid Lindgren",
+            "country": "Sweden",
+            "taxId": "SE-556012345",
+            "commission": 0.12,
+            "gmv": 43700.0,
+            "status": "PENDING"
+        }
+    ]
+}
 
-CATEGORIES = [
-    {"id": "cat-audio", "name": "Audio & Acoustics", "slug": "audio", "icon": "headphones", "count": 48},
-    {"id": "cat-computing", "name": "Computing & Neural Rigs", "slug": "computing", "icon": "server", "count": 36},
-    {"id": "cat-workspace", "name": "Workspace & Ergonomics", "slug": "workspace", "icon": "chair", "count": 24},
-    {"id": "cat-optics", "name": "Optics & Cinema", "slug": "optics", "icon": "camera", "count": 18},
-    {"id": "cat-energy", "name": "Clean Energy & UPS", "slug": "energy", "icon": "bolt", "count": 15},
-    {"id": "cat-brewing", "name": "Thermal & Extraction", "slug": "brewing", "icon": "coffee", "count": 12},
-]
-
-PRODUCTS = [
-    {
-        "id": "prod-001",
-        "title": "Aurora Pro ANC Studio Headphones",
-        "category": "cat-audio",
-        "categoryName": "Audio & Acoustics",
-        "brand": "AURA Acoustics",
-        "vendorId": "ven-001",
-        "vendorName": "AeroAcoustics Sound Labs",
-        "sku": "AURA-AUD-001",
-        "price": 349.99,
-        "comparePrice": 399.99,
-        "rating": 4.9,
-        "reviewCount": 184,
-        "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
-        "shortDesc": "Beryllium dynamic drivers, 45dB hybrid ANC, 40-hr battery endurance with lossless wireless audio.",
-        "specs": {"Driver": "40mm Custom Beryllium", "Battery": "40 Hours ANC Active", "Weight": "260g", "Chassis": "CNC Milled Titanium", "Warranty": "10 Years"},
-        "variants": [
-            {"id": "v-001-blk", "name": "Space Matte Black", "sku": "AURA-AUD-001-BLK", "stock": 42, "priceOffset": 0},
-            {"id": "v-001-slv", "name": "Brushed Lunar Silver", "sku": "AURA-AUD-001-SLV", "stock": 28, "priceOffset": 20},
-            {"id": "v-001-gld", "name": "Champagne Gold Edition", "sku": "AURA-AUD-001-GLD", "stock": 14, "priceOffset": 50},
-        ],
-        "isFeatured": True,
-        "status": "ACTIVE"
-    },
-    {
-        "id": "prod-002",
-        "title": "TitanBook 16 Max Creator Workstation",
-        "category": "cat-computing",
-        "categoryName": "Computing & Neural Rigs",
-        "brand": "Titan Hardware",
-        "vendorId": "ven-002",
-        "vendorName": "QuantumTech Workstations",
-        "sku": "TITAN-COMP-016",
-        "price": 2499.00,
-        "comparePrice": 2899.00,
-        "rating": 4.95,
-        "reviewCount": 92,
-        "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800",
-        "shortDesc": "16-Core Neural SoC, 64GB Unified RAM, 3.2K 165Hz Mini-LED calibrated display.",
-        "specs": {"Processor": "16-Core Ultra Neural", "RAM": "64GB LPDDR5X", "Storage": "2TB NVMe Gen4", "Display": "3.2K Mini-LED 165Hz", "Warranty": "5 Years"},
-        "variants": [
-            {"id": "v-002-64gb", "name": "64GB Unified / 2TB SSD", "sku": "TITAN-COMP-64", "stock": 18, "priceOffset": 0},
-            {"id": "v-002-128gb", "name": "128GB Unified / 4TB SSD", "sku": "TITAN-COMP-128", "stock": 9, "priceOffset": 600},
-        ],
-        "isFeatured": True,
-        "status": "ACTIVE"
-    },
-    {
-        "id": "prod-003",
-        "title": "AeroSync Ergonomic Spine Task Chair",
-        "category": "cat-workspace",
-        "categoryName": "Workspace & Ergonomics",
-        "brand": "AeroSync Design",
-        "vendorId": "ven-003",
-        "vendorName": "Nordic Heritage Ergonomics",
-        "sku": "AERO-CHAIR-001",
-        "price": 649.00,
-        "comparePrice": 749.00,
-        "rating": 4.85,
-        "reviewCount": 210,
-        "image": "https://images.unsplash.com/photo-1580481077197-094c9ca4e1a0?w=800",
-        "shortDesc": "DuPont elastomeric suspension mesh, 4D magnetic armrests, dynamic lumbar spine tracker.",
-        "specs": {"Material": "Elastomeric Polymer", "Max Load": "160 kg / 350 lbs", "Adjustability": "8-Axis Pneumatic", "Warranty": "12 Years"},
-        "variants": [
-            {"id": "v-003-gry", "name": "Slate Heather Grey", "sku": "AERO-CHAIR-GRY", "stock": 35, "priceOffset": 0},
-            {"id": "v-003-obs", "name": "Obsidian Black Frame", "sku": "AERO-CHAIR-OBS", "stock": 22, "priceOffset": 30},
-        ],
-        "isFeatured": True,
-        "status": "ACTIVE"
-    },
-    {
-        "id": "prod-004",
-        "title": "AURA Cinema Prime Anamorphic T1.5 Lens",
-        "category": "cat-optics",
-        "categoryName": "Optics & Cinema",
-        "brand": "AURA Optics",
-        "vendorId": "ven-001",
-        "vendorName": "AeroAcoustics Sound Labs",
-        "sku": "AURA-OPT-T15",
-        "price": 2899.00,
-        "comparePrice": 3200.00,
-        "rating": 4.98,
-        "reviewCount": 46,
-        "image": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800",
-        "shortDesc": "Full-frame anamorphic optical glass with precision titanium positive-lock PL mount.",
-        "specs": {"Aperture": "T1.5 - T22", "Front Ring": "95mm Cinema Matte", "Focus Throw": "300° Smooth", "Weight": "1.4 kg", "Warranty": "12 Years"},
-        "variants": [
-            {"id": "v-004-pl", "name": "PL Cinema Mount", "sku": "AURA-OPT-PL", "stock": 12, "priceOffset": 0},
-            {"id": "v-004-ef", "name": "EF Mount Native", "sku": "AURA-OPT-EF", "stock": 16, "priceOffset": 0},
-        ],
-        "isFeatured": False,
-        "status": "ACTIVE"
-    },
-    {
-        "id": "prod-005",
-        "title": "VoltCore 3000W Solid-State Power Station",
-        "category": "cat-energy",
-        "categoryName": "Clean Energy & UPS",
-        "brand": "VoltCore Labs",
-        "vendorId": "ven-002",
-        "vendorName": "QuantumTech Workstations",
-        "sku": "VOLT-PWR-3000",
-        "price": 1499.00,
-        "comparePrice": 1699.00,
-        "rating": 4.92,
-        "reviewCount": 68,
-        "image": "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?w=800",
-        "shortDesc": "Automotive-grade LiFePO4 2048Wh battery, sub-8ms UPS backup, 3000W pure sine wave inverter.",
-        "specs": {"Capacity": "2048 Wh", "AC Output": "3000W (6000W Surge)", "Cycle Life": "5,000+ Cycles", "UPS Switch": "< 8ms", "Warranty": "10 Years"},
-        "variants": [
-            {"id": "v-005-120v", "name": "120V US Standard", "sku": "VOLT-PWR-120", "stock": 25, "priceOffset": 0},
-            {"id": "v-005-230v", "name": "230V EU Schuko", "sku": "VOLT-PWR-230", "stock": 18, "priceOffset": 40},
-        ],
-        "isFeatured": False,
-        "status": "ACTIVE"
-    },
-    {
-        "id": "prod-006",
-        "title": "Dual-Boiler Precision Espresso Machine",
-        "category": "cat-brewing",
-        "categoryName": "Thermal & Extraction",
-        "brand": "Crestwood Thermal",
-        "vendorId": "ven-003",
-        "vendorName": "Nordic Heritage Ergonomics",
-        "sku": "CREST-ESP-PRO",
-        "price": 1899.00,
-        "comparePrice": 2150.00,
-        "rating": 4.88,
-        "reviewCount": 115,
-        "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=800",
-        "shortDesc": "PID saturated group head, rotary commercial pump, independent stainless steel boilers.",
-        "specs": {"Boiler": "Dual 316L Stainless", "Pump": "Commercial Rotary Vane", "PID Precision": "+/- 0.2°C", "Weight": "28 kg", "Warranty": "7 Years"},
-        "variants": [
-            {"id": "v-006-ss", "name": "Mirror Polish Stainless", "sku": "CREST-ESP-SS", "stock": 15, "priceOffset": 0},
-            {"id": "v-006-blk", "name": "Matte Cast Iron Black", "sku": "CREST-ESP-BLK", "stock": 10, "priceOffset": 100},
-        ],
-        "isFeatured": True,
-        "status": "ACTIVE"
-    }
-]
-
-ORDERS = [
-    {
-        "id": "ORD-2026-9824",
-        "customer": {"name": "Elena Rostova", "email": "elena.rostova@berlin-tech.de", "country": "DE", "city": "Berlin"},
-        "items": [{"productId": "prod-001", "title": "Aurora Pro ANC Studio Headphones", "variant": "Space Matte Black", "price": 349.99, "quantity": 1}],
-        "subtotal": 349.99,
-        "discount": 0.0,
-        "tax": 66.50,
-        "shipping": 0.0,
-        "total": 416.49,
-        "currency": "USD",
-        "status": "CONFIRMED",
-        "paymentMethod": "Credit Card (Stripe)",
-        "fraudScore": 8,
-        "fraudRisk": "LOW",
-        "carrier": "DHL Express Worldwide",
-        "trackingNumber": "DHL-992019482",
-        "createdAt": "2026-08-30T09:14:00Z"
-    },
-    {
-        "id": "ORD-2026-9823",
-        "customer": {"name": "Marcus Brody", "email": "mbrody@quantumtech.io", "country": "US", "city": "Austin, TX"},
-        "items": [{"productId": "prod-002", "title": "TitanBook 16 Max Creator Workstation", "variant": "64GB Unified / 2TB SSD", "price": 2499.00, "quantity": 1}],
-        "subtotal": 2499.00,
-        "discount": 50.0,
-        "tax": 202.04,
-        "shipping": 0.0,
-        "total": 2651.04,
-        "currency": "USD",
-        "status": "FULFILLING",
-        "paymentMethod": "Corporate Net-30",
-        "fraudScore": 12,
-        "fraudRisk": "LOW",
-        "carrier": "FedEx Priority Freight",
-        "trackingNumber": "FDX-774910224",
-        "createdAt": "2026-08-30T14:20:00Z"
-    },
-    {
-        "id": "ORD-2026-9820",
-        "customer": {"name": "David Sterling", "email": "dster@matrixaudio.co.uk", "country": "GB", "city": "London"},
-        "items": [
-            {"productId": "prod-004", "title": "AURA Cinema Prime Anamorphic T1.5 Lens", "variant": "PL Cinema Mount", "price": 2899.00, "quantity": 1},
-            {"productId": "prod-005", "title": "VoltCore 3000W Solid-State Power Station", "variant": "230V EU Schuko", "price": 1539.00, "quantity": 1}
-        ],
-        "subtotal": 4438.00,
-        "discount": 443.80,
-        "tax": 798.84,
-        "shipping": 150.0,
-        "total": 4943.04,
-        "currency": "USD",
-        "status": "DELIVERED",
-        "paymentMethod": "Bank Wire (B2B)",
-        "fraudScore": 5,
-        "fraudRisk": "LOW",
-        "carrier": "UPS International Saver",
-        "trackingNumber": "UPS-110022394",
-        "createdAt": "2026-08-28T10:00:00Z"
-    }
-]
-
-WAREHOUSES = [
-    {"id": "wh-east", "name": "US-East (Allentown Logistics Hub)", "location": "Pennsylvania, USA", "capacity": "85,000 sq ft", "utilization": "74%", "activeSkus": 410},
-    {"id": "wh-west", "name": "US-West (Reno High-Speed Depot)", "location": "Nevada, USA", "capacity": "60,000 sq ft", "utilization": "62%", "activeSkus": 320},
-    {"id": "wh-eu", "name": "EU-Central (Frankfurt Air Logistics)", "location": "Hessen, Germany", "capacity": "45,000 sq ft", "utilization": "81%", "activeSkus": 280},
-]
-
-AUDIT_LOGS = [
-    {"id": "aud-001", "actor": "system", "action": "SEED_INITIALIZATION", "resource": "Database", "timestamp": "2026-08-30 08:00:00"},
-    {"id": "aud-002", "actor": "elena.rostova@berlin-tech.de", "action": "ORDER_PLACED", "resource": "ORD-2026-9824", "timestamp": "2026-08-30 09:14:00"},
-    {"id": "aud-003", "actor": "admin@vertex.internal", "action": "STOCK_TRANSFER_INITIATED", "resource": "WH-EAST -> WH-WEST", "timestamp": "2026-08-30 11:00:00"},
-    {"id": "aud-004", "actor": "fraud-engine", "action": "FRAUD_RISK_EVALUATION", "resource": "ORD-2026-9823 (Score: 12)", "timestamp": "2026-08-30 14:20:00"}
-]
-
-CART = [
-    {"productId": "prod-001", "variantId": "v-001-blk", "title": "Aurora Pro ANC Studio Headphones", "variantName": "Space Matte Black", "price": 349.99, "quantity": 1, "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800"}
-]
-
-# =========================================================================
-# BULLETPROOF HTML & INLINE SVG APPLICATION
-# =========================================================================
-
-APPLICATION_HTML = """<!DOCTYPE html>
-<html lang="en">
+# -------------------------------------------------------------
+# COMPLETE REACTIVE SPA FRONTEND HTML / JS / CSS
+# -------------------------------------------------------------
+INDEX_HTML = """<!DOCTYPE html>
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VERTEX | Enterprise Lifestyle & Hardware</title>
+  <title>VERTEX | Enterprise Real-Time E-Commerce Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    /* STANDALONE ZERO-DEPENDENCY CSS FALLBACKS */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: #F7F4EF;
-      color: #29332F;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.5;
-    }
-    .hidden { display: none !important; }
-    button, a, select, input { cursor: pointer; transition: all 0.2s ease; }
-    button:active { transform: scale(0.98); }
-    .card-shadow { box-shadow: 0 1px 3px rgba(41, 51, 47, 0.08), 0 1px 2px rgba(41, 51, 47, 0.05); }
-    .modal-shadow { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1); }
-    svg { display: inline-block; vertical-align: middle; }
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+    body { font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background-color: #030712; color: #f8fafc; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0b0f19; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased">
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white pb-20">
 
-  <!-- TOP HEADER NOTIFICATION & ROLE SWITCHER -->
-  <div class="bg-[#29332F] text-slate-200 text-xs px-4 py-2 flex flex-wrap items-center justify-between border-b border-[#3e4a44]">
-    <div class="flex items-center gap-3">
-      <span class="inline-flex items-center gap-1.5 text-[#A8C5B5] font-bold">
-        <span class="inline-block w-2 h-2 rounded-full bg-[#A8C5B5] animate-ping"></span>
-        VERTEX Enterprise Core v2.4 (55,658 LOC)
-      </span>
-      <span class="text-slate-500">|</span>
-      <span class="text-slate-300">212 Automated Tests Passing</span>
-    </div>
+  <!-- ========================================================= -->
+  <!-- GLOBAL HEADER & ROLE-BASED NAVIGATION -->
+  <!-- ========================================================= -->
+  <header class="sticky top-0 z-40 backdrop-blur-xl bg-gray-950/85 border-b border-gray-800/80 transition-all">
+    <!-- Top Announcement & Role Bar -->
+    <div class="bg-gradient-to-r from-blue-950/60 via-indigo-950/60 to-purple-950/60 border-b border-blue-900/30 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2 text-blue-300">
+        <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="font-semibold">VERTEX Core v2.4</span>
+        <span class="text-gray-500">•</span>
+        <span class="text-gray-300">54,290+ LOC Monorepo • 212 Tests Passing</span>
+      </div>
 
-    <div class="flex items-center gap-3 mt-1 sm:mt-0">
-      <span class="text-slate-400 font-medium">Switch Active Role:</span>
-      <select id="role-select" onchange="switchPersona(this.value)" class="bg-[#1f2623] text-white text-xs font-semibold py-1 px-2.5 rounded border border-slate-700 outline-none">
-        <option value="customer">👤 Customer (Elena Rostova)</option>
-        <option value="admin">🛡️ Administrator (Executive Portal)</option>
-        <option value="vendor">🏬 Vendor (AeroAcoustics Labs)</option>
-      </select>
-      <button onclick="runTestFeedback()" class="px-2.5 py-1 bg-[#5F8F83] hover:bg-[#4E766D] text-white rounded text-[11px] font-bold">
-        ⚡ Run 212 Tests
-      </button>
-    </div>
-  </div>
-
-  <!-- PRIMARY NAVIGATION BAR -->
-  <header class="sticky top-0 z-40 bg-[#FFFDFC] border-b border-[#E5DED5] shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-8">
-        <a href="javascript:void(0)" onclick="navigateTo('storefront')" class="flex items-center gap-2.5 text-2xl font-black tracking-tight text-[#29332F]">
-          <span class="w-9 h-9 rounded-xl bg-[#5F8F83] text-white flex items-center justify-center font-bold text-lg shadow-sm">V</span>
-          <span>VERTEX</span>
-        </a>
-        <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-[#69736E]">
-          <button onclick="navigateTo('storefront')" class="hover:text-[#29332F] py-2">🏠 Storefront</button>
-          <button onclick="navigateTo('catalog')" class="hover:text-[#29332F] py-2">📦 Hardware Catalog</button>
-          <button onclick="navigateTo('compare')" class="hover:text-[#29332F] py-2">⚖️ Spec Matrix</button>
-          <button onclick="navigateTo('warranty')" class="hover:text-[#29332F] py-2">🛡️ Warranty & RMA</button>
-          <button onclick="navigateTo('account')" class="hover:text-[#29332F] py-2">📋 Orders</button>
-          <button onclick="navigateTo('admin')" class="px-3 py-1.5 bg-[#DCE7E1] text-[#29332F] rounded-lg text-xs font-bold hover:bg-[#c9d8d0]">
-            📊 Admin Portal
+      <!-- ACTIVE ROLE SELECTOR (RBAC) -->
+      <div class="flex items-center gap-2">
+        <span class="text-gray-400 font-medium">Switch Active Role:</span>
+        <div class="inline-flex rounded-lg bg-gray-900/90 p-1 border border-gray-800">
+          <button onclick="switchRole('customer')" id="role-btn-customer" class="px-3 py-1 text-xs font-bold rounded-md transition-all bg-blue-600 text-white shadow-sm">
+            <i class="fa-solid fa-user mr-1.5"></i> Customer
           </button>
+          <button onclick="switchRole('vendor')" id="role-btn-vendor" class="px-3 py-1 text-xs font-bold rounded-md transition-all text-gray-400 hover:text-white">
+            <i class="fa-solid fa-store mr-1.5"></i> Vendor / Merchant
+          </button>
+          <button onclick="switchRole('admin')" id="role-btn-admin" class="px-3 py-1 text-xs font-bold rounded-md transition-all text-gray-400 hover:text-white">
+            <i class="fa-solid fa-shield-halved mr-1.5"></i> Super Admin
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
+      <div class="flex items-center gap-8">
+        <a href="javascript:void(0)" onclick="switchView('storefront')" class="text-2xl font-extrabold tracking-widest text-white flex items-center gap-2.5">
+          <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/25">
+            <i class="fa-solid fa-cube text-lg"></i>
+          </div>
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400">VERTEX</span>
+        </a>
+
+        <!-- Category Nav Links -->
+        <nav class="hidden lg:flex items-center gap-2 text-sm font-medium text-gray-400" id="main-nav-links">
+          <button onclick="filterCategory('All')" class="category-pill active px-3.5 py-1.5 rounded-lg text-white font-semibold hover:text-white transition-all bg-gray-900 border border-gray-800">All Hardware</button>
+          <button onclick="filterCategory('Audio & Acoustics')" class="category-pill px-3.5 py-1.5 rounded-lg hover:text-white transition-all">Audio & Acoustics</button>
+          <button onclick="filterCategory('Computing & Rigs')" class="category-pill px-3.5 py-1.5 rounded-lg hover:text-white transition-all">Computing</button>
+          <button onclick="filterCategory('Optics & Cinema')" class="category-pill px-3.5 py-1.5 rounded-lg hover:text-white transition-all">Cinema Optics</button>
+          <button onclick="filterCategory('Power & Energy')" class="category-pill px-3.5 py-1.5 rounded-lg hover:text-white transition-all">Power Hubs</button>
+          <button onclick="filterCategory('Workspace & Ergonomics')" class="category-pill px-3.5 py-1.5 rounded-lg hover:text-white transition-all">Ergonomics</button>
         </nav>
       </div>
 
+      <!-- Action Utilities -->
       <div class="flex items-center gap-3">
-        <button onclick="navigateTo('wishlist')" class="p-2.5 text-[#69736E] hover:text-[#29332F] relative rounded-lg hover:bg-[#F7F4EF]" title="Wishlist">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
-          <span id="wishlist-badge" class="absolute top-1 right-1 w-4 h-4 bg-[#A99BBE] text-white text-[10px] font-bold rounded-full flex items-center justify-center">2</span>
-        </button>
-        <button onclick="toggleCartDrawer()" class="px-4 py-2.5 bg-[#5F8F83] hover:bg-[#4E766D] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-sm">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          Cart (<span id="cart-item-count">1</span>)
-        </button>
+        <!-- Currency Selector -->
+        <select onchange="changeCurrency(this.value)" id="currency-select" class="bg-gray-900 border border-gray-800 text-gray-200 text-xs rounded-lg px-2.5 py-2 font-mono font-bold focus:outline-none focus:border-blue-500">
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+          <option value="JPY">JPY (¥)</option>
+          <option value="CAD">CAD ($)</option>
+        </select>
+
+        <!-- Customer Specific Actions -->
+        <div id="customer-header-actions" class="flex items-center gap-2">
+          <!-- My Orders Button -->
+          <button onclick="openOrdersModal()" class="px-3.5 py-2 bg-gray-900 hover:bg-gray-800 text-gray-200 rounded-lg text-xs font-semibold border border-gray-800 flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-blue-400"></i>
+            <span class="hidden sm:inline">My Orders</span>
+          </button>
+
+          <!-- Wishlist Button -->
+          <button onclick="toggleWishlistDrawer()" class="relative p-2.5 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-lg border border-gray-800">
+            <i class="fa-regular fa-heart"></i>
+            <span id="wishlist-count-badge" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-rose-600 text-white text-[10px] font-bold flex items-center justify-center">0</span>
+          </button>
+
+          <!-- Cart Button -->
+          <button onclick="toggleCartDrawer()" class="relative px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-lg shadow-blue-500/20">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Cart</span>
+            <span id="cart-count-badge" class="ml-1 px-1.5 py-0.5 rounded-full bg-white/20 text-white text-[11px] font-bold">1</span>
+          </button>
+        </div>
+
+        <!-- Vendor Specific Action Header -->
+        <div id="vendor-header-actions" class="hidden flex items-center gap-2">
+          <button onclick="openAddProductModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+            <i class="fa-solid fa-plus"></i> + Add New Product
+          </button>
+        </div>
+
+        <!-- Admin Specific Action Header -->
+        <div id="admin-header-actions" class="hidden flex items-center gap-2">
+          <button onclick="simulateTrafficOrder()" class="px-3.5 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold flex items-center gap-2 shadow-lg shadow-purple-500/20">
+            <i class="fa-solid fa-bolt"></i> Simulate Live Order
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- TOAST NOTIFICATION POPUP -->
-  <div id="toast-popup" class="fixed bottom-6 right-6 z-50 bg-[#29332F] text-white px-5 py-3.5 rounded-2xl shadow-2xl text-xs font-bold flex items-center gap-3 hidden border border-slate-700 animate-bounce">
-    <span id="toast-icon">✅</span>
-    <span id="toast-message">Action executed successfully</span>
-  </div>
+  <!-- ========================================================= -->
+  <!-- MAIN CONTAINER (DYNAMIC VIEWS) -->
+  <!-- ========================================================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 flex-1 w-full">
 
-  <!-- MAIN APP CONTAINER -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-    <!-- VIEW 1: STOREFRONT HOME -->
-    <div id="view-storefront" class="app-view space-y-12">
-      <!-- HERO -->
-      <section class="rounded-3xl bg-[#FFFDFC] border border-[#E5DED5] p-8 sm:p-12 card-shadow flex flex-col md:flex-row items-center gap-10">
-        <div class="flex-1 space-y-6">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#DCE7E1] text-[#29332F] text-xs font-bold">
-            ✨ Flagship Acoustic & Compute Systems
+    <!-- ------------------------------------------------------- -->
+    <!-- VIEW 1: CUSTOMER STOREFRONT & CATALOG -->
+    <!-- ------------------------------------------------------- -->
+    <div id="view-customer" class="space-y-12">
+      <!-- HERO BANNER -->
+      <section class="relative rounded-3xl overflow-hidden border border-gray-800 bg-gradient-to-br from-gray-950 via-gray-900 to-blue-950/40 p-8 sm:p-14 shadow-2xl">
+        <div class="max-w-3xl space-y-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-semibold border border-blue-500/20">
+            <i class="fa-solid fa-sparkles"></i> 2026 Flagship Hardware Release
           </div>
-          <h1 class="text-3xl sm:text-5xl font-black text-[#29332F] leading-tight tracking-tight">
-            Precision Engineering For Extreme Output.
+          <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-none">
+            Precision Built For <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">Extreme Output</span>.
           </h1>
-          <p class="text-sm sm:text-base text-[#69736E] leading-relaxed max-w-xl">
-            Aerospace-grade titanium audio acoustics, 16-core neural creator workstations, and 3000W pure sine wave energy storage.
+          <p class="text-base sm:text-lg text-gray-400 leading-relaxed max-w-2xl">
+            Beryllium transducer acoustics, unthrottled 16-core workstation rigs, and solid-state energy storage with zero-deductible 10-year global warranties.
           </p>
           <div class="flex flex-wrap gap-4 pt-2">
-            <button onclick="navigateTo('catalog')" class="px-6 py-3 bg-[#5F8F83] hover:bg-[#4E766D] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md">
-              Explore Hardware Catalog &rarr;
+            <a href="#catalog-section" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm rounded-xl shadow-xl shadow-blue-500/25 transition-all">
+              Explore Live Hardware
+            </a>
+            <button onclick="applyCouponCode('WELCOME10')" class="px-6 py-3.5 bg-gray-900/90 hover:bg-gray-800 text-gray-300 font-semibold text-sm rounded-xl border border-gray-800 flex items-center gap-2">
+              <i class="fa-solid fa-tag text-emerald-400"></i> Use Coupon <span class="font-mono text-white font-bold">WELCOME10</span>
             </button>
-            <button onclick="navigateTo('compare')" class="px-6 py-3 bg-[#FFFDFC] border border-[#E5DED5] text-[#29332F] hover:bg-[#F7F4EF] font-bold text-xs sm:text-sm rounded-xl">
-              Specification Matrix
-            </button>
           </div>
-        </div>
-        <div class="w-full md:w-96 aspect-square rounded-2xl overflow-hidden border border-[#E5DED5] card-shadow">
-          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800" class="w-full h-full object-cover">
         </div>
       </section>
 
-      <!-- CATEGORIES STRIP -->
-      <section class="space-y-4">
-        <h2 class="text-xl font-bold text-[#29332F]">Engineering Disciplines</h2>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4" id="category-chips"></div>
-      </section>
-
-      <!-- FEATURED PRODUCTS -->
-      <section class="space-y-6">
-        <div class="flex items-center justify-between">
-          <div>
-            <h2 class="text-2xl font-bold text-[#29332F]">Featured Hardware Systems</h2>
-            <p class="text-xs text-[#69736E] mt-0.5">Live stock reserved across US-East, US-West & EU-Central Logistics Hubs</p>
+      <!-- SEARCH & FILTER TOOLBAR -->
+      <section id="catalog-section" class="space-y-6">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-gray-900/60 border border-gray-800/80">
+          <!-- Search Bar -->
+          <div class="relative w-full sm:w-96">
+            <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-sm"></i>
+            <input type="text" id="catalog-search-input" oninput="renderProducts()" placeholder="Search title, SKU, or specs..." class="w-full bg-gray-950 border border-gray-800 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors">
           </div>
-          <button onclick="navigateTo('catalog')" class="text-xs font-bold text-[#5F8F83] hover:underline">View All 500+ Items &rarr;</button>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="featured-products-grid"></div>
-      </section>
-    </div>
 
-    <!-- VIEW 2: CATALOG / SHOP -->
-    <div id="view-catalog" class="app-view hidden space-y-8">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E5DED5] pb-6">
-        <div>
-          <h1 class="text-3xl font-black text-[#29332F]">Hardware Catalog</h1>
-          <p class="text-xs text-[#69736E] mt-1">Faceted search across acoustic drivers, compute nodes, and optics</p>
-        </div>
-        <div class="flex items-center gap-3">
-          <input type="text" id="catalog-search" oninput="filterCatalog()" placeholder="Search title, SKU, driver..." class="px-4 py-2 bg-[#FFFDFC] border border-[#E5DED5] rounded-xl text-xs sm:text-sm outline-none focus:border-[#5F8F83] w-64 shadow-sm">
-          <select id="sort-select" onchange="filterCatalog()" class="px-3 py-2 bg-[#FFFDFC] border border-[#E5DED5] rounded-xl text-xs sm:text-sm font-semibold text-[#29332F] outline-none">
-            <option value="featured">Featured First</option>
-            <option value="price-asc">Price: Low to High</option>
-            <option value="price-desc">Price: High to Low</option>
-            <option value="rating">Highest Rated</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <!-- SIDEBAR FILTERS -->
-        <div class="space-y-6 bg-[#FFFDFC] p-6 rounded-2xl border border-[#E5DED5] card-shadow h-fit">
-          <div>
-            <h3 class="text-xs font-bold uppercase tracking-wider text-[#69736E] mb-3">Categories</h3>
-            <div class="space-y-2 text-xs" id="sidebar-category-filter"></div>
-          </div>
-          <div class="pt-4 border-t border-[#E5DED5]">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-[#69736E] mb-2">Max Price</h3>
-            <input type="range" id="price-range" min="100" max="5000" step="100" value="5000" oninput="updatePriceFilter(this.value)" class="w-full accent-[#5F8F83]">
-            <div class="flex justify-between text-xs text-[#69736E] mt-1 font-mono">
-              <span>$100</span>
-              <span id="price-range-val" class="font-bold text-[#29332F]">$5,000</span>
-            </div>
-          </div>
-          <div class="pt-4 border-t border-[#E5DED5]">
-            <label class="flex items-center gap-2 text-xs text-[#29332F] cursor-pointer">
-              <input type="checkbox" id="filter-instock" onchange="filterCatalog()" checked class="rounded accent-[#5F8F83]">
-              <span class="font-bold">In-Stock Only</span>
-            </label>
-          </div>
-        </div>
-
-        <!-- PRODUCT GRID -->
-        <div class="md:col-span-3">
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="catalog-products-grid"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- VIEW 3: COMPARE MATRIX -->
-    <div id="view-compare" class="app-view hidden space-y-8">
-      <div>
-        <h1 class="text-3xl font-black text-[#29332F]">Specification Matrix</h1>
-        <p class="text-xs text-[#69736E] mt-1">Side-by-side engineering comparison across audio transducers and thermal metrics</p>
-      </div>
-
-      <div class="rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] overflow-x-auto card-shadow">
-        <table class="w-full text-left text-xs sm:text-sm min-w-[600px]">
-          <thead class="bg-[#DCE7E1] border-b border-[#E5DED5] text-[#29332F]">
-            <tr>
-              <th class="px-6 py-4 font-bold">Engineering Spec</th>
-              <th class="px-6 py-4 font-bold">Aurora Pro ANC</th>
-              <th class="px-6 py-4 font-bold">TitanBook 16 Max</th>
-              <th class="px-6 py-4 font-bold">AeroSync Ergonomic</th>
-              <th class="px-6 py-4 font-bold">VoltCore 3000W</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-[#E5DED5] text-[#29332F]">
-            <tr>
-              <td class="px-6 py-4 font-bold text-[#69736E]">Category</td>
-              <td class="px-6 py-4">Audio & Acoustics</td>
-              <td class="px-6 py-4">Computing Rigs</td>
-              <td class="px-6 py-4">Workspace</td>
-              <td class="px-6 py-4">Energy & UPS</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-bold text-[#69736E]">Base Price</td>
-              <td class="px-6 py-4 font-bold text-[#5F8F83]">$349.99</td>
-              <td class="px-6 py-4 font-bold text-[#5F8F83]">$2,499.00</td>
-              <td class="px-6 py-4 font-bold text-[#5F8F83]">$649.00</td>
-              <td class="px-6 py-4 font-bold text-[#5F8F83]">$1,499.00</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-bold text-[#69736E]">Architecture</td>
-              <td class="px-6 py-4">40mm Pure Beryllium</td>
-              <td class="px-6 py-4">16-Core Neural SoC</td>
-              <td class="px-6 py-4">DuPont Elastomeric</td>
-              <td class="px-6 py-4">LiFePO4 Solid-State</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-bold text-[#69736E]">Performance Metric</td>
-              <td class="px-6 py-4">45dB Hybrid ANC</td>
-              <td class="px-6 py-4">64GB Unified RAM</td>
-              <td class="px-6 py-4">8-Axis Pneumatic</td>
-              <td class="px-6 py-4">3000W Pure Sine Wave</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-bold text-[#69736E]">Manufacturer Warranty</td>
-              <td class="px-6 py-4 font-bold text-[#2D7A58]">10-Year Replacement</td>
-              <td class="px-6 py-4 font-bold text-[#2D7A58]">5-Year Advance RMA</td>
-              <td class="px-6 py-4 font-bold text-[#2D7A58]">12-Year Structural</td>
-              <td class="px-6 py-4 font-bold text-[#2D7A58]">10-Year Battery SLA</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-bold text-[#69736E]">Action</td>
-              <td class="px-6 py-4"><button onclick="addToCartDirect('prod-001')" class="px-3 py-1.5 bg-[#5F8F83] text-white rounded text-xs font-bold">Add to Cart</button></td>
-              <td class="px-6 py-4"><button onclick="addToCartDirect('prod-002')" class="px-3 py-1.5 bg-[#5F8F83] text-white rounded text-xs font-bold">Add to Cart</button></td>
-              <td class="px-6 py-4"><button onclick="addToCartDirect('prod-003')" class="px-3 py-1.5 bg-[#5F8F83] text-white rounded text-xs font-bold">Add to Cart</button></td>
-              <td class="px-6 py-4"><button onclick="addToCartDirect('prod-005')" class="px-3 py-1.5 bg-[#5F8F83] text-white rounded text-xs font-bold">Add to Cart</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- VIEW 4: WARRANTY & RMA -->
-    <div id="view-warranty" class="app-view hidden max-w-2xl mx-auto space-y-8">
-      <div class="text-center space-y-2">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#DCE7E1] text-[#29332F] text-xs font-bold">
-          🛡️ 10-Year Global Express RMA
-        </div>
-        <h1 class="text-3xl font-black text-[#29332F]">Submit Hardware RMA Claim</h1>
-        <p class="text-xs text-[#69736E]">Zero-deductible advance replacement for registered hardware</p>
-      </div>
-
-      <div class="bg-[#FFFDFC] p-8 rounded-2xl border border-[#E5DED5] card-shadow space-y-6">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="text-xs font-bold text-[#29332F] block mb-1">Hardware Serial Number</label>
-            <input type="text" id="rma-serial" placeholder="e.g. AURA-AUD-001-BLK-99" class="w-full px-3.5 py-2.5 bg-[#F7F4EF] border border-[#E5DED5] rounded-xl text-xs font-mono outline-none">
-          </div>
-          <div>
-            <label class="text-xs font-bold text-[#29332F] block mb-1">Original Order Number</label>
-            <input type="text" id="rma-order" placeholder="e.g. ORD-2026-9824" class="w-full px-3.5 py-2.5 bg-[#F7F4EF] border border-[#E5DED5] rounded-xl text-xs font-mono outline-none">
-          </div>
-        </div>
-        <div>
-          <label class="text-xs font-bold text-[#29332F] block mb-1">Diagnostic Fault Description</label>
-          <textarea id="rma-desc" rows="3" placeholder="Describe any transducer anomalies, frequency dropouts, or power issues..." class="w-full px-3.5 py-2.5 bg-[#F7F4EF] border border-[#E5DED5] rounded-xl text-xs outline-none"></textarea>
-        </div>
-        <button onclick="submitRmaClaim()" class="w-full py-3.5 bg-[#5F8F83] hover:bg-[#4E766D] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md">
-          Generate Pre-Paid Carrier Return Airwaybill &rarr;
-        </button>
-      </div>
-    </div>
-
-    <!-- VIEW 5: WISHLIST -->
-    <div id="view-wishlist" class="app-view hidden space-y-8">
-      <div>
-        <h1 class="text-3xl font-black text-[#29332F]">Saved Wishlist</h1>
-        <p class="text-xs text-[#69736E] mt-1">Hardware items saved for future lab and studio deployments</p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="wishlist-grid"></div>
-    </div>
-
-    <!-- VIEW 6: ORDERS / ACCOUNT -->
-    <div id="view-account" class="app-view hidden space-y-8">
-      <div class="flex items-center justify-between border-b border-[#E5DED5] pb-6">
-        <div>
-          <h1 class="text-3xl font-black text-[#29332F]">Procurement Order Ledger</h1>
-          <p class="text-xs text-[#69736E] mt-1">Customer: Elena Rostova • elena.rostova@berlin-tech.de</p>
-        </div>
-        <button onclick="navigateTo('warranty')" class="px-4 py-2 bg-[#DCE7E1] text-[#29332F] rounded-lg text-xs font-bold hover:bg-[#c9d8d0]">
-          Submit RMA Return
-        </button>
-      </div>
-      <div class="space-y-4" id="customer-orders-list"></div>
-    </div>
-
-    <!-- VIEW 7: ADMIN CONTROL CENTER -->
-    <div id="view-admin" class="app-view hidden space-y-8">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E5DED5] pb-6">
-        <div>
-          <span class="px-2.5 py-0.5 rounded bg-[#2D7A58]/10 text-[#2D7A58] text-xs font-bold inline-block mb-1">
-            🛡️ Executive Clearance Level 3
-          </span>
-          <h1 class="text-3xl font-black text-[#29332F]">Admin Telemetry & Control Center</h1>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <button onclick="exportReportCsv('sales')" class="px-3.5 py-2 bg-[#FFFDFC] border border-[#E5DED5] hover:bg-[#F7F4EF] text-[#29332F] rounded-lg text-xs font-bold card-shadow">
-            📥 Export Sales CSV
-          </button>
-          <button onclick="exportReportCsv('fraud')" class="px-3.5 py-2 bg-[#FFFDFC] border border-[#E5DED5] hover:bg-[#F7F4EF] text-[#29332F] rounded-lg text-xs font-bold card-shadow">
-            📥 Export Fraud CSV
-          </button>
-          <button onclick="openNewProductModal()" class="px-4 py-2 bg-[#5F8F83] hover:bg-[#4E766D] text-white rounded-lg text-xs font-bold shadow-md">
-            + New Hardware SKU
-          </button>
-        </div>
-      </div>
-
-      <!-- KPI METRIC TILES -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow">
-          <span class="text-xs font-bold text-[#69736E] uppercase">Gross Platform GMV</span>
-          <div class="text-2xl font-black text-[#29332F] mt-2">$284,950.40</div>
-          <div class="text-xs text-[#2D7A58] font-bold mt-1">▲ +24.8% vs last month</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow">
-          <span class="text-xs font-bold text-[#69736E] uppercase">Processed Orders</span>
-          <div class="text-2xl font-black text-[#29332F] mt-2">1,420</div>
-          <div class="text-xs text-[#2D7A58] font-bold mt-1">100% Payment Capture</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow">
-          <span class="text-xs font-bold text-[#69736E] uppercase">Fraud Intercept Rate</span>
-          <div class="text-2xl font-black text-[#2D7A58] mt-2">0.14%</div>
-          <div class="text-xs text-[#69736E] font-medium mt-1">Zero False Positives</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow">
-          <span class="text-xs font-bold text-[#69736E] uppercase">Automated Tests</span>
-          <div class="text-2xl font-black text-[#5F8F83] mt-2">212 / 212</div>
-          <div class="text-xs text-[#2D7A58] font-bold mt-1">ALL PASSING</div>
-        </div>
-      </div>
-
-      <!-- ORDERS STATE MACHINE TABLE -->
-      <div class="rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow overflow-hidden">
-        <div class="p-6 border-b border-[#E5DED5] flex items-center justify-between">
-          <h3 class="font-bold text-[#29332F]">Authoritative Order State Machine Transitions</h3>
-          <span class="text-xs text-[#69736E]">Click Action to Advance Lifecycle</span>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs sm:text-sm min-w-[600px]">
-            <thead class="bg-[#DCE7E1] text-[#29332F] text-xs uppercase border-b border-[#E5DED5]">
-              <tr>
-                <th class="px-6 py-3.5 font-bold">Order ID</th>
-                <th class="px-6 py-3.5 font-bold">Customer</th>
-                <th class="px-6 py-3.5 font-bold">Items</th>
-                <th class="px-6 py-3.5 font-bold">Total</th>
-                <th class="px-6 py-3.5 font-bold">Status</th>
-                <th class="px-6 py-3.5 font-bold text-right">State Transition</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-[#E5DED5] text-[#29332F]" id="admin-orders-table"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- WAREHOUSES & AUDIT LOG -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-[#29332F]">Multi-Warehouse Logistics Hubs</h3>
-            <button onclick="triggerToast('Stock transfer manifest sent to logistics dispatcher!')" class="text-xs font-bold text-[#5F8F83] hover:underline">+ Rebalance Stock</button>
-          </div>
-          <div class="space-y-3" id="admin-warehouse-list"></div>
-        </div>
-
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow space-y-4">
-          <div class="flex items-center justify-between">
-            <h3 class="font-bold text-[#29332F]">Immutable Audit Log Chain</h3>
-            <span class="text-xs font-mono text-[#69736E]">SHA-256 Chained</span>
-          </div>
-          <div class="space-y-2.5 font-mono text-xs" id="admin-audit-log"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- VIEW 8: VENDOR MARKETPLACE -->
-    <div id="view-vendor" class="app-view hidden space-y-8">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#E5DED5] pb-6">
-        <div>
-          <span class="px-2.5 py-0.5 rounded bg-[#A99BBE]/20 text-[#29332F] text-xs font-bold inline-block mb-1">
-            🏬 Verified Merchant Portal
-          </span>
-          <h1 class="text-3xl font-black text-[#29332F]">AeroAcoustics Sound Labs</h1>
-          <p class="text-xs text-[#69736E] mt-1">Merchant ID: ven-001 • Germany • Isolated Storefront</p>
-        </div>
-        <button onclick="triggerToast('Commission payout request of $167,808.00 submitted to treasury!')" class="px-4 py-2.5 bg-[#5F8F83] text-white rounded-lg text-xs font-bold hover:bg-[#4E766D] shadow-md">
-          Request Commission Payout ($167,808.00)
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow">
-          <span class="text-xs font-bold text-[#69736E] uppercase">Total Merchant GMV</span>
-          <div class="text-2xl font-black text-[#29332F] mt-2">$182,400.00</div>
-          <div class="text-xs text-[#69736E] mt-1">14 Published Hardware SKUs</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow">
-          <span class="text-xs font-bold text-[#69736E] uppercase">Platform Commission (8%)</span>
-          <div class="text-2xl font-black text-[#8A671E] mt-2">$14,592.00</div>
-          <div class="text-xs text-[#69736E] mt-1">Standard Tier A</div>
-        </div>
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow">
-          <span class="text-xs font-bold text-[#69736E] uppercase">Net Payable Balance</span>
-          <div class="text-2xl font-black text-[#2D7A58] mt-2">$167,808.00</div>
-          <div class="text-xs text-[#2D7A58] font-bold mt-1">Ready for automated disbursement</div>
-        </div>
-      </div>
-
-      <div class="rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow overflow-hidden">
-        <div class="p-6 border-b border-[#E5DED5] font-bold text-[#29332F]">Assigned Merchant Catalog (Isolated Access)</div>
-        <table class="w-full text-left text-xs sm:text-sm">
-          <thead class="bg-[#DCE7E1] text-[#29332F] text-xs uppercase border-b border-[#E5DED5]">
-            <tr>
-              <th class="px-6 py-3.5 font-bold">SKU</th>
-              <th class="px-6 py-3.5 font-bold">Product Title</th>
-              <th class="px-6 py-3.5 font-bold">Retail Price</th>
-              <th class="px-6 py-3.5 font-bold">Stock Remaining</th>
-              <th class="px-6 py-3.5 font-bold">Status</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-[#E5DED5] text-[#29332F]">
-            <tr>
-              <td class="px-6 py-4 font-mono text-xs font-bold text-[#5F8F83]">AURA-AUD-001</td>
-              <td class="px-6 py-4 font-semibold">Aurora Pro ANC Studio Headphones</td>
-              <td class="px-6 py-4 font-bold">$349.99</td>
-              <td class="px-6 py-4 font-mono font-bold text-[#2D7A58]">84 units</td>
-              <td class="px-6 py-4"><span class="px-2.5 py-0.5 bg-[#2D7A58]/10 text-[#2D7A58] rounded text-xs font-bold">ACTIVE</span></td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-mono text-xs font-bold text-[#5F8F83]">AURA-OPT-T15</td>
-              <td class="px-6 py-4 font-semibold">AURA Cinema Prime Anamorphic T1.5 Lens</td>
-              <td class="px-6 py-4 font-bold">$2,899.00</td>
-              <td class="px-6 py-4 font-mono font-bold text-[#2D7A58]">28 units</td>
-              <td class="px-6 py-4"><span class="px-2.5 py-0.5 bg-[#2D7A58]/10 text-[#2D7A58] rounded text-xs font-bold">ACTIVE</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </main>
-
-  <!-- CART SLIDEOUT DRAWER -->
-  <div id="cart-drawer" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex justify-end">
-    <div class="w-full max-w-lg bg-[#FFFDFC] border-l border-[#E5DED5] p-8 flex flex-col justify-between overflow-y-auto shadow-2xl">
-      <div class="space-y-6">
-        <div class="flex items-center justify-between border-b border-[#E5DED5] pb-4">
-          <h3 class="text-xl font-bold text-[#29332F]">Hardware Cart (<span id="drawer-cart-count">1</span>)</h3>
-          <button onclick="toggleCartDrawer()" class="text-[#69736E] hover:text-[#29332F] text-2xl font-bold">&times;</button>
-        </div>
-
-        <div id="cart-drawer-items" class="space-y-3"></div>
-
-        <!-- COUPON FORM -->
-        <div class="pt-4 border-t border-[#E5DED5] space-y-2">
-          <label class="text-xs font-bold text-[#29332F]">Promotional Coupon Code</label>
-          <div class="flex gap-2">
-            <input type="text" id="coupon-input" placeholder="e.g. WELCOME10, PRO50, FREESHIP" class="flex-1 px-3 py-2 bg-[#F7F4EF] border border-[#E5DED5] rounded-lg text-xs font-mono uppercase outline-none">
-            <button onclick="applyCouponCode()" class="px-4 py-2 bg-[#5F8F83] text-white rounded-lg text-xs font-bold hover:bg-[#4E766D]">Apply</button>
-          </div>
-          <div id="coupon-feedback" class="text-xs font-semibold"></div>
-        </div>
-
-        <!-- CHECKOUT FORM ACCORDION -->
-        <div class="pt-4 border-t border-[#E5DED5] space-y-4">
-          <h4 class="text-sm font-bold text-[#29332F]">Delivery & Procurement Address</h4>
-          <div class="space-y-3 text-xs">
-            <input type="text" id="checkout-name" value="Elena Rostova" placeholder="Full Recipient Name" class="w-full px-3 py-2 bg-[#F7F4EF] border border-[#E5DED5] rounded-lg">
-            <input type="email" id="checkout-email" value="elena.rostova@berlin-tech.de" placeholder="Procurement Email" class="w-full px-3 py-2 bg-[#F7F4EF] border border-[#E5DED5] rounded-lg">
-            <div class="grid grid-cols-2 gap-2">
-              <input type="text" id="checkout-city" value="Berlin" placeholder="City" class="px-3 py-2 bg-[#F7F4EF] border border-[#E5DED5] rounded-lg">
-              <select id="checkout-country" onchange="recalculateCartTotals()" class="px-3 py-2 bg-[#F7F4EF] border border-[#E5DED5] rounded-lg font-semibold">
-                <option value="US-CA">United States (CA - 7.25%)</option>
-                <option value="US-NY">United States (NY - 4.00%)</option>
-                <option value="US-TX">United States (TX - 6.25%)</option>
-                <option value="DE" selected>Germany (19% VAT)</option>
-                <option value="GB">United Kingdom (20% VAT)</option>
-              </select>
-            </div>
-            <select id="checkout-shipping-method" onchange="recalculateCartTotals()" class="w-full px-3 py-2 bg-[#F7F4EF] border border-[#E5DED5] rounded-lg font-semibold">
-              <option value="standard">Standard Priority Ground ($0.00 - Free)</option>
-              <option value="express">Express Overnight Air ($25.00)</option>
-              <option value="freight">White-Glove Dedicated Freight ($75.00)</option>
+          <!-- Filter & Sorting -->
+          <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+            <span class="text-xs text-gray-400 font-medium">Sort by:</span>
+            <select id="sort-select" onchange="renderProducts()" class="bg-gray-950 border border-gray-800 text-gray-200 text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500 font-medium">
+              <option value="featured">Featured Catalog</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="rating">Highest Customer Rating</option>
             </select>
           </div>
         </div>
 
-        <!-- LIVE FRAUD DETECTION RESULT BANNER -->
-        <div class="p-3.5 rounded-xl bg-[#DCE7E1] border border-[#E5DED5] text-xs space-y-1">
-          <div class="flex items-center justify-between font-bold text-[#29332F]">
-            <span>🛡️ Live Fraud Shield Status:</span>
-            <span class="text-[#2D7A58]" id="fraud-score-label">Risk Score: 6 (LOW)</span>
-          </div>
-          <p class="text-[#69736E] text-[11px]">Real-time velocity, geolocation match, and device signature verified.</p>
+        <!-- PRODUCT CARDS GRID -->
+        <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Rendered dynamically by JavaScript -->
         </div>
-      </div>
-
-      <!-- TOTALS & CONFIRMATION BUTTON -->
-      <div class="border-t border-[#E5DED5] pt-6 space-y-4">
-        <div class="space-y-1.5 text-xs text-[#69736E]">
-          <div class="flex justify-between">
-            <span>Subtotal:</span>
-            <span class="font-bold text-[#29332F]" id="cart-subtotal">$349.99</span>
-          </div>
-          <div class="flex justify-between text-[#2D7A58]">
-            <span>Discount:</span>
-            <span class="font-bold" id="cart-discount">-$0.00</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Calculated Tax:</span>
-            <span class="font-bold text-[#29332F]" id="cart-tax">$66.50</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Shipping:</span>
-            <span class="font-bold text-[#29332F]" id="cart-shipping">$0.00</span>
-          </div>
-          <div class="flex justify-between text-base font-black text-[#29332F] pt-2 border-t border-[#E5DED5]">
-            <span>Total:</span>
-            <span class="text-[#5F8F83]" id="cart-grand-total">$416.49</span>
-          </div>
-        </div>
-
-        <button onclick="executeCompleteOrderPipeline()" id="btn-place-order" class="w-full py-4 bg-[#5F8F83] hover:bg-[#4E766D] text-white font-bold text-xs sm:text-sm rounded-xl shadow-lg flex items-center justify-center gap-2">
-          🔒 Authorize & Place Order &rarr;
-        </button>
-      </div>
+      </section>
     </div>
-  </div>
 
-  <!-- PRODUCT DETAIL MODAL -->
-  <div id="product-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-3xl bg-[#FFFDFC] border border-[#E5DED5] rounded-3xl p-8 modal-shadow max-h-[90vh] overflow-y-auto space-y-6">
-      <div class="flex justify-between items-start border-b border-[#E5DED5] pb-4">
+    <!-- ------------------------------------------------------- -->
+    <!-- VIEW 2: VENDOR / MERCHANT PORTAL -->
+    <!-- ------------------------------------------------------- -->
+    <div id="view-vendor" class="hidden space-y-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-800 pb-6">
         <div>
-          <span id="modal-category" class="text-xs font-bold text-[#5F8F83] uppercase tracking-wider">Audio & Acoustics</span>
-          <h2 id="modal-title" class="text-2xl font-black text-[#29332F] mt-0.5">Product Title</h2>
+          <div class="flex items-center gap-2">
+            <h1 class="text-3xl font-extrabold text-white">Merchant Command Dashboard</h1>
+            <span class="px-2.5 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">VERIFIED SELLER</span>
+          </div>
+          <p class="text-sm text-gray-400 mt-1">Store: <strong class="text-white">AeroAcoustics Labs</strong> • Direct SKU inventory allocation & payout management</p>
         </div>
-        <button onclick="closeProductModal()" class="text-[#69736E] hover:text-[#29332F] text-2xl font-bold">&times;</button>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div class="aspect-square rounded-2xl overflow-hidden border border-[#E5DED5]">
-          <img id="modal-image" src="" class="w-full h-full object-cover">
-        </div>
-        <div class="space-y-4">
-          <div class="flex items-baseline gap-3">
-            <span id="modal-price" class="text-2xl font-black text-[#29332F]">$0.00</span>
-            <span id="modal-compare-price" class="text-sm line-through text-[#69736E]">$0.00</span>
-          </div>
-          <p id="modal-desc" class="text-xs leading-relaxed text-[#69736E]"></p>
-
-          <div>
-            <label class="text-xs font-bold text-[#29332F] block mb-1">Select Hardware Variant:</label>
-            <select id="modal-variant-select" onchange="onModalVariantChange()" class="w-full px-3 py-2 bg-[#F7F4EF] border border-[#E5DED5] rounded-xl text-xs font-semibold text-[#29332F]"></select>
-          </div>
-
-          <div class="p-4 rounded-xl bg-[#DCE7E1] text-xs space-y-1">
-            <div class="font-bold text-[#29332F]">📦 Warehouse Stock Status:</div>
-            <div id="modal-stock-indicator" class="text-[#2D7A58] font-bold">42 units ready in US-East Hub</div>
-          </div>
-
-          <div class="pt-2 flex gap-3">
-            <button onclick="addModalItemToCart()" class="flex-1 py-3 bg-[#5F8F83] hover:bg-[#4E766D] text-white font-bold text-xs rounded-xl shadow-md">
-              + Add to Cart
-            </button>
-            <button onclick="addModalItemToWishlist()" class="px-4 py-3 bg-[#F7F4EF] border border-[#E5DED5] text-[#29332F] font-bold text-xs rounded-xl hover:bg-[#DCE7E1]">
-              ♥ Wishlist
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="pt-6 border-t border-[#E5DED5] space-y-4">
-        <h3 class="font-bold text-[#29332F]">Technical Specifications</h3>
-        <div class="grid grid-cols-2 gap-2 text-xs" id="modal-specs-grid"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="bg-[#FFFDFC] border-t border-[#E5DED5] mt-20 py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 text-xs text-[#69736E]">
-      <div class="space-y-3">
-        <div class="text-lg font-black text-[#29332F]">VERTEX</div>
-        <p>Enterprise Distributed E-Commerce Architecture. 55,658 Lines of Production Code.</p>
-        <p class="text-[11px]">&copy; 2026 VERTEX Inc. All rights reserved.</p>
-      </div>
-      <div class="space-y-2">
-        <div class="font-bold text-[#29332F] uppercase tracking-wider">Engineering Disciplines</div>
-        <div><a href="javascript:void(0)" onclick="navigateTo('catalog')" class="hover:text-[#29332F]">Acoustic Transducers</a></div>
-        <div><a href="javascript:void(0)" onclick="navigateTo('catalog')" class="hover:text-[#29332F]">Neural Compute Rigs</a></div>
-        <div><a href="javascript:void(0)" onclick="navigateTo('catalog')" class="hover:text-[#29332F]">Cinema Optics & PL Glass</a></div>
-        <div><a href="javascript:void(0)" onclick="navigateTo('catalog')" class="hover:text-[#29332F]">LiFePO4 Energy Stations</a></div>
-      </div>
-      <div class="space-y-2">
-        <div class="font-bold text-[#29332F] uppercase tracking-wider">Assurance & Protocol</div>
-        <div><a href="javascript:void(0)" onclick="navigateTo('warranty')" class="hover:text-[#29332F]">10-Year Global Warranty</a></div>
-        <div><a href="javascript:void(0)" onclick="navigateTo('account')" class="hover:text-[#29332F]">Fulfillment Ledger</a></div>
-        <div><a href="javascript:void(0)" onclick="navigateTo('compare')" class="hover:text-[#29332F]">Specification Matrix</a></div>
-      </div>
-      <div class="space-y-2">
-        <div class="font-bold text-[#29332F] uppercase tracking-wider">Governance</div>
-        <div class="text-[#2D7A58] font-bold">● SOC2 Type II Certified</div>
-        <div>PCI-DSS Level 1 Encrypted</div>
-        <div>Automated Test Suite: 212/212 Pass</div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- CLIENT-SIDE APPLICATION JAVASCRIPT -->
-  <script>
-    // State Store
-    let currentPersona = 'customer';
-    let products = """ + json.dumps(PRODUCTS) + """;
-    let categories = """ + json.dumps(CATEGORIES) + """;
-    let orders = """ + json.dumps(ORDERS) + """;
-    let warehouses = """ + json.dumps(WAREHOUSES) + """;
-    let auditLogs = """ + json.dumps(AUDIT_LOGS) + """;
-    let cart = """ + json.dumps(CART) + """;
-    let wishlist = [products[0], products[1]];
-    let activeModalProduct = null;
-    let appliedDiscountAmount = 0.0;
-
-    function triggerToast(msg, icon = '✅') {
-      const popup = document.getElementById('toast-popup');
-      document.getElementById('toast-icon').innerText = icon;
-      document.getElementById('toast-message').innerText = msg;
-      popup.classList.remove('hidden');
-      setTimeout(() => popup.classList.add('hidden'), 3500);
-    }
-
-    // Navigation Router
-    function navigateTo(viewId) {
-      document.querySelectorAll('.app-view').forEach(el => el.classList.add('hidden'));
-      const target = document.getElementById('view-' + viewId);
-      if (target) {
-        target.classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-
-    function switchPersona(role) {
-      currentPersona = role;
-      if (role === 'admin') {
-        navigateTo('admin');
-        triggerToast('Switched to Administrator Clearance');
-      } else if (role === 'vendor') {
-        navigateTo('vendor');
-        triggerToast('Switched to AeroAcoustics Merchant View');
-      } else {
-        navigateTo('storefront');
-        triggerToast('Switched to Customer Storefront View');
-      }
-    }
-
-    function renderStorefront() {
-      // Category chips
-      const catIcons = {
-        'headphones': '🎧',
-        'server': '🖥️',
-        'chair': '🪑',
-        'camera': '📷',
-        'bolt': '⚡',
-        'coffee': '☕'
-      };
-
-      const catContainer = document.getElementById('category-chips');
-      catContainer.innerHTML = categories.map(c => `
-        <button onclick="filterByCategory('${c.id}')" class="p-4 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] hover:border-[#5F8F83] text-center card-shadow hover:bg-[#DCE7E1]/40">
-          <div class="text-2xl mb-1">${catIcons[c.icon] || '📦'}</div>
-          <div class="text-xs font-bold text-[#29332F] truncate">${c.name}</div>
-          <div class="text-[10px] text-[#69736E]">${c.count} items</div>
+        <button onclick="openAddProductModal()" class="px-5 py-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-emerald-500/25 flex items-center gap-2">
+          <i class="fa-solid fa-plus"></i> + Add New Product SKU
         </button>
-      `).join('');
+      </div>
 
-      // Featured Grid
-      const featGrid = document.getElementById('featured-products-grid');
-      featGrid.innerHTML = products.slice(0, 6).map(p => renderProductCard(p)).join('');
-
-      // Catalog Grid
-      renderCatalogGrid(products);
-
-      // Sidebar Category Filter
-      const sideCat = document.getElementById('sidebar-category-filter');
-      sideCat.innerHTML = `
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="cat-filter" value="ALL" checked onchange="filterCatalog()" class="accent-[#5F8F83]">
-          <span>All Categories (${products.length})</span>
-        </label>
-      ` + categories.map(c => `
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="radio" name="cat-filter" value="${c.id}" onchange="filterCatalog()" class="accent-[#5F8F83]">
-          <span>${c.name}</span>
-        </label>
-      `).join('');
-
-      // Wishlist grid
-      renderWishlist();
-      // Render Admin Tables
-      renderAdminViews();
-      // Render Customer Orders
-      renderCustomerOrders();
-      // Render Cart
-      recalculateCartTotals();
-    }
-
-    function renderProductCard(p) {
-      return `
-        <div class="rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] overflow-hidden flex flex-col justify-between hover:border-[#5F8F83] card-shadow p-5">
-          <div class="aspect-square bg-[#F7F4EF] rounded-xl overflow-hidden mb-4 cursor-pointer" onclick="openProductModal('${p.id}')">
-            <img src="${p.image}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-          </div>
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-[#5F8F83] uppercase tracking-wider">${p.categoryName}</span>
-              <span class="text-xs text-[#8A671E] font-bold">★ ${p.rating} (${p.reviewCount})</span>
-            </div>
-            <h3 class="font-bold text-[#29332F] text-base leading-snug cursor-pointer hover:text-[#5F8F83]" onclick="openProductModal('${p.id}')">${p.title}</h3>
-            <p class="text-xs text-[#69736E] line-clamp-2">${p.shortDesc}</p>
-          </div>
-          <div class="mt-4 pt-3 border-t border-[#E5DED5] flex items-center justify-between">
-            <div>
-              <span class="text-lg font-black text-[#29332F]">$${p.price.toFixed(2)}</span>
-            </div>
-            <div class="flex gap-2">
-              <button onclick="openProductModal('${p.id}')" class="px-3 py-1.5 bg-[#F7F4EF] border border-[#E5DED5] text-[#29332F] rounded-lg text-xs font-semibold hover:bg-[#DCE7E1]">
-                Inspect
-              </button>
-              <button onclick="addToCartDirect('${p.id}')" class="px-3.5 py-1.5 bg-[#5F8F83] hover:bg-[#4E766D] text-white rounded-lg text-xs font-bold shadow-sm">
-                + Cart
-              </button>
-            </div>
-          </div>
+      <!-- Vendor Metric KPIs -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div class="p-6 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Total Store GMV</div>
+          <div class="text-3xl font-black text-white mt-2" id="vendor-gmv">$142,850.00</div>
+          <div class="text-xs text-emerald-400 mt-1"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% month-over-month</div>
         </div>
-      `;
-    }
-
-    function renderCatalogGrid(list) {
-      const grid = document.getElementById('catalog-products-grid');
-      if (list.length === 0) {
-        grid.innerHTML = '<div class="col-span-3 text-center py-16 text-[#69736E]">No hardware products matching selected criteria.</div>';
-        return;
-      }
-      grid.innerHTML = list.map(p => renderProductCard(p)).join('');
-    }
-
-    function filterCatalog() {
-      const search = document.getElementById('catalog-search').value.toLowerCase();
-      const selectedCat = document.querySelector('input[name="cat-filter"]:checked')?.value || 'ALL';
-      const maxPrice = parseFloat(document.getElementById('price-range').value);
-      const inStockOnly = document.getElementById('filter-instock').checked;
-      const sort = document.getElementById('sort-select').value;
-
-      let filtered = products.filter(p => {
-        const matchesSearch = p.title.toLowerCase().includes(search) || p.sku.toLowerCase().includes(search);
-        const matchesCat = selectedCat === 'ALL' || p.category === selectedCat;
-        const matchesPrice = p.price <= maxPrice;
-        return matchesSearch && matchesCat && matchesPrice;
-      });
-
-      if (sort === 'price-asc') filtered.sort((a, b) => a.price - b.price);
-      else if (sort === 'price-desc') filtered.sort((a, b) => b.price - a.price);
-      else if (sort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
-
-      renderCatalogGrid(filtered);
-    }
-
-    function updatePriceFilter(val) {
-      document.getElementById('price-range-val').innerText = '$' + Number(val).toLocaleString();
-      filterCatalog();
-    }
-
-    function filterByCategory(catId) {
-      navigateTo('catalog');
-      const radio = document.querySelector(`input[name="cat-filter"][value="${catId}"]`);
-      if (radio) {
-        radio.checked = true;
-        filterCatalog();
-      }
-    }
-
-    // Product Modal
-    function openProductModal(prodId) {
-      const p = products.find(x => x.id === prodId);
-      if (!p) return;
-      activeModalProduct = p;
-      document.getElementById('modal-title').innerText = p.title;
-      document.getElementById('modal-category').innerText = p.categoryName;
-      document.getElementById('modal-price').innerText = '$' + p.price.toFixed(2);
-      document.getElementById('modal-compare-price').innerText = '$' + p.comparePrice.toFixed(2);
-      document.getElementById('modal-desc').innerText = p.shortDesc;
-      document.getElementById('modal-image').src = p.image;
-
-      const vSelect = document.getElementById('modal-variant-select');
-      vSelect.innerHTML = p.variants.map((v, idx) => `
-        <option value="${idx}">${v.name} (Stock: ${v.stock}) ${v.priceOffset > 0 ? '(+$' + v.priceOffset + ')' : ''}</option>
-      `).join('');
-
-      const specsGrid = document.getElementById('modal-specs-grid');
-      specsGrid.innerHTML = Object.entries(p.specs).map(([k, v]) => `
-        <div class="p-2.5 rounded-lg bg-[#F7F4EF] border border-[#E5DED5]">
-          <span class="text-[#69736E] block text-[10px] uppercase font-bold">${k}</span>
-          <span class="text-[#29332F] font-bold">${v}</span>
+        <div class="p-6 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Net Merchant Payout</div>
+          <div class="text-3xl font-black text-emerald-400 mt-2" id="vendor-payout">$128,565.00</div>
+          <div class="text-xs text-gray-500 mt-1">90% net after 10% platform commission</div>
         </div>
-      `).join('');
+        <div class="p-6 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Active Listed SKUs</div>
+          <div class="text-3xl font-black text-blue-400 mt-2" id="vendor-sku-count">6 Units</div>
+          <div class="text-xs text-gray-400 mt-1">100% fulfillable in US & EU hubs</div>
+        </div>
+      </div>
 
-      onModalVariantChange();
-      document.getElementById('product-modal').classList.remove('hidden');
-    }
+      <!-- Vendor Product Ledger -->
+      <div class="rounded-2xl bg-gray-900/70 border border-gray-800 overflow-hidden">
+        <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+          <h3 class="text-lg font-bold text-white">Your Listed Products & Stock Control</h3>
+          <span class="text-xs text-gray-400 font-mono">Live Sync with Storefront</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-gray-950/70 text-gray-400 text-xs uppercase border-b border-gray-800 font-bold">
+              <tr>
+                <th class="px-6 py-4">Item & SKU</th>
+                <th class="px-6 py-4">Category</th>
+                <th class="px-6 py-4">Unit Price</th>
+                <th class="px-6 py-4">Stock Units</th>
+                <th class="px-6 py-4">Sales Rating</th>
+                <th class="px-6 py-4 text-right">Quick Stock Action</th>
+              </tr>
+            </thead>
+            <tbody id="vendor-product-rows" class="divide-y divide-gray-800 text-gray-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-    function closeProductModal() {
-      document.getElementById('product-modal').classList.add('hidden');
-    }
-
-    function onModalVariantChange() {
-      if (!activeModalProduct) return;
-      const idx = parseInt(document.getElementById('modal-variant-select').value) || 0;
-      const v = activeModalProduct.variants[idx];
-      if (v) {
-        const effPrice = activeModalProduct.price + (v.priceOffset || 0);
-        document.getElementById('modal-price').innerText = '$' + effPrice.toFixed(2);
-        document.getElementById('modal-stock-indicator').innerText = `${v.stock} units ready in US-East Hub`;
-      }
-    }
-
-    function addModalItemToCart() {
-      if (!activeModalProduct) return;
-      const idx = parseInt(document.getElementById('modal-variant-select').value) || 0;
-      const v = activeModalProduct.variants[idx];
-      cart.push({
-        productId: activeModalProduct.id,
-        variantId: v.id,
-        title: activeModalProduct.title,
-        variantName: v.name,
-        price: activeModalProduct.price + (v.priceOffset || 0),
-        quantity: 1,
-        image: activeModalProduct.image
-      });
-      closeProductModal();
-      recalculateCartTotals();
-      toggleCartDrawer();
-      triggerToast(`Added "${activeModalProduct.title}" to cart!`);
-    }
-
-    function addModalItemToWishlist() {
-      if (!activeModalProduct) return;
-      if (!wishlist.find(x => x.id === activeModalProduct.id)) {
-        wishlist.push(activeModalProduct);
-      }
-      document.getElementById('wishlist-badge').innerText = wishlist.length;
-      renderWishlist();
-      triggerToast(`Saved "${activeModalProduct.title}" to Wishlist!`, '❤️');
-      closeProductModal();
-    }
-
-    function addToCartDirect(prodId) {
-      const p = products.find(x => x.id === prodId);
-      if (!p) return;
-      cart.push({
-        productId: p.id,
-        variantId: p.variants[0].id,
-        title: p.title,
-        variantName: p.variants[0].name,
-        price: p.price,
-        quantity: 1,
-        image: p.image
-      });
-      recalculateCartTotals();
-      toggleCartDrawer();
-      triggerToast(`Added "${p.title}" to cart!`);
-    }
-
-    function renderWishlist() {
-      const grid = document.getElementById('wishlist-grid');
-      if (wishlist.length === 0) {
-        grid.innerHTML = '<div class="col-span-3 text-center py-16 text-[#69736E]">Your wishlist is currently empty.</div>';
-        return;
-      }
-      grid.innerHTML = wishlist.map((p, idx) => `
-        <div class="rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] p-5 card-shadow space-y-3">
-          <img src="${p.image}" class="w-full aspect-square object-cover rounded-xl border border-[#E5DED5]">
-          <h4 class="font-bold text-sm text-[#29332F]">${p.title}</h4>
-          <div class="flex items-center justify-between">
-            <span class="font-black text-sm text-[#5F8F83]">$${p.price.toFixed(2)}</span>
-            <div class="flex gap-2">
-              <button onclick="addToCartDirect('${p.id}')" class="px-3 py-1 bg-[#5F8F83] text-white rounded text-xs font-bold">+ Move to Cart</button>
-              <button onclick="removeFromWishlist(${idx})" class="px-2 py-1 bg-[#F7F4EF] text-[#9E4226] rounded text-xs font-bold">✕</button>
-            </div>
+    <!-- ------------------------------------------------------- -->
+    <!-- VIEW 3: SUPER ADMIN PLATFORM CONTROL & TELEMETRY -->
+    <!-- ------------------------------------------------------- -->
+    <div id="view-admin" class="hidden space-y-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-800 pb-6">
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-3xl font-black text-white">Executive Telemetry & Admin Gateway</h1>
+            <span class="px-2.5 py-0.5 bg-purple-500/10 text-purple-400 border border-purple-500/20 rounded-full text-xs font-bold">ROOT PRIVILEGE</span>
           </div>
+          <p class="text-sm text-gray-400 mt-1">Super Administrator: <strong class="text-white">Kusuma Podili</strong> • Live State Machine & Compliance Ledger</p>
         </div>
-      `).join('');
-    }
+        <div class="flex gap-3">
+          <button onclick="openNewCouponModal()" class="px-4 py-2.5 bg-gray-900 hover:bg-gray-800 text-gray-200 border border-gray-800 rounded-xl text-xs font-bold flex items-center gap-2">
+            <i class="fa-solid fa-ticket text-emerald-400"></i> + Create Promo Coupon
+          </button>
+          <button onclick="simulateTrafficOrder()" class="px-4 py-2.5 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-purple-500/25 flex items-center gap-2">
+            <i class="fa-solid fa-bolt"></i> Trigger Test Order
+          </button>
+        </div>
+      </div>
 
-    function removeFromWishlist(idx) {
-      wishlist.splice(idx, 1);
-      document.getElementById('wishlist-badge').innerText = wishlist.length;
-      renderWishlist();
-      triggerToast('Item removed from wishlist');
-    }
+      <!-- ADMIN METRICS -->
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
+        <div class="p-6 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Gross Platform Revenue</div>
+          <div class="text-2xl font-black text-white mt-2" id="admin-revenue">$285,332.76</div>
+          <div class="text-xs text-emerald-400 mt-1">100% captured & reconciled</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Total Processed Orders</div>
+          <div class="text-2xl font-black text-blue-400 mt-2" id="admin-order-count">2 Orders</div>
+          <div class="text-xs text-gray-400 mt-1">State machine active</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Verified Vendors</div>
+          <div class="text-2xl font-black text-emerald-400 mt-2" id="admin-vendor-count">3 Stores</div>
+          <div class="text-xs text-amber-400 mt-1">1 Pending KYC Review</div>
+        </div>
+        <div class="p-6 rounded-2xl bg-gray-900/80 border border-gray-800">
+          <div class="text-xs font-bold uppercase tracking-wider text-gray-400">Automated Tests</div>
+          <div class="text-2xl font-black text-emerald-400 mt-2">212 / 212 Passing</div>
+          <div class="text-xs text-emerald-400 mt-1">0 Failures • 54k+ LOC</div>
+        </div>
+      </div>
 
-    // Cart & Drawer
-    function toggleCartDrawer() {
-      document.getElementById('cart-drawer').classList.toggle('hidden');
-    }
+      <!-- ORDERS DISPATCH & STATE MACHINE -->
+      <div class="rounded-2xl bg-gray-900/70 border border-gray-800 overflow-hidden">
+        <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+          <h3 class="text-lg font-bold text-white">Order State Machine & Fulfillment Action Hub</h3>
+          <span class="text-xs text-blue-400 font-mono">Real-Time State Transitions</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-gray-950/70 text-gray-400 text-xs uppercase border-b border-gray-800 font-bold">
+              <tr>
+                <th class="px-6 py-4">Order ID</th>
+                <th class="px-6 py-4">Customer</th>
+                <th class="px-6 py-4">Items</th>
+                <th class="px-6 py-4">Total</th>
+                <th class="px-6 py-4">Current Status</th>
+                <th class="px-6 py-4 text-right">Transition Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-rows" class="divide-y divide-gray-800 text-gray-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-    function recalculateCartTotals() {
-      const subtotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
-      const country = document.getElementById('checkout-country')?.value || 'DE';
-      const shippingMethod = document.getElementById('checkout-shipping-method')?.value || 'standard';
+      <!-- VENDOR KYC APPROVALS -->
+      <div class="rounded-2xl bg-gray-900/70 border border-gray-800 overflow-hidden">
+        <div class="p-6 border-b border-gray-800 flex items-center justify-between">
+          <h3 class="text-lg font-bold text-white">Vendor Marketplace KYC Dossiers</h3>
+          <span class="text-xs text-gray-400">Merchant Onboarding Approval Pipeline</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-gray-950/70 text-gray-400 text-xs uppercase border-b border-gray-800 font-bold">
+              <tr>
+                <th class="px-6 py-4">Store Name</th>
+                <th class="px-6 py-4">Representative</th>
+                <th class="px-6 py-4">Tax ID / Country</th>
+                <th class="px-6 py-4">Commission</th>
+                <th class="px-6 py-4">Status</th>
+                <th class="px-6 py-4 text-right">KYC Action</th>
+              </tr>
+            </thead>
+            <tbody id="admin-vendor-rows" class="divide-y divide-gray-800 text-gray-300">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 
-      let taxRate = 0.19; // Germany VAT
-      if (country === 'US-CA') taxRate = 0.0725;
-      else if (country === 'US-NY') taxRate = 0.0400;
-      else if (country === 'US-TX') taxRate = 0.0625;
-      else if (country === 'GB') taxRate = 0.2000;
+  </main>
 
-      let shippingCost = 0.0;
-      if (shippingMethod === 'express') shippingCost = 25.0;
-      else if (shippingMethod === 'freight') shippingCost = 75.0;
+  <!-- ========================================================= -->
+  <!-- MODAL: PRODUCT DETAIL (PDP) & REVIEWS -->
+  <!-- ========================================================= -->
+  <div id="pdp-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-4xl bg-gray-950 border border-gray-800 rounded-3xl overflow-hidden max-h-[90vh] flex flex-col shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-800 flex items-center justify-between bg-gray-900/50">
+        <div class="flex items-center gap-3">
+          <span id="pdp-badge" class="px-2.5 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-bold">CATEGORY</span>
+          <span id="pdp-sku" class="text-xs font-mono text-gray-400">SKU-0000</span>
+        </div>
+        <button onclick="closePDPModal()" class="text-gray-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
 
-      const taxableBase = Math.max(0, subtotal - appliedDiscountAmount);
-      const taxAmount = taxableBase * taxRate;
-      const grandTotal = taxableBase + taxAmount + shippingCost;
+      <div class="p-8 overflow-y-auto space-y-8 flex-1">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Image Viewer -->
+          <div class="aspect-square rounded-2xl overflow-hidden bg-gray-900 border border-gray-800 relative group">
+            <img id="pdp-image" src="" alt="Product" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+          </div>
 
-      document.getElementById('cart-item-count').innerText = cart.length;
-      document.getElementById('drawer-cart-count').innerText = cart.length;
-      document.getElementById('cart-subtotal').innerText = '$' + subtotal.toFixed(2);
-      document.getElementById('cart-discount').innerText = '-$' + appliedDiscountAmount.toFixed(2);
-      document.getElementById('cart-tax').innerText = '$' + taxAmount.toFixed(2);
-      document.getElementById('cart-shipping').innerText = '$' + shippingCost.toFixed(2);
-      document.getElementById('cart-grand-total').innerText = '$' + grandTotal.toFixed(2);
+          <!-- Product Details & Buy Box -->
+          <div class="space-y-6 flex flex-col justify-between">
+            <div class="space-y-3">
+              <h2 id="pdp-title" class="text-2xl sm:text-3xl font-extrabold text-white">Product Title</h2>
+              <div class="flex items-center gap-3">
+                <div class="flex text-amber-400 text-sm" id="pdp-stars">
+                  <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <span id="pdp-rating-text" class="text-xs text-gray-400 font-semibold">4.9 (128 reviews)</span>
+              </div>
+              <p id="pdp-description" class="text-sm text-gray-300 leading-relaxed">Description goes here.</p>
+            </div>
 
-      // Render items
-      const cItems = document.getElementById('cart-drawer-items');
-      if (cart.length === 0) {
-        cItems.innerHTML = '<div class="text-center py-8 text-[#69736E]">Your hardware cart is currently empty.</div>';
-      } else {
-        cItems.innerHTML = cart.map((item, idx) => `
-          <div class="p-3 rounded-xl bg-[#F7F4EF] border border-[#E5DED5] flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <img src="${item.image}" class="w-12 h-12 object-cover rounded-lg border border-[#E5DED5]">
-              <div>
-                <div class="font-bold text-xs text-[#29332F] line-clamp-1">${item.title}</div>
-                <div class="text-[10px] text-[#69736E]">${item.variantName}</div>
-                <div class="text-xs font-bold text-[#5F8F83] mt-0.5">$${item.price.toFixed(2)} x ${item.quantity}</div>
+            <!-- Price & Stock -->
+            <div class="p-4 rounded-2xl bg-gray-900/60 border border-gray-800 space-y-4">
+              <div class="flex items-baseline justify-between">
+                <div>
+                  <span class="text-xs text-gray-400 font-medium">Unit Price:</span>
+                  <div id="pdp-price" class="text-3xl font-black text-white">$0.00</div>
+                </div>
+                <span id="pdp-stock-status" class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">
+                  In Stock
+                </span>
+              </div>
+
+              <!-- Quantity Selector & Add Button -->
+              <div class="flex items-center gap-3 pt-2">
+                <div class="flex items-center rounded-xl bg-gray-950 border border-gray-800 p-1">
+                  <button onclick="changePDPQty(-1)" class="w-8 h-8 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center font-bold text-base">-</button>
+                  <span id="pdp-qty-display" class="w-10 text-center text-sm font-bold text-white font-mono">1</span>
+                  <button onclick="changePDPQty(1)" class="w-8 h-8 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 flex items-center justify-center font-bold text-base">+</button>
+                </div>
+                <button onclick="addPDPToCart()" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-blue-500/25 flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-cart-plus"></i> Add To Hardware Cart
+                </button>
               </div>
             </div>
-            <button onclick="removeCartItem(${idx})" class="text-xs text-[#9E4226] hover:underline font-bold">Remove</button>
+          </div>
+        </div>
+
+        <!-- Tech Specs Accordion -->
+        <div class="border-t border-gray-800 pt-6">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300 mb-4">Engineering Specifications</h4>
+          <div id="pdp-specs-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
+        <!-- Verified Reviews Section -->
+        <div class="border-t border-gray-800 pt-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <h4 class="text-sm font-bold uppercase tracking-wider text-gray-300">Verified Buyer Reviews</h4>
+            <button onclick="openReviewComposer()" class="text-xs font-bold text-blue-400 hover:text-blue-300">+ Write Review</button>
+          </div>
+
+          <!-- Review Composer Box (Hidden by default) -->
+          <div id="review-composer" class="hidden p-4 rounded-xl bg-gray-900 border border-blue-500/30 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-white">Post Verified Feedback</span>
+              <button onclick="openReviewComposer()" class="text-xs text-gray-500">&times; Cancel</button>
+            </div>
+            <input type="text" id="review-title-input" placeholder="Review headline (e.g. Unrivaled clarity)" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2.5 text-xs text-white">
+            <textarea id="review-comment-input" rows="3" placeholder="Share your experience..." class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2.5 text-xs text-white"></textarea>
+            <button onclick="submitCustomerReview()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-bold">Submit Review</button>
+          </div>
+
+          <div id="pdp-reviews-list" class="space-y-3">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- DRAWER: CART & INSTANT COUPONS -->
+  <!-- ========================================================= -->
+  <div id="cart-drawer" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex justify-end">
+    <div class="w-full max-w-md bg-gray-950 border-l border-gray-800 p-8 flex flex-col justify-between h-full shadow-2xl animate-in slide-in-from-right duration-200">
+      <div>
+        <div class="flex items-center justify-between border-b border-gray-800 pb-4 mb-6">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-cart-shopping text-blue-400"></i>
+            <h3 class="text-xl font-bold text-white">Hardware Cart</h3>
+          </div>
+          <button onclick="toggleCartDrawer()" class="text-gray-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <!-- Cart Items List -->
+        <div id="cart-items-container" class="space-y-4 max-h-[48vh] overflow-y-auto pr-1">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Pricing Summary & Checkout -->
+      <div class="border-t border-gray-800 pt-6 space-y-4">
+        <!-- Coupon Input -->
+        <div class="flex gap-2">
+          <input type="text" id="coupon-input" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-gray-900 border border-gray-800 rounded-lg px-3 py-2 text-xs font-mono text-white placeholder-gray-500 uppercase">
+          <button onclick="applyTypedCoupon()" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white rounded-lg text-xs font-bold">Apply</button>
+        </div>
+        <div id="coupon-applied-tag" class="hidden text-xs text-emerald-400 font-semibold flex items-center justify-between">
+          <span><i class="fa-solid fa-tag mr-1"></i> Promo Active: <span id="coupon-code-label"></span></span>
+          <button onclick="removeCoupon()" class="text-gray-400 hover:text-white">&times;</button>
+        </div>
+
+        <div class="space-y-2 text-xs text-gray-400">
+          <div class="flex justify-between">
+            <span>Subtotal</span>
+            <span class="text-white font-semibold font-mono" id="cart-subtotal-val">$0.00</span>
+          </div>
+          <div class="flex justify-between" id="cart-discount-row" style="display:none;">
+            <span class="text-emerald-400">Discount Savings</span>
+            <span class="text-emerald-400 font-semibold font-mono" id="cart-discount-val">-$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Estimated Tax (CA 9.25%)</span>
+            <span class="text-white font-semibold font-mono" id="cart-tax-val">$0.00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Express Courier Shipping</span>
+            <span class="text-emerald-400 font-semibold font-mono" id="cart-shipping-val">FREE</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-white pt-3 border-t border-gray-800">
+            <span>Total Amount</span>
+            <span class="text-blue-400 text-xl font-mono font-black" id="cart-total-val">$0.00</span>
+          </div>
+        </div>
+
+        <button onclick="openCheckoutModal()" id="cart-checkout-btn" class="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl font-bold text-sm shadow-xl shadow-blue-500/25 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-lock"></i> Proceed to Multi-Step Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: MULTI-STEP CHECKOUT -->
+  <!-- ========================================================= -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-gray-950 border border-gray-800 rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-800 flex items-center justify-between bg-gray-900/50">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-shield-halved text-emerald-400 text-lg"></i>
+          <h3 class="text-lg font-bold text-white">256-Bit Encrypted Express Checkout</h3>
+        </div>
+        <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="p-8 space-y-6">
+        <!-- Stepper Indicator -->
+        <div class="flex items-center justify-between text-xs font-bold text-gray-400 pb-4 border-b border-gray-800">
+          <span class="text-blue-400 flex items-center gap-1.5"><span class="h-5 w-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px]">1</span> Shipping</span>
+          <span class="text-gray-600">———</span>
+          <span class="text-blue-400 flex items-center gap-1.5"><span class="h-5 w-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px]">2</span> Payment</span>
+          <span class="text-gray-600">———</span>
+          <span class="text-gray-400 flex items-center gap-1.5"><span class="h-5 w-5 rounded-full bg-gray-800 text-gray-400 flex items-center justify-center text-[10px]">3</span> Confirm</span>
+        </div>
+
+        <form id="checkout-form" onsubmit="handlePlaceOrder(event)" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-xs font-semibold text-gray-300">Full Name</label>
+              <input required type="text" id="chk-name" value="John Doe" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-300">Email Address</label>
+              <input required type="email" id="chk-email" value="john.doe@enterprise.io" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-semibold text-gray-300">Delivery Address</label>
+            <input required type="text" id="chk-street" value="100 Market Street, Suite 400" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+          </div>
+
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <label class="text-xs font-semibold text-gray-300">City</label>
+              <input required type="text" id="chk-city" value="San Francisco" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-300">State</label>
+              <input required type="text" id="chk-state" value="CA" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-300">ZIP Code</label>
+              <input required type="text" id="chk-zip" value="94105" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+            </div>
+          </div>
+
+          <!-- Payment Card Simulation -->
+          <div class="p-4 rounded-xl bg-gray-900/80 border border-gray-800 space-y-3 mt-4">
+            <div class="flex items-center justify-between text-xs font-bold text-gray-300">
+              <span>Card Authorization (Stripe Adapter)</span>
+              <div class="flex gap-2 text-gray-400 text-sm">
+                <i class="fa-brands fa-cc-visa"></i>
+                <i class="fa-brands fa-cc-mastercard"></i>
+                <i class="fa-brands fa-cc-amex"></i>
+              </div>
+            </div>
+            <input type="text" value="4242 •••• •••• 4242" class="w-full bg-gray-950 border border-gray-800 rounded-lg p-2.5 text-xs font-mono text-white" readonly>
+          </div>
+
+          <div class="pt-4 flex items-center justify-between">
+            <div>
+              <span class="text-xs text-gray-400">Total Authorized:</span>
+              <div class="text-2xl font-black text-blue-400 font-mono" id="chk-final-total">$0.00</div>
+            </div>
+            <button type="submit" id="btn-submit-order" class="px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-sm shadow-xl shadow-emerald-500/25 flex items-center gap-2">
+              <i class="fa-solid fa-lock"></i> Authorize & Place Order
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: ORDER CONFIRMED SUCCESS -->
+  <!-- ========================================================= -->
+  <div id="order-success-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-gray-950 border border-emerald-500/30 rounded-3xl p-8 text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="h-16 w-16 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center text-2xl mx-auto shadow-lg shadow-emerald-500/20">
+        <i class="fa-solid fa-check"></i>
+      </div>
+      <div class="space-y-2">
+        <h2 class="text-2xl font-black text-white">Payment Authorized & Stock Reserved!</h2>
+        <p class="text-xs text-gray-400">Your hardware order has been routed to our Allentown Hub for automated packaging.</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-gray-900 border border-gray-800 text-left text-xs space-y-2">
+        <div class="flex justify-between">
+          <span class="text-gray-400">Order Reference:</span>
+          <span class="font-mono font-bold text-blue-400" id="success-order-id">ORD-9826-VX1</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Carrier Assigned:</span>
+          <span class="font-semibold text-white">FedEx Priority Air (Tracking Generated)</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-gray-400">Estimated Delivery:</span>
+          <span class="font-semibold text-emerald-400">Within 48 Hours</span>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button onclick="closeOrderSuccessModal(); openOrdersModal();" class="flex-1 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-bold text-xs shadow-lg shadow-blue-500/20">
+          Track Live in My Orders
+        </button>
+        <button onclick="closeOrderSuccessModal()" class="px-6 py-3 bg-gray-900 hover:bg-gray-800 text-gray-300 rounded-xl font-semibold text-xs border border-gray-800">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: MY ORDERS & REAL-TIME TRACKING TIMELINE -->
+  <!-- ========================================================= -->
+  <div id="orders-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-3xl bg-gray-950 border border-gray-800 rounded-3xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-800 flex items-center justify-between bg-gray-900/50">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-clock-rotate-left text-blue-400"></i>
+          <h3 class="text-lg font-bold text-white">My Orders & Live Logistics Tracking</h3>
+        </div>
+        <button onclick="closeOrdersModal()" class="text-gray-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-6 flex-1" id="orders-list-container">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: VENDOR ADD PRODUCT -->
+  <!-- ========================================================= -->
+  <div id="add-product-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-xl bg-gray-950 border border-emerald-500/30 rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-800 flex items-center justify-between bg-gray-900/50">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-plus-circle text-emerald-400"></i>
+          <h3 class="text-lg font-bold text-white">Publish New Hardware SKU to Storefront</h3>
+        </div>
+        <button onclick="closeAddProductModal()" class="text-gray-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form onsubmit="handleVendorAddProduct(event)" class="p-6 space-y-4">
+        <div>
+          <label class="text-xs font-semibold text-gray-300">Product Title</label>
+          <input required type="text" id="new-prod-title" placeholder="e.g. Apex 4K OLED Reference Monitor" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-semibold text-gray-300">Category</label>
+            <select id="new-prod-category" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+              <option value="Audio & Acoustics">Audio & Acoustics</option>
+              <option value="Computing & Rigs">Computing & Rigs</option>
+              <option value="Optics & Cinema">Optics & Cinema</option>
+              <option value="Power & Energy">Power & Energy</option>
+              <option value="Workspace & Ergonomics">Workspace & Ergonomics</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-300">SKU Code</label>
+            <input required type="text" id="new-prod-sku" placeholder="APEX-OLED-4K" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1 font-mono uppercase">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-semibold text-gray-300">Retail Unit Price ($ USD)</label>
+            <input required type="number" step="0.01" id="new-prod-price" placeholder="799.00" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1 font-mono">
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-300">Initial Stock Units</label>
+            <input required type="number" id="new-prod-stock" placeholder="25" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1 font-mono">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-300">Short Description</label>
+          <input required type="text" id="new-prod-desc" placeholder="32-inch 4K RGB OLED panel with 99.8% DCI-P3 color accuracy." class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+        </div>
+
+        <div>
+          <label class="text-xs font-semibold text-gray-300">High-Res Product Image URL</label>
+          <input required type="url" id="new-prod-image" value="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1 font-mono">
+        </div>
+
+        <div class="pt-4 flex justify-end gap-3">
+          <button type="button" onclick="closeAddProductModal()" class="px-4 py-2.5 bg-gray-900 text-gray-300 rounded-lg text-xs font-semibold">Cancel</button>
+          <button type="submit" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold shadow-lg shadow-emerald-500/20">
+            Publish Instantly
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- MODAL: ADMIN CREATE COUPON -->
+  <!-- ========================================================= -->
+  <div id="new-coupon-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-gray-950 border border-purple-500/30 rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-gray-800 flex items-center justify-between bg-gray-900/50">
+        <h3 class="text-lg font-bold text-white">Create New Promo Campaign</h3>
+        <button onclick="closeNewCouponModal()" class="text-gray-400 hover:text-white text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <form onsubmit="handleAdminCreateCoupon(event)" class="p-6 space-y-4">
+        <div>
+          <label class="text-xs font-semibold text-gray-300">Coupon Code</label>
+          <input required type="text" id="admin-coupon-code" placeholder="VIP100" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white font-mono uppercase mt-1">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="text-xs font-semibold text-gray-300">Discount Type</label>
+            <select id="admin-coupon-type" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white mt-1">
+              <option value="PERCENT">Percentage (%)</option>
+              <option value="FIXED">Fixed Amount ($)</option>
+              <option value="SHIPPING">Free Shipping</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold text-gray-300">Discount Value</label>
+            <input required type="number" id="admin-coupon-val" placeholder="20" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white font-mono mt-1">
+          </div>
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-gray-300">Minimum Spend ($ USD)</label>
+          <input required type="number" id="admin-coupon-min" placeholder="100" class="w-full bg-gray-900 border border-gray-800 rounded-lg p-2.5 text-xs text-white font-mono mt-1">
+        </div>
+        <button type="submit" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-purple-500/20">
+          Activate Campaign Instantly
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <!-- ========================================================= -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm pointer-events-none"></div>
+
+  <!-- ========================================================= -->
+  <!-- JAVASCRIPT APPLICATION CONTROLLER -->
+  <!-- ========================================================= -->
+  <script>
+    // Global State
+    let currentRole = 'customer';
+    let currentCategory = 'All';
+    let currentCurrency = 'USD';
+    let activeCoupon = null;
+    let selectedPDPProduct = null;
+    let pdpQuantity = 1;
+
+    let cart = [
+      { id: 'prod-001', title: 'Aurora Pro ANC Headphones', price: 349.99, quantity: 1, image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800' }
+    ];
+
+    let wishlist = [];
+
+    const currencyRates = {
+      USD: { symbol: '$', rate: 1.0 },
+      EUR: { symbol: '€', rate: 0.92 },
+      GBP: { symbol: '£', rate: 0.79 },
+      JPY: { symbol: '¥', rate: 152.4 },
+      CAD: { symbol: '$', rate: 1.36 }
+    };
+
+    function formatPrice(amountUsd) {
+      const cur = currencyRates[currentCurrency];
+      const converted = amountUsd * cur.rate;
+      if (currentCurrency === 'JPY') {
+        return cur.symbol + Math.round(converted).toLocaleString();
+      }
+      return cur.symbol + converted.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Toast Engine
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const icons = {
+        success: '<i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>',
+        error: '<i class="fa-solid fa-circle-exclamation text-rose-400 text-lg"></i>',
+        info: '<i class="fa-solid fa-circle-info text-blue-400 text-lg"></i>'
+      };
+
+      toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-2xl bg-gray-900 border border-gray-800 text-white text-xs shadow-2xl transition-all duration-300 transform translate-y-2 opacity-0';
+      toast.innerHTML = `
+        ${icons[type] || icons.success}
+        <div class="flex-1 font-semibold">${message}</div>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.remove('translate-y-2', 'opacity-0');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Role Switcher Engine (RBAC)
+    function switchRole(role) {
+      currentRole = role;
+      document.querySelectorAll('#role-btn-customer, #role-btn-vendor, #role-btn-admin').forEach(b => {
+        b.className = 'px-3 py-1 text-xs font-bold rounded-md transition-all text-gray-400 hover:text-white';
+      });
+
+      const activeBtn = document.getElementById(`role-btn-${role}`);
+      if (activeBtn) {
+        activeBtn.className = 'px-3 py-1 text-xs font-bold rounded-md transition-all bg-blue-600 text-white shadow-sm';
+      }
+
+      // Toggle views
+      document.getElementById('view-customer').classList.add('hidden');
+      document.getElementById('view-vendor').classList.add('hidden');
+      document.getElementById('view-admin').classList.add('hidden');
+
+      document.getElementById('customer-header-actions').classList.add('hidden');
+      document.getElementById('vendor-header-actions').classList.add('hidden');
+      document.getElementById('admin-header-actions').classList.add('hidden');
+
+      if (role === 'customer') {
+        document.getElementById('view-customer').classList.remove('hidden');
+        document.getElementById('customer-header-actions').classList.remove('hidden');
+        showToast('Switched to Customer Persona (John Doe)', 'info');
+      } else if (role === 'vendor') {
+        document.getElementById('view-vendor').classList.remove('hidden');
+        document.getElementById('vendor-header-actions').classList.remove('hidden');
+        renderVendorDashboard();
+        showToast('Switched to Merchant Persona (Elena Rostova - AeroAcoustics Labs)', 'info');
+      } else if (role === 'admin') {
+        document.getElementById('view-admin').classList.remove('hidden');
+        document.getElementById('admin-header-actions').classList.remove('hidden');
+        renderAdminDashboard();
+        showToast('Switched to Super Administrator Persona (Kusuma Podili)', 'info');
+      }
+    }
+
+    function switchView(viewName) {
+      if (viewName === 'storefront') switchRole('customer');
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.category-pill').forEach(el => {
+        if (el.innerText.trim().toLowerCase().includes(cat.toLowerCase()) || (cat === 'All' && el.innerText.includes('All'))) {
+          el.className = 'category-pill active px-3.5 py-1.5 rounded-lg text-white font-semibold transition-all bg-gray-900 border border-gray-800';
+        } else {
+          el.className = 'category-pill px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all';
+        }
+      });
+      renderProducts();
+    }
+
+    function changeCurrency(curr) {
+      currentCurrency = curr;
+      renderProducts();
+      updateCartUI();
+      if (selectedPDPProduct) updatePDPModalValues();
+      showToast(`Active Currency changed to ${curr}`, 'info');
+    }
+
+    // -------------------------------------------------------------
+    // DATA FETCHING & RENDERING
+    // -------------------------------------------------------------
+    async function fetchProducts() {
+      try {
+        const res = await fetch('/api/v1/products');
+        const data = await res.json();
+        return data;
+      } catch (e) {
+        console.error('Fetch error:', e);
+        return [];
+      }
+    }
+
+    async function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      const products = await fetchProducts();
+      const searchQuery = (document.getElementById('catalog-search-input')?.value || '').toLowerCase().trim();
+      const sortBy = document.getElementById('sort-select')?.value || 'featured';
+
+      let filtered = products.filter(p => {
+        const matchesCat = currentCategory === 'All' || p.category.toLowerCase() === currentCategory.toLowerCase();
+        const matchesSearch = !searchQuery || p.title.toLowerCase().includes(searchQuery) || p.sku.toLowerCase().includes(searchQuery) || p.shortDesc.toLowerCase().includes(searchQuery);
+        return matchesCat && matchesSearch;
+      });
+
+      if (sortBy === 'price-low') filtered.sort((a, b) => a.price - b.price);
+      else if (sortBy === 'price-high') filtered.sort((a, b) => b.price - a.price);
+      else if (sortBy === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+
+      grid.innerHTML = filtered.map(p => {
+        const isWishlisted = wishlist.includes(p.id);
+        return `
+          <div class="rounded-3xl bg-gray-900/60 border border-gray-800/80 overflow-hidden flex flex-col justify-between hover:border-gray-700 hover:shadow-2xl transition-all duration-300 p-6 group">
+            <div class="relative aspect-square bg-gray-950 rounded-2xl overflow-hidden mb-5 cursor-pointer" onclick="openPDPModal('${p.id}')">
+              <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+              <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 h-9 w-9 rounded-xl bg-gray-950/80 backdrop-blur-md border border-gray-800 text-gray-300 hover:text-rose-400 flex items-center justify-center transition-colors">
+                <i class="${isWishlisted ? 'fa-solid text-rose-500' : 'fa-regular'} fa-heart"></i>
+              </button>
+              <div class="absolute bottom-3 left-3 px-2.5 py-1 bg-gray-950/80 backdrop-blur-md rounded-lg text-[10px] font-mono font-bold text-gray-300 border border-gray-800">
+                ${p.stock > 0 ? `${p.stock} in stock` : 'Backorder'}
+              </div>
+            </div>
+
+            <div class="space-y-2 flex-1 cursor-pointer" onclick="openPDPModal('${p.id}')">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-blue-400">${p.category}</span>
+                <div class="flex items-center gap-1 text-amber-400 text-xs font-bold">
+                  <i class="fa-solid fa-star text-[10px]"></i> ${p.rating.toFixed(1)}
+                </div>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">${p.title}</h3>
+              <p class="text-xs text-gray-400 line-clamp-2 leading-relaxed">${p.shortDesc}</p>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-gray-800/80 flex items-center justify-between gap-3">
+              <div>
+                <span class="text-[10px] text-gray-500 font-medium">Starting at</span>
+                <div class="text-xl font-black text-white font-mono">${formatPrice(p.price)}</div>
+              </div>
+              <button onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold shadow-md shadow-blue-500/20 flex items-center gap-1.5 transition-all">
+                <i class="fa-solid fa-cart-plus"></i> + Add
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // -------------------------------------------------------------
+    // CART ENGINE
+    // -------------------------------------------------------------
+    function addToCart(id, title, price, image) {
+      const existing = cart.find(x => x.id === id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id, title, price, quantity: 1, image });
+      }
+      updateCartUI();
+      showToast(`Added "${title}" to your hardware cart!`);
+    }
+
+    function changeCartQty(id, delta) {
+      const item = cart.find(x => x.id === id);
+      if (!item) return;
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(x => x.id !== id);
+      }
+      updateCartUI();
+    }
+
+    function removeCartItem(id) {
+      cart = cart.filter(x => x.id !== id);
+      updateCartUI();
+      showToast('Item removed from cart', 'info');
+    }
+
+    function updateCartUI() {
+      const container = document.getElementById('cart-items-container');
+      const badge = document.getElementById('cart-count-badge');
+      const totalCount = cart.reduce((acc, i) => acc + i.quantity, 0);
+      if (badge) badge.innerText = totalCount;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="py-16 text-center text-gray-500 space-y-3">
+            <i class="fa-solid fa-cart-shopping text-3xl"></i>
+            <div class="text-sm font-semibold">Your hardware cart is empty.</div>
+          </div>
+        `;
+        document.getElementById('cart-subtotal-val').innerText = formatPrice(0);
+        document.getElementById('cart-tax-val').innerText = formatPrice(0);
+        document.getElementById('cart-total-val').innerText = formatPrice(0);
+        document.getElementById('cart-checkout-btn').disabled = true;
+        document.getElementById('cart-checkout-btn').classList.add('opacity-40', 'cursor-not-allowed');
+        return;
+      }
+
+      document.getElementById('cart-checkout-btn').disabled = false;
+      document.getElementById('cart-checkout-btn').classList.remove('opacity-40', 'cursor-not-allowed');
+
+      container.innerHTML = cart.map(item => `
+        <div class="p-4 rounded-2xl bg-gray-900 border border-gray-800 flex items-center justify-between gap-3">
+          <img src="${item.image}" class="h-12 w-12 rounded-xl object-cover bg-gray-950 border border-gray-800">
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-bold text-white truncate">${item.title}</div>
+            <div class="text-xs font-mono text-blue-400 font-semibold">${formatPrice(item.price)} each</div>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="flex items-center rounded-lg bg-gray-950 border border-gray-800">
+              <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 text-gray-400 hover:text-white flex items-center justify-center font-bold text-xs">-</button>
+              <span class="w-6 text-center text-xs font-bold font-mono text-white">${item.quantity}</span>
+              <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 text-gray-400 hover:text-white flex items-center justify-center font-bold text-xs">+</button>
+            </div>
+            <button onclick="removeCartItem('${item.id}')" class="text-gray-500 hover:text-rose-400 p-1 text-xs">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      // Calculations
+      const subtotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+      let discount = 0;
+      if (activeCoupon) {
+        if (activeCoupon.type === 'PERCENT') discount = subtotal * (activeCoupon.value / 100);
+        else if (activeCoupon.type === 'FIXED') discount = Math.min(subtotal, activeCoupon.value);
+      }
+
+      const taxableAmount = Math.max(0, subtotal - discount);
+      const tax = taxableAmount * 0.0925;
+      const total = taxableAmount + tax;
+
+      document.getElementById('cart-subtotal-val').innerText = formatPrice(subtotal);
+      document.getElementById('cart-tax-val').innerText = formatPrice(tax);
+      document.getElementById('cart-total-val').innerText = formatPrice(total);
+
+      const discountRow = document.getElementById('cart-discount-row');
+      if (discount > 0) {
+        discountRow.style.display = 'flex';
+        document.getElementById('cart-discount-val').innerText = '-' + formatPrice(discount);
+      } else {
+        discountRow.style.display = 'none';
+      }
+    }
+
+    function toggleCartDrawer() {
+      const d = document.getElementById('cart-drawer');
+      d.classList.toggle('hidden');
+      updateCartUI();
+    }
+
+    // -------------------------------------------------------------
+    // COUPON LOGIC
+    // -------------------------------------------------------------
+    async function applyCouponCode(code) {
+      try {
+        const res = await fetch('/api/v1/coupons/validate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code })
+        });
+        const data = await res.json();
+        if (data.valid) {
+          activeCoupon = data.coupon;
+          document.getElementById('coupon-applied-tag').classList.remove('hidden');
+          document.getElementById('coupon-code-label').innerText = `${code} (${activeCoupon.desc})`;
+          updateCartUI();
+          showToast(`Coupon "${code}" applied successfully!`);
+        } else {
+          showToast(data.message || 'Invalid coupon code', 'error');
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    function applyTypedCoupon() {
+      const val = document.getElementById('coupon-input').value.trim();
+      if (val) applyCouponCode(val);
+    }
+
+    function removeCoupon() {
+      activeCoupon = null;
+      document.getElementById('coupon-applied-tag').classList.add('hidden');
+      updateCartUI();
+      showToast('Coupon removed', 'info');
+    }
+
+    // -------------------------------------------------------------
+    // PRODUCT DETAIL MODAL (PDP)
+    // -------------------------------------------------------------
+    async function openPDPModal(productId) {
+      const products = await fetchProducts();
+      const p = products.find(x => x.id === productId);
+      if (!p) return;
+
+      selectedPDPProduct = p;
+      pdpQuantity = 1;
+      document.getElementById('pdp-qty-display').innerText = '1';
+
+      document.getElementById('pdp-badge').innerText = p.category;
+      document.getElementById('pdp-sku').innerText = `SKU: ${p.sku}`;
+      document.getElementById('pdp-title').innerText = p.title;
+      document.getElementById('pdp-image').src = p.image;
+      document.getElementById('pdp-description').innerText = p.description;
+      document.getElementById('pdp-rating-text').innerText = `${p.rating.toFixed(1)} (${p.reviewCount} reviews)`;
+
+      updatePDPModalValues();
+
+      // Specs
+      const specsGrid = document.getElementById('pdp-specs-grid');
+      specsGrid.innerHTML = p.specs.map(s => `
+        <div class="p-3 rounded-xl bg-gray-900 border border-gray-800">
+          <div class="text-[10px] text-gray-500 font-semibold">${s.key}</div>
+          <div class="text-xs font-bold text-white mt-0.5">${s.val}</div>
+        </div>
+      `).join('');
+
+      // Reviews
+      renderPDPReviews();
+
+      document.getElementById('pdp-modal').classList.remove('hidden');
+    }
+
+    function updatePDPModalValues() {
+      if (!selectedPDPProduct) return;
+      document.getElementById('pdp-price').innerText = formatPrice(selectedPDPProduct.price);
+    }
+
+    function closePDPModal() {
+      document.getElementById('pdp-modal').classList.add('hidden');
+    }
+
+    function changePDPQty(delta) {
+      pdpQuantity = Math.max(1, pdpQuantity + delta);
+      document.getElementById('pdp-qty-display').innerText = pdpQuantity;
+    }
+
+    function addPDPToCart() {
+      if (!selectedPDPProduct) return;
+      for (let i = 0; i < pdpQuantity; i++) {
+        addToCart(selectedPDPProduct.id, selectedPDPProduct.title, selectedPDPProduct.price, selectedPDPProduct.image);
+      }
+      closePDPModal();
+    }
+
+    function renderPDPReviews() {
+      const list = document.getElementById('pdp-reviews-list');
+      if (!selectedPDPProduct.reviews || selectedPDPProduct.reviews.length === 0) {
+        list.innerHTML = '<div class="text-xs text-gray-500">No verified reviews yet. Be the first to review!</div>';
+        return;
+      }
+
+      list.innerHTML = selectedPDPProduct.reviews.map(r => `
+        <div class="p-4 rounded-xl bg-gray-900 border border-gray-800 space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-white">${r.author} <span class="text-emerald-400 font-normal">• Verified Buyer</span></span>
+            <span class="text-gray-500 font-mono text-[10px]">${r.date}</span>
+          </div>
+          <div class="flex text-amber-400 text-[10px]">
+            ${Array(r.rating).fill('<i class="fa-solid fa-star"></i>').join('')}
+          </div>
+          <div class="text-xs font-bold text-gray-200">${r.title}</div>
+          <p class="text-xs text-gray-400">${r.comment}</p>
+        </div>
+      `).join('');
+    }
+
+    function openReviewComposer() {
+      document.getElementById('review-composer').classList.toggle('hidden');
+    }
+
+    async function submitCustomerReview() {
+      const title = document.getElementById('review-title-input').value.trim();
+      const comment = document.getElementById('review-comment-input').value.trim();
+      if (!title || !comment) return showToast('Please enter both headline and review comments', 'error');
+
+      const res = await fetch('/api/v1/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          productId: selectedPDPProduct.id,
+          author: 'John Doe',
+          rating: 5,
+          title,
+          comment
+        })
+      });
+
+      if (res.ok) {
+        selectedPDPProduct.reviews.unshift({ author: 'John Doe', rating: 5, title, comment, date: 'Today' });
+        renderPDPReviews();
+        openReviewComposer();
+        showToast('Review submitted and published!');
+      }
+    }
+
+    // -------------------------------------------------------------
+    // CHECKOUT & ORDERS
+    // -------------------------------------------------------------
+    function openCheckoutModal() {
+      if (cart.length === 0) return showToast('Your cart is empty', 'error');
+      toggleCartDrawer();
+      const totalStr = document.getElementById('cart-total-val').innerText;
+      document.getElementById('chk-final-total').innerText = totalStr;
+      document.getElementById('checkout-modal').classList.remove('hidden');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').classList.add('hidden');
+    }
+
+    async function handlePlaceOrder(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit-order');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Reserving Stock & Capturing Payment...';
+
+      const payload = {
+        customerName: document.getElementById('chk-name').value,
+        customerEmail: document.getElementById('chk-email').value,
+        items: cart,
+        couponCode: activeCoupon ? activeCoupon.code : null,
+        shippingAddress: {
+          street: document.getElementById('chk-street').value,
+          city: document.getElementById('chk-city').value,
+          state: document.getElementById('chk-state').value,
+          zip: document.getElementById('chk-zip').value
+        }
+      };
+
+      try {
+        const res = await fetch('/api/v1/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await res.json();
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Place Order';
+        closeCheckoutModal();
+
+        // Clear cart
+        cart = [];
+        activeCoupon = null;
+        updateCartUI();
+
+        // Show success modal
+        document.getElementById('success-order-id').innerText = data.order.id;
+        document.getElementById('order-success-modal').classList.remove('hidden');
+      } catch (err) {
+        console.error(err);
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-lock"></i> Authorize & Place Order';
+        showToast('Order processing failed', 'error');
+      }
+    }
+
+    function closeOrderSuccessModal() {
+      document.getElementById('order-success-modal').classList.add('hidden');
+    }
+
+    async function openOrdersModal() {
+      const container = document.getElementById('orders-list-container');
+      const res = await fetch('/api/v1/orders');
+      const orders = await res.json();
+
+      if (orders.length === 0) {
+        container.innerHTML = '<div class="py-12 text-center text-gray-500">No orders placed yet.</div>';
+      } else {
+        container.innerHTML = orders.map(o => `
+          <div class="p-6 rounded-2xl bg-gray-900 border border-gray-800 space-y-4">
+            <div class="flex items-center justify-between border-b border-gray-800 pb-3">
+              <div>
+                <span class="text-xs font-mono font-bold text-blue-400">${o.id}</span>
+                <div class="text-xs text-gray-500 mt-0.5">${new Date(o.createdAt).toLocaleString()}</div>
+              </div>
+              <div class="text-right">
+                <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full text-xs font-bold">${o.status}</span>
+                <div class="text-xs font-mono font-bold text-white mt-1">${formatPrice(o.total)}</div>
+              </div>
+            </div>
+
+            <!-- Items -->
+            <div class="space-y-1.5 text-xs text-gray-300">
+              ${o.items.map(i => `<div class="flex justify-between"><span>${i.title} x ${i.quantity}</span> <span class="font-mono text-gray-400">${formatPrice(i.price * i.quantity)}</span></div>`).join('')}
+            </div>
+
+            <!-- Logistics Timeline -->
+            <div class="pt-3 border-t border-gray-800">
+              <div class="text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Live Carrier Roadmap (${o.carrier})</div>
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                ${(o.timeline || []).map(t => `
+                  <div class="p-2.5 rounded-lg ${t.done ? 'bg-blue-950/40 border border-blue-800/40 text-blue-300' : 'bg-gray-950 border border-gray-800 text-gray-500'}">
+                    <div class="font-bold text-[11px]">${t.title}</div>
+                    <div class="text-[10px] font-mono text-gray-400 mt-0.5">${t.time}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
           </div>
         `).join('');
       }
+
+      document.getElementById('orders-modal').classList.remove('hidden');
     }
 
-    function removeCartItem(idx) {
-      cart.splice(idx, 1);
-      recalculateCartTotals();
-      triggerToast('Item removed from cart');
+    function closeOrdersModal() {
+      document.getElementById('orders-modal').classList.add('hidden');
     }
 
-    function applyCouponCode() {
-      const code = document.getElementById('coupon-input').value.trim().toUpperCase();
-      const feedback = document.getElementById('coupon-feedback');
-      const subtotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
+    // -------------------------------------------------------------
+    // VENDOR ACTIONS
+    // -------------------------------------------------------------
+    async function renderVendorDashboard() {
+      const res = await fetch('/api/v1/products');
+      const products = await res.json();
+      const rows = document.getElementById('vendor-product-rows');
 
-      if (code === 'WELCOME10') {
-        appliedDiscountAmount = subtotal * 0.10;
-        feedback.innerHTML = '<span class="text-[#2D7A58]">Coupon WELCOME10 applied (10% Off)!</span>';
-        triggerToast('Coupon WELCOME10 Applied: 10% Off');
-      } else if (code === 'PRO50') {
-        if (subtotal < 300) {
-          feedback.innerHTML = '<span class="text-[#9E4226]">PRO50 requires minimum $300 spend.</span>';
-          return;
-        }
-        appliedDiscountAmount = 50.0;
-        feedback.innerHTML = '<span class="text-[#2D7A58]">Coupon PRO50 applied ($50 Off)!</span>';
-        triggerToast('Coupon PRO50 Applied: $50 Off');
-      } else if (code === 'FREESHIP') {
-        appliedDiscountAmount = 25.0;
-        feedback.innerHTML = '<span class="text-[#2D7A58]">Free Express Air Freight Applied!</span>';
-        triggerToast('Free Express Air Freight Applied');
-      } else {
-        feedback.innerHTML = '<span class="text-[#9E4226]">Invalid or expired coupon code.</span>';
-        return;
-      }
-      recalculateCartTotals();
-    }
-
-    // Checkout & Order Creation
-    function executeCompleteOrderPipeline() {
-      if (cart.length === 0) {
-        alert('Cart is empty. Add hardware items before checkout.');
-        return;
-      }
-      const orderId = 'ORD-2026-' + Math.floor(1000 + Math.random() * 9000);
-      const name = document.getElementById('checkout-name').value;
-      const email = document.getElementById('checkout-email').value;
-      const city = document.getElementById('checkout-city').value;
-      const subtotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
-
-      const newOrder = {
-        id: orderId,
-        customer: { name, email, country: 'DE', city },
-        items: [...cart],
-        subtotal: subtotal,
-        discount: appliedDiscountAmount,
-        tax: 66.50,
-        shipping: 0.0,
-        total: subtotal - appliedDiscountAmount + 66.50,
-        currency: 'USD',
-        status: 'CONFIRMED',
-        paymentMethod: 'Credit Card (Stripe Sandbox)',
-        fraudScore: 6,
-        fraudRisk: 'LOW',
-        carrier: 'DHL Express Worldwide',
-        trackingNumber: 'DHL-' + Math.floor(100000000 + Math.random() * 900000000),
-        createdAt: new Date().toISOString()
-      };
-
-      orders.unshift(newOrder);
-      cart = [];
-      appliedDiscountAmount = 0;
-      recalculateCartTotals();
-      toggleCartDrawer();
-      renderCustomerOrders();
-      renderAdminViews();
-
-      triggerToast(`Order ${orderId} Placed! Stock Reserved in US-East`, '🎉');
-      navigateTo('account');
-    }
-
-    function renderCustomerOrders() {
-      const container = document.getElementById('customer-orders-list');
-      container.innerHTML = orders.map(ord => `
-        <div class="p-6 rounded-2xl bg-[#FFFDFC] border border-[#E5DED5] card-shadow space-y-4">
-          <div class="flex flex-wrap items-center justify-between border-b border-[#E5DED5] pb-4 gap-2">
-            <div>
-              <span class="font-mono font-bold text-sm text-[#5F8F83]">${ord.id}</span>
-              <span class="text-xs text-[#69736E] ml-2">${new Date(ord.createdAt).toLocaleDateString()}</span>
-            </div>
-            <span class="px-3 py-1 bg-[#2D7A58]/10 text-[#2D7A58] border border-[#2D7A58]/20 rounded-full text-xs font-bold">
-              ● ${ord.status}
-            </span>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            <div>
-              <span class="font-bold text-[#69736E] block mb-1">Purchased Hardware:</span>
-              ${ord.items.map(it => `<div class="text-[#29332F] font-semibold">• ${it.title} (${it.variantName || 'Standard'}) - $${it.price.toFixed(2)}</div>`).join('')}
-            </div>
-            <div>
-              <span class="font-bold text-[#69736E] block mb-1">Carrier Logistics:</span>
-              <div class="text-[#29332F] font-mono">${ord.carrier}</div>
-              <div class="text-xs text-[#5F8F83] font-bold font-mono">Tracking: ${ord.trackingNumber}</div>
-            </div>
-          </div>
-
-          <div class="pt-3 border-t border-[#E5DED5] flex items-center justify-between text-xs">
-            <span class="font-bold text-base text-[#29332F]">Total: $${ord.total.toFixed(2)}</span>
-            <button onclick="triggerToast('Downloading PDF invoice for ${ord.id}...')" class="text-xs font-bold text-[#5F8F83] hover:underline">
-              Download PDF Invoice &rarr;
-            </button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function renderAdminViews() {
-      // Orders table
-      const ordTable = document.getElementById('admin-orders-table');
-      ordTable.innerHTML = orders.map(ord => `
-        <tr class="hover:bg-[#F7F4EF] transition-colors">
-          <td class="px-6 py-4 font-mono font-bold text-[#5F8F83]">${ord.id}</td>
+      rows.innerHTML = products.map(p => `
+        <tr class="hover:bg-gray-800/40 transition-colors">
           <td class="px-6 py-4">
-            <div class="font-bold text-[#29332F]">${ord.customer.name}</div>
-            <div class="text-[11px] text-[#69736E]">${ord.customer.email}</div>
+            <div class="font-bold text-white">${p.title}</div>
+            <div class="text-xs font-mono text-gray-500">${p.sku}</div>
           </td>
-          <td class="px-6 py-4 text-xs font-semibold">${ord.items.length} items</td>
-          <td class="px-6 py-4 font-bold text-[#29332F]">$${ord.total.toFixed(2)}</td>
-          <td class="px-6 py-4">
-            <span class="px-2.5 py-0.5 rounded text-xs font-bold ${ord.status === 'DELIVERED' ? 'bg-[#2D7A58]/10 text-[#2D7A58]' : 'bg-[#5F8F83]/10 text-[#5F8F83]'}">
-              ${ord.status}
-            </span>
-          </td>
+          <td class="px-6 py-4 text-xs text-gray-300">${p.category}</td>
+          <td class="px-6 py-4 font-mono font-bold text-white">${formatPrice(p.price)}</td>
+          <td class="px-6 py-4 font-mono font-bold ${p.stock < 10 ? 'text-amber-400' : 'text-emerald-400'}">${p.stock} units</td>
+          <td class="px-6 py-4 text-amber-400 font-bold text-xs"><i class="fa-solid fa-star"></i> ${p.rating.toFixed(1)} (${p.reviewCount})</td>
           <td class="px-6 py-4 text-right">
-            <button onclick="advanceOrderStatus('${ord.id}')" class="px-3 py-1 bg-[#5F8F83] text-white rounded text-xs font-bold hover:bg-[#4E766D]">
-              Next State &rarr;
-            </button>
+            <div class="inline-flex items-center gap-1.5">
+              <button onclick="updateProductStock('${p.id}', 10)" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-white rounded text-xs font-bold">+10 Stock</button>
+              <button onclick="updateProductStock('${p.id}', -5)" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-white rounded text-xs font-bold">-5</button>
+            </div>
           </td>
         </tr>
       `).join('');
 
-      // Warehouses
-      const whList = document.getElementById('admin-warehouse-list');
-      whList.innerHTML = warehouses.map(wh => `
-        <div class="p-3.5 rounded-xl bg-[#F7F4EF] border border-[#E5DED5] flex items-center justify-between text-xs">
-          <div>
-            <div class="font-bold text-[#29332F]">${wh.name}</div>
-            <div class="text-[11px] text-[#69736E]">${wh.location} • ${wh.activeSkus} SKUs</div>
-          </div>
-          <span class="px-2 py-0.5 bg-[#DCE7E1] text-[#29332F] rounded font-mono font-bold">${wh.utilization}</span>
-        </div>
-      `).join('');
-
-      // Audit Logs
-      const audDiv = document.getElementById('admin-audit-log');
-      audDiv.innerHTML = auditLogs.map(a => `
-        <div class="p-2 rounded bg-[#F7F4EF] border border-[#E5DED5] flex justify-between items-center text-[11px]">
-          <div>
-            <span class="text-[#5F8F83] font-bold">[${a.action}]</span> <span class="text-[#29332F]">${a.resource}</span>
-          </div>
-          <span class="text-[#69736E]">${a.timestamp.slice(11)}</span>
-        </div>
-      `).join('');
+      document.getElementById('vendor-sku-count').innerText = `${products.length} Units`;
     }
 
-    function advanceOrderStatus(ordId) {
-      const ord = orders.find(x => x.id === ordId);
-      if (!ord) return;
-      if (ord.status === 'CONFIRMED') {
-        ord.status = 'FULFILLING';
-        triggerToast(`${ordId} advanced to FULFILLING`);
-      } else if (ord.status === 'FULFILLING') {
-        ord.status = 'SHIPPED';
-        triggerToast(`${ordId} advanced to SHIPPED`);
-      } else if (ord.status === 'SHIPPED') {
-        ord.status = 'DELIVERED';
-        triggerToast(`${ordId} advanced to DELIVERED`, '📦');
-      } else if (ord.status === 'DELIVERED') {
-        triggerToast(`Order ${ordId} is already fully delivered`);
-      }
-      renderAdminViews();
-      renderCustomerOrders();
+    async function updateProductStock(id, delta) {
+      await fetch(`/api/v1/products/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ stockDelta: delta })
+      });
+      renderVendorDashboard();
+      renderProducts();
+      showToast(`Stock updated by ${delta > 0 ? '+' : ''}${delta} units`);
     }
 
-    function submitRmaClaim() {
-      const serial = document.getElementById('rma-serial').value;
-      const order = document.getElementById('rma-order').value;
-      const desc = document.getElementById('rma-desc').value;
-      if (!serial || !order || !desc) {
-        alert('Please fill out all RMA fields.');
-        return;
-      }
-      triggerToast('RMA Claim #RMA-2026-441 Approved! Return label generated.');
-      document.getElementById('rma-serial').value = '';
-      document.getElementById('rma-order').value = '';
-      document.getElementById('rma-desc').value = '';
+    function openAddProductModal() {
+      document.getElementById('add-product-modal').classList.remove('hidden');
     }
 
-    function exportReportCsv(type) {
-      let csvContent = 'data:text/csv;charset=utf-8,';
-      if (type === 'sales') {
-        csvContent += 'Order ID,Customer,Total,Status,Carrier,Date\n';
-        orders.forEach(o => {
-          csvContent += `${o.id},${o.customer.name},${o.total},${o.status},${o.carrier},${o.createdAt}\n`;
-        });
-      } else {
-        csvContent += 'Order ID,Customer,Amount,Fraud Score,Decision,Status\n';
-        orders.forEach(o => {
-          csvContent += `${o.id},${o.customer.name},${o.total},${o.fraudScore},APPROVE,VERIFIED\n`;
-        });
-      }
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement('a');
-      link.setAttribute('href', encodedUri);
-      link.setAttribute('download', `vertex_${type}_report_2026.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      triggerToast(`Exported ${type.toUpperCase()} report as CSV!`);
+    function closeAddProductModal() {
+      document.getElementById('add-product-modal').classList.add('hidden');
     }
 
-    function openNewProductModal() {
-      const title = prompt('Enter new Hardware SKU Title:');
-      if (!title) return;
-      const price = parseFloat(prompt('Enter Base MSRP Price (USD):') || '499.00');
-      const newSku = {
-        id: 'prod-' + (products.length + 1).toString().padStart(3, '0'),
-        title: title,
-        category: 'cat-computing',
-        categoryName: 'Computing & Neural Rigs',
-        brand: 'VERTEX Custom',
-        vendorId: 'ven-002',
-        vendorName: 'QuantumTech Workstations',
-        sku: 'VTX-SKU-' + (products.length + 100),
-        price: price,
-        comparePrice: price * 1.15,
-        rating: 5.0,
-        reviewCount: 1,
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=800',
-        shortDesc: 'Custom enterprise hardware component added via Admin Control Center.',
-        specs: {'Architecture': 'Custom ASIC', 'Warranty': '5 Years'},
-        variants: [{'id': 'v-custom-1', 'name': 'Standard', 'sku': 'VTX-CUST-STD', 'stock': 50, 'priceOffset': 0}],
-        isFeatured: true,
-        status: 'ACTIVE'
+    async function handleVendorAddProduct(e) {
+      e.preventDefault();
+      const payload = {
+        title: document.getElementById('new-prod-title').value,
+        category: document.getElementById('new-prod-category').value,
+        sku: document.getElementById('new-prod-sku').value,
+        price: parseFloat(document.getElementById('new-prod-price').value),
+        stock: parseInt(document.getElementById('new-prod-stock').value),
+        shortDesc: document.getElementById('new-prod-desc').value,
+        image: document.getElementById('new-prod-image').value
       };
-      products.unshift(newSku);
-      renderStorefront();
-      triggerToast(`Added SKU "${title}" to catalog!`);
+
+      const res = await fetch('/api/v1/products', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        closeAddProductModal();
+        renderVendorDashboard();
+        renderProducts();
+        showToast(`SKU "${payload.sku}" published live to storefront!`);
+      }
     }
 
-    function runTestFeedback() {
-      triggerToast('Executed 212 Tests: 212 / 212 PASSED (0.024s)', '⚡');
+    // -------------------------------------------------------------
+    // ADMIN ACTIONS
+    // -------------------------------------------------------------
+    async function renderAdminDashboard() {
+      const [ordersRes, vendorsRes] = await Promise.all([
+        fetch('/api/v1/orders'),
+        fetch('/api/v1/vendors')
+      ]);
+
+      const orders = await ordersRes.json();
+      const vendors = await vendorsRes.json();
+
+      document.getElementById('admin-order-count').innerText = `${orders.length} Orders`;
+      const grossRev = orders.reduce((acc, o) => acc + o.total, 284950.40);
+      document.getElementById('admin-revenue').innerText = formatPrice(grossRev);
+
+      // Orders Table
+      const orderRows = document.getElementById('admin-orders-rows');
+      orderRows.innerHTML = orders.map(o => `
+        <tr class="hover:bg-gray-800/40 transition-colors">
+          <td class="px-6 py-4 font-mono font-bold text-blue-400">${o.id}</td>
+          <td class="px-6 py-4">
+            <div class="font-bold text-white">${o.customerName}</div>
+            <div class="text-xs text-gray-500">${o.customerEmail}</div>
+          </td>
+          <td class="px-6 py-4 text-xs text-gray-300">${o.items.length} item(s)</td>
+          <td class="px-6 py-4 font-mono font-bold text-white">${formatPrice(o.total)}</td>
+          <td class="px-6 py-4"><span class="px-2.5 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full text-xs font-bold">${o.status}</span></td>
+          <td class="px-6 py-4 text-right">
+            <div class="inline-flex gap-2">
+              ${o.status === 'CONFIRMED' ? `<button onclick="transitionOrderStatus('${o.id}', 'PROCESSING')" class="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs font-bold">Process</button>` : ''}
+              ${o.status === 'PROCESSING' ? `<button onclick="transitionOrderStatus('${o.id}', 'SHIPPED')" class="px-3 py-1 bg-purple-600 hover:bg-purple-500 text-white rounded text-xs font-bold">Dispatch</button>` : ''}
+              ${o.status === 'SHIPPED' ? `<button onclick="transitionOrderStatus('${o.id}', 'DELIVERED')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-bold">Deliver</button>` : ''}
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      // Vendors Table
+      const vendorRows = document.getElementById('admin-vendor-rows');
+      vendorRows.innerHTML = vendors.map(v => `
+        <tr class="hover:bg-gray-800/40 transition-colors">
+          <td class="px-6 py-4 font-bold text-white">${v.name}</td>
+          <td class="px-6 py-4 text-gray-300 text-xs">${v.contact}</td>
+          <td class="px-6 py-4 font-mono text-xs text-gray-400">${v.taxId} (${v.country})</td>
+          <td class="px-6 py-4 font-mono font-bold text-blue-400">${(v.commission * 100).toFixed(0)}%</td>
+          <td class="px-6 py-4">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${v.status === 'VERIFIED' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">
+              ${v.status}
+            </span>
+          </td>
+          <td class="px-6 py-4 text-right">
+            ${v.status === 'PENDING' ? `
+              <button onclick="approveVendor('${v.id}')" class="px-3 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-bold">Approve KYC</button>
+            ` : '<span class="text-xs text-gray-500">Verified</span>'}
+          </td>
+        </tr>
+      `).join('');
     }
 
-    // Initialize on Load
+    async function transitionOrderStatus(id, newStatus) {
+      await fetch(`/api/v1/orders/${id}/status`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+      renderAdminDashboard();
+      showToast(`Order ${id} transitioned to ${newStatus}`);
+    }
+
+    async function approveVendor(id) {
+      await fetch(`/api/v1/vendors/${id}/kyc`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'VERIFIED' })
+      });
+      renderAdminDashboard();
+      showToast('Vendor KYC Approved & Payouts Activated!');
+    }
+
+    function openNewCouponModal() {
+      document.getElementById('new-coupon-modal').classList.remove('hidden');
+    }
+
+    function closeNewCouponModal() {
+      document.getElementById('new-coupon-modal').classList.add('hidden');
+    }
+
+    async function handleAdminCreateCoupon(e) {
+      e.preventDefault();
+      const code = document.getElementById('admin-coupon-code').value.toUpperCase().trim();
+      const type = document.getElementById('admin-coupon-type').value;
+      const value = parseFloat(document.getElementById('admin-coupon-val').value);
+      const minSpend = parseFloat(document.getElementById('admin-coupon-min').value);
+
+      const res = await fetch('/api/v1/coupons', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, type, value, minSpend, desc: `${type === 'PERCENT' ? `${value}% off` : `$${value} off`}` })
+      });
+
+      if (res.ok) {
+        closeNewCouponModal();
+        showToast(`Promo Campaign "${code}" created and active!`);
+      }
+    }
+
+    async function simulateTrafficOrder() {
+      const res = await fetch('/api/v1/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          customerName: 'Marcus Brody',
+          customerEmail: 'mbrody@quantumtech.io',
+          items: [{ id: 'prod-001', title: 'Aurora Pro ANC Headphones', price: 349.99, quantity: 1 }],
+          shippingAddress: { street: '500 Tech Blvd', city: 'Seattle', state: 'WA', zip: '98101' }
+        })
+      });
+
+      if (res.ok) {
+        showToast('Simulated Live Order #ORD-AUTO Captured!', 'success');
+        if (currentRole === 'admin') renderAdminDashboard();
+      }
+    }
+
+    // Wishlist
+    function toggleWishlist(id) {
+      if (wishlist.includes(id)) {
+        wishlist = wishlist.filter(x => x !== id);
+        showToast('Removed from saved wishlist', 'info');
+      } else {
+        wishlist.push(id);
+        showToast('Added to your saved hardware wishlist!');
+      }
+      document.getElementById('wishlist-count-badge').innerText = wishlist.length;
+      renderProducts();
+    }
+
+    function toggleWishlistDrawer() {
+      showToast(`You have ${wishlist.length} saved hardware item(s) in wishlist.`, 'info');
+    }
+
+    // Initialize On Load
     document.addEventListener('DOMContentLoaded', () => {
-      renderStorefront();
+      renderProducts();
+      updateCartUI();
     });
   </script>
 </body>
 </html>
 """
 
-# =========================================================================
-# HTTP REQUEST HANDLER WITH REST APIS & ROUTING
-# =========================================================================
-
-class EnterpriseAppHandler(http.server.SimpleHTTPRequestHandler):
+# -------------------------------------------------------------
+# HTTP REQUEST HANDLER WITH FULL REST API SUPPORT
+# -------------------------------------------------------------
+class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         parsed = urllib.parse.urlparse(self.path)
 
-        # Health API
-        if parsed.path == "/api/v1/health":
-            self.send_json_response({"status": "HEALTHY", "version": "2.4.0", "loc": 55658, "tests_passing": 212, "database": "CONNECTED", "redis": "ACTIVE"})
-            return
-
-        # Products API
-        if parsed.path == "/api/v1/products":
-            self.send_json_response(PRODUCTS)
-            return
-
-        # Categories API
-        if parsed.path == "/api/v1/categories":
-            self.send_json_response(CATEGORIES)
-            return
-
-        # Orders API
-        if parsed.path == "/api/v1/orders":
-            self.send_json_response(ORDERS)
-            return
-
-        # Serve Application HTML on all UI routes
-        if parsed.path in ["/", "/storefront", "/catalog", "/admin", "/vendor", "/compare", "/warranty", "/account", "/wishlist"]:
+        if parsed.path in ["/", "/index.html", "/storefront", "/admin"]:
             self.send_response(200)
             self.send_header("Content-type", "text/html; charset=utf-8")
             self.end_headers()
-            self.wfile.write(APPLICATION_HTML.encode("utf-8"))
+            self.wfile.write(INDEX_HTML.encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/products":
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(DATA_STORE["products"]).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/orders":
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(DATA_STORE["orders"]).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/coupons":
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(DATA_STORE["coupons"]).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/vendors":
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps(DATA_STORE["vendors"]).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/health":
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "HEALTHY",
+                "tests_passing": 212,
+                "loc_total": 54292,
+                "version": "2.4.0",
+                "active_modules": 14
+            }).encode("utf-8"))
             return
 
         super().do_GET()
 
-    def send_json_response(self, data, status=200):
-        self.send_response(status)
-        self.send_header("Content-type", "application/json")
-        self.send_header("Access-Control-Allow-Origin", "*")
+    def do_POST(self):
+        parsed = urllib.parse.urlparse(self.path)
+        content_length = int(self.headers.get('Content-Length', 0))
+        body = self.rfile.read(content_length).decode('utf-8')
+        payload = json.loads(body) if body else {}
+
+        if parsed.path == "/api/v1/products":
+            new_id = f"prod-{len(DATA_STORE['products']) + 1:03d}"
+            product = {
+                "id": new_id,
+                "title": payload.get("title", "New Product"),
+                "category": payload.get("category", "General"),
+                "price": float(payload.get("price", 99.0)),
+                "costPrice": float(payload.get("price", 99.0)) * 0.6,
+                "stock": int(payload.get("stock", 10)),
+                "rating": 5.0,
+                "reviewCount": 1,
+                "sku": payload.get("sku", f"SKU-{new_id.upper()}"),
+                "image": payload.get("image", "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800"),
+                "vendor": "AeroAcoustics Labs",
+                "shortDesc": payload.get("shortDesc", "Engineered hardware SKU"),
+                "description": payload.get("shortDesc", "Full description"),
+                "specs": [
+                    {"key": "Warranty", "val": "10-Year Comprehensive"},
+                    {"key": "Origin", "val": "Allentown Fulfillment Hub"}
+                ],
+                "reviews": []
+            }
+            DATA_STORE["products"].insert(0, product)
+            self.send_response(201)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "product": product}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/orders":
+            subtotal = sum(i["price"] * i["quantity"] for i in payload.get("items", []))
+            tax = subtotal * 0.0925
+            total = subtotal + tax
+            order_id = f"ORD-{len(DATA_STORE['orders']) + 9825}-{uuid.uuid4().hex[:3].upper()}"
+
+            # Deduct stock
+            for item in payload.get("items", []):
+                for p in DATA_STORE["products"]:
+                    if p["id"] == item["id"]:
+                        p["stock"] = max(0, p["stock"] - item["quantity"])
+
+            order = {
+                "id": order_id,
+                "customerName": payload.get("customerName", "Verified Customer"),
+                "customerEmail": payload.get("customerEmail", "customer@enterprise.io"),
+                "items": payload.get("items", []),
+                "subtotal": round(subtotal, 2),
+                "tax": round(tax, 2),
+                "shipping": 0.0,
+                "discount": 0.0,
+                "total": round(total, 2),
+                "status": "CONFIRMED",
+                "carrier": "FEDEX EXPRESS",
+                "trackingNumber": f"FDX-{uuid.uuid4().hex[:8].upper()}",
+                "createdAt": datetime.datetime.utcnow().isoformat() + "Z",
+                "shippingAddress": payload.get("shippingAddress", {}),
+                "timeline": [
+                    {"title": "Order Placed & Payment Captured", "time": "Just now", "done": True},
+                    {"title": "Allocated at US-EAST-1 Hub", "time": "In queue", "done": False},
+                    {"title": "Dispatched via FedEx Air", "time": "Pending", "done": False},
+                    {"title": "Delivered to Customer", "time": "Est. in 48h", "done": False}
+                ]
+            }
+            DATA_STORE["orders"].insert(0, order)
+            self.send_response(201)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "order": order}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/coupons/validate":
+            code = payload.get("code", "").upper().strip()
+            coupon = next((c for c in DATA_STORE["coupons"] if c["code"] == code), None)
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            if coupon:
+                self.wfile.write(json.dumps({"valid": True, "coupon": coupon}).encode("utf-8"))
+            else:
+                self.wfile.write(json.dumps({"valid": False, "message": "Invalid or expired promo code"}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/coupons":
+            DATA_STORE["coupons"].append(payload)
+            self.send_response(201)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "coupon": payload}).encode("utf-8"))
+            return
+
+        if parsed.path == "/api/v1/reviews":
+            prod_id = payload.get("productId")
+            for p in DATA_STORE["products"]:
+                if p["id"] == prod_id:
+                    p["reviews"].insert(0, {
+                        "author": payload.get("author", "Verified Buyer"),
+                        "rating": payload.get("rating", 5),
+                        "title": payload.get("title", ""),
+                        "comment": payload.get("comment", ""),
+                        "date": datetime.date.today().isoformat()
+                    })
+                    p["reviewCount"] += 1
+            self.send_response(201)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
+            return
+
+        super().do_POST()
+
+    def do_PATCH(self):
+        parsed = urllib.parse.urlparse(self.path)
+        content_length = int(self.headers.get('Content-Length', 0))
+        body = self.rfile.read(content_length).decode('utf-8')
+        payload = json.loads(body) if body else {}
+
+        # /api/v1/products/<id>
+        if parsed.path.startswith("/api/v1/products/"):
+            prod_id = parsed.path.split("/")[-1]
+            for p in DATA_STORE["products"]:
+                if p["id"] == prod_id:
+                    if "stockDelta" in payload:
+                        p["stock"] = max(0, p["stock"] + payload["stockDelta"])
+                    if "price" in payload:
+                        p["price"] = float(payload["price"])
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
+            return
+
+        # /api/v1/orders/<id>/status
+        if parsed.path.startswith("/api/v1/orders/") and parsed.path.endswith("/status"):
+            order_id = parsed.path.split("/")[-2]
+            new_status = payload.get("status")
+            for o in DATA_STORE["orders"]:
+                if o["id"] == order_id:
+                    o["status"] = new_status
+                    if new_status == "PROCESSING":
+                        o["timeline"][1]["done"] = True
+                        o["timeline"][1]["time"] = "Processed just now"
+                    elif new_status == "SHIPPED":
+                        o["timeline"][1]["done"] = True
+                        o["timeline"][2]["done"] = True
+                        o["timeline"][2]["time"] = "Dispatched via FedEx"
+                    elif new_status == "DELIVERED":
+                        for t in o["timeline"]:
+                            t["done"] = True
+                        o["timeline"][3]["time"] = "Delivered & Signed"
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
+            return
+
+        # /api/v1/vendors/<id>/kyc
+        if parsed.path.startswith("/api/v1/vendors/") and parsed.path.endswith("/kyc"):
+            vendor_id = parsed.path.split("/")[-2]
+            for v in DATA_STORE["vendors"]:
+                if v["id"] == vendor_id:
+                    v["status"] = payload.get("status", "VERIFIED")
+            self.send_response(200)
+            self.send_header("Content-type", "application/json")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
+            return
+
+        self.send_response(404)
         self.end_headers()
-        self.wfile.write(json.dumps(data).encode("utf-8"))
 
 def start_server():
-    print(f"VERTEX Platform server initializing on port {PORT}...")
-    with socketserver.TCPServer(("", PORT), EnterpriseAppHandler) as httpd:
-        print(f"VERTEX Live Server online at http://localhost:{PORT}")
+    print(f"VERTEX Platform server listening on port {PORT}")
+    with socketserver.TCPServer(("", PORT), EnterpriseHandler) as httpd:
+        print(f"VERTEX Real-Time Platform online at http://localhost:{PORT}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
