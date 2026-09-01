@@ -9,7 +9,7 @@ import datetime
 PORT = 3000
 
 # -------------------------------------------------------------
-# REAL-TIME IN-MEMORY DATA STORE (INR RUPEES & AUTH GATEWAY)
+# REAL-TIME DATA STORE (PLUM & SOFT GRAY THEME • INR RUPEES)
 # -------------------------------------------------------------
 DATA_STORE = {
     "users": [
@@ -279,178 +279,164 @@ DATA_STORE = {
 }
 
 # -------------------------------------------------------------
-# EXACT SPECIFIED COLOR PALETTE & GATED AUTH SPA HTML / CSS / JS
+# PLUM + SOFT GRAY LUXURY THEME HTML & STRICT RBAC INTERFACES
 # -------------------------------------------------------------
 INDEX_HTML = """<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VERTEX | Enterprise Platform</title>
+  <title>VERTEX | Enterprise E-Commerce Platform</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
     
-    /* Exact Palette Token Variables */
+    /* Plum + Soft Gray Design Tokens */
     :root {
-      --color-main-bg: #F7F3EC;
-      --color-header: #DDE7DF;
-      --color-card: #FFFDF9;
-      --color-btn-primary: #557A68;
-      --color-btn-hover: #456653;
-      --color-accent-terracotta: #C9826B;
-      --color-highlight-peach: #F0D5C8;
-      --color-sale-rose: #C96F6F;
-      --color-success-sage: #8EAF98;
-      --color-warning-amber: #D9AE6A;
-      --color-text-charcoal: #29332E;
-      --color-text-muted: #6F7772;
-      --color-borders: #E4DDD2;
+      --bg-soft-gray: #F3F4F6;
+      --bg-card: #FFFFFF;
+      --plum-primary: #581C44;
+      --plum-dark: #3F1230;
+      --plum-light: #7E2861;
+      --plum-accent: #A23B7D;
+      --plum-soft-badge: #F5E8F0;
+      --plum-text: #2A0B22;
+      --border-gray: #E5E7EB;
+      --text-muted: #6B7280;
     }
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      background-color: var(--color-main-bg);
-      color: var(--color-text-charcoal);
+      background-color: var(--bg-soft-gray);
+      color: var(--plum-text);
     }
 
     .font-mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* Custom Theme Classes */
-    .bg-main-cream { background-color: #F7F3EC; }
-    .bg-header-sage { background-color: #DDE7DF; }
-    .bg-card-warm { background-color: #FFFDF9; }
-    .bg-btn-deep-sage { background-color: #557A68; }
-    .bg-btn-deep-sage:hover { background-color: #456653; }
-    .bg-accent-terracotta { background-color: #C9826B; }
-    .bg-highlight-peach { background-color: #F0D5C8; }
-    .bg-sale-rose { background-color: #C96F6F; }
-    .bg-success-sage { background-color: #8EAF98; }
-    .bg-warning-amber { background-color: #D9AE6A; }
-
-    .text-charcoal { color: #29332E; }
-    .text-muted-gray { color: #6F7772; }
-    .text-deep-sage { color: #557A68; }
-    .text-terracotta { color: #C9826B; }
-    .text-sale-rose { color: #C96F6F; }
-
-    .border-beige-gray { border-color: #E4DDD2; }
-    .border-deep-sage { border-color: #557A68; }
+    /* Custom Utility Classes for Plum Palette */
+    .bg-plum { background-color: #581C44; }
+    .bg-plum:hover { background-color: #3F1230; }
+    .bg-plum-light { background-color: #7E2861; }
+    .bg-plum-badge { background-color: #F5E8F0; }
+    .text-plum { color: #581C44; }
+    .text-plum-accent { color: #A23B7D; }
+    .border-plum { border-color: #581C44; }
+    .border-plum-light { border-color: #E5D0DF; }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #F7F3EC; }
-    ::-webkit-scrollbar-thumb { background: #E4DDD2; border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: #557A68; }
+    ::-webkit-scrollbar-track { background: #F3F4F6; }
+    ::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #581C44; }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased selection:bg-[#557A68] selection:text-white">
+<body class="min-h-screen flex flex-col antialiased selection:bg-[#581C44] selection:text-white">
 
   <!-- ========================================================= -->
-  <!-- GATEWAY: INITIAL LOGIN DASHBOARD (SHOWN BEFORE LOGIN) -->
+  <!-- GATEWAY 1: MANDATORY INITIAL LOGIN DASHBOARD -->
   <!-- ========================================================= -->
-  <div id="gatekeeper-view" class="fixed inset-0 z-50 bg-[#F7F3EC] flex flex-col items-center justify-center p-4 overflow-y-auto">
-    <div class="w-full max-w-xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl p-8 sm:p-10 shadow-xl space-y-8 animate-in zoom-in-95 duration-200">
+  <div id="login-gatekeeper-screen" class="fixed inset-0 z-50 bg-[#F3F4F6] flex flex-col items-center justify-center p-4 overflow-y-auto">
+    <div class="w-full max-w-xl bg-white border border-[#E5E7EB] rounded-3xl p-8 sm:p-10 shadow-2xl space-y-8 animate-in zoom-in-95 duration-200">
       
-      <!-- Brand Header -->
+      <!-- Brand Logo & Header -->
       <div class="text-center space-y-2">
-        <div class="h-16 w-16 rounded-2xl bg-[#557A68] text-white flex items-center justify-center text-2xl mx-auto shadow-lg shadow-[#557A68]/20">
+        <div class="h-16 w-16 rounded-2xl bg-[#581C44] text-white flex items-center justify-center text-2xl mx-auto shadow-lg shadow-[#581C44]/25">
           <i class="fa-solid fa-cube"></i>
         </div>
-        <h1 class="text-3xl font-black text-[#29332E] tracking-tight mt-3">VERTEX Enterprise</h1>
-        <p class="text-xs text-[#6F7772]">Please authenticate to access the live E-Commerce Platform & Telemetry.</p>
+        <h1 class="text-3xl font-black text-[#2A0B22] tracking-tight mt-3">VERTEX Enterprise</h1>
+        <p class="text-xs text-[#6B7280]">Role-Based Access Portal • All Prices in Indian Rupees (₹)</p>
       </div>
 
-      <!-- 3 ONE-CLICK PRESET LOGIN CREDENTIALS -->
-      <div class="space-y-3 p-5 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2]">
+      <!-- 3 PRESET DEMO LOGIN CREDENTIALS -->
+      <div class="space-y-3 p-5 rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB]">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold uppercase tracking-wider text-[#C9826B] flex items-center gap-1.5">
-            <i class="fa-solid fa-bolt"></i> 1-Click Demo Login Credentials
+          <span class="text-xs font-bold uppercase tracking-wider text-[#581C44] flex items-center gap-1.5">
+            <i class="fa-solid fa-bolt text-[#A23B7D]"></i> 1-Click Login Credentials
           </span>
-          <span class="text-[10px] text-[#6F7772]">Instant Access</span>
+          <span class="text-[10px] text-[#6B7280]">Select role to enter</span>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
           <!-- 1. Customer -->
-          <button onclick="loginPreset('customer')" class="p-3 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-left hover:border-[#557A68] hover:shadow-sm transition-all group">
+          <button onclick="loginPreset('customer')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-[#581C44] hover:shadow-md transition-all group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-[#29332E] group-hover:text-[#557A68]">1. Customer</span>
-              <i class="fa-solid fa-user text-[#557A68] text-xs"></i>
+              <span class="text-xs font-bold text-[#2A0B22] group-hover:text-[#581C44]">1. Customer</span>
+              <i class="fa-solid fa-user text-[#581C44] text-xs"></i>
             </div>
-            <div class="text-[10px] text-[#6F7772] font-mono mt-0.5 truncate">john.doe@enterprise.io</div>
-            <div class="text-[10px] text-[#557A68] font-mono font-semibold">Pass: customer123</div>
+            <div class="text-[10px] text-[#6B7280] font-mono mt-0.5 truncate">john.doe@enterprise.io</div>
+            <div class="text-[10px] text-[#581C44] font-mono font-bold">Pass: customer123</div>
           </button>
 
           <!-- 2. Vendor -->
-          <button onclick="loginPreset('vendor')" class="p-3 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-left hover:border-[#C9826B] hover:shadow-sm transition-all group">
+          <button onclick="loginPreset('vendor')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-[#7E2861] hover:shadow-md transition-all group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-[#29332E] group-hover:text-[#C9826B]">2. Merchant</span>
-              <i class="fa-solid fa-store text-[#C9826B] text-xs"></i>
+              <span class="text-xs font-bold text-[#2A0B22] group-hover:text-[#7E2861]">2. Merchant</span>
+              <i class="fa-solid fa-store text-[#7E2861] text-xs"></i>
             </div>
-            <div class="text-[10px] text-[#6F7772] font-mono mt-0.5 truncate">elena@aeroacoustics.io</div>
-            <div class="text-[10px] text-[#C9826B] font-mono font-semibold">Pass: vendor123</div>
+            <div class="text-[10px] text-[#6B7280] font-mono mt-0.5 truncate">elena@aeroacoustics.io</div>
+            <div class="text-[10px] text-[#7E2861] font-mono font-bold">Pass: vendor123</div>
           </button>
 
           <!-- 3. Super Admin -->
-          <button onclick="loginPreset('admin')" class="p-3 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-left hover:border-[#D9AE6A] hover:shadow-sm transition-all group">
+          <button onclick="loginPreset('admin')" class="p-3 rounded-xl bg-white border border-[#E5E7EB] text-left hover:border-[#A23B7D] hover:shadow-md transition-all group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-[#29332E] group-hover:text-[#D9AE6A]">3. Admin</span>
-              <i class="fa-solid fa-shield-halved text-[#D9AE6A] text-xs"></i>
+              <span class="text-xs font-bold text-[#2A0B22] group-hover:text-[#A23B7D]">3. Super Admin</span>
+              <i class="fa-solid fa-shield-halved text-[#A23B7D] text-xs"></i>
             </div>
-            <div class="text-[10px] text-[#6F7772] font-mono mt-0.5 truncate">kusuma.podili@vertex.io</div>
-            <div class="text-[10px] text-[#D9AE6A] font-mono font-semibold">Pass: admin123</div>
+            <div class="text-[10px] text-[#6B7280] font-mono mt-0.5 truncate">kusuma.podili@vertex.io</div>
+            <div class="text-[10px] text-[#A23B7D] font-mono font-bold">Pass: admin123</div>
           </button>
         </div>
       </div>
 
-      <!-- CUSTOMER TABS: LOGIN (OLD CUSTOMER) vs SIGN UP (NEW CUSTOMER) -->
+      <!-- CUSTOMER TABS: LOGIN (OLD USER) vs SIGN UP (NEW CUSTOMER) -->
       <div class="space-y-4">
-        <div class="flex rounded-2xl bg-[#F7F3EC] p-1 border border-[#E4DDD2]">
-          <button onclick="setGatekeeperTab('login')" id="gate-tab-login" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#557A68] text-white shadow-sm transition-all">
+        <div class="flex rounded-2xl bg-[#F3F4F6] p-1 border border-[#E5E7EB]">
+          <button onclick="setGatekeeperTab('login')" id="gate-tab-login" class="flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#581C44] text-white shadow-sm transition-all">
             <i class="fa-solid fa-arrow-right-to-bracket mr-1.5"></i> Customer Login (Old User)
           </button>
-          <button onclick="setGatekeeperTab('signup')" id="gate-tab-signup" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6F7772] hover:text-[#29332E] transition-all">
+          <button onclick="setGatekeeperTab('signup')" id="gate-tab-signup" class="flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-[#2A0B22] transition-all">
             <i class="fa-solid fa-user-plus mr-1.5"></i> Sign Up (New Customer)
           </button>
         </div>
 
-        <!-- FORM 1: LOGIN (EXISTING CUSTOMER / USER) -->
+        <!-- LOGIN FORM (EXISTING CUSTOMER) -->
         <form id="gate-form-login" onsubmit="handleGatekeeperLogin(event)" class="space-y-4 pt-2">
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Email Address</label>
-            <input required type="email" id="gate-login-email" placeholder="e.g. john.doe@enterprise.io" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Email Address</label>
+            <input required type="email" id="gate-login-email" placeholder="e.g. john.doe@enterprise.io" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
           </div>
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Password</label>
-            <input required type="password" id="gate-login-password" placeholder="••••••••••••" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Password</label>
+            <input required type="password" id="gate-login-password" placeholder="••••••••••••" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
           </div>
-          <button type="submit" class="w-full py-3.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#557A68]/20 transition-all">
-            Login & Enter Website &rarr;
+          <button type="submit" class="w-full py-3.5 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#581C44]/20 transition-all">
+            Login & Enter Portal &rarr;
           </button>
         </form>
 
-        <!-- FORM 2: SIGN UP (NEW CUSTOMER) -->
+        <!-- SIGN UP FORM (NEW CUSTOMER) -->
         <form id="gate-form-signup" onsubmit="handleGatekeeperSignUp(event)" class="space-y-4 pt-2 hidden">
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Full Name</label>
-            <input required type="text" id="gate-reg-name" placeholder="e.g. Ramesh Kumar" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Full Name</label>
+            <input required type="text" id="gate-reg-name" placeholder="e.g. Ramesh Kumar" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="text-xs font-bold text-[#29332E]">Email Address</label>
-              <input required type="email" id="gate-reg-email" placeholder="ramesh@gmail.com" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+              <label class="text-xs font-bold text-[#2A0B22]">Email Address</label>
+              <input required type="email" id="gate-reg-email" placeholder="ramesh@gmail.com" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#29332E]">Mobile Number</label>
-              <input required type="text" id="gate-reg-phone" placeholder="+91 98765 00000" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+              <label class="text-xs font-bold text-[#2A0B22]">Mobile Number</label>
+              <input required type="text" id="gate-reg-phone" placeholder="+91 98765 00000" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
             </div>
           </div>
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Create Password</label>
-            <input required type="password" id="gate-reg-password" placeholder="Minimum 6 characters" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-3 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Create Password</label>
+            <input required type="password" id="gate-reg-password" placeholder="Minimum 6 characters" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-3 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
           </div>
-          <button type="submit" class="w-full py-3.5 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#C9826B]/20 transition-all">
-            Create Customer Account & Enter Website &rarr;
+          <button type="submit" class="w-full py-3.5 bg-[#7E2861] hover:bg-[#581C44] text-white rounded-xl text-xs font-bold shadow-lg shadow-[#7E2861]/20 transition-all">
+            Create Customer Account & Enter &rarr;
           </button>
         </form>
       </div>
@@ -459,105 +445,82 @@ INDEX_HTML = """<!DOCTYPE html>
   </div>
 
   <!-- ========================================================= -->
-  <!-- MAIN APPLICATION (SHOWN AFTER AUTHENTICATION) -->
+  <!-- MAIN APPLICATION CONTAINER (AUTHENTICATED) -->
   <!-- ========================================================= -->
   <div id="authenticated-app" class="hidden flex-col min-h-screen">
 
-    <!-- HEADER (SOFT SAGE #DDE7DF) -->
-    <header class="sticky top-0 z-40 bg-[#DDE7DF] border-b border-[#E4DDD2] shadow-sm transition-all">
-      
-      <!-- Top Sub-Bar -->
-      <div class="border-b border-[#E4DDD2] px-4 py-1.5 text-xs flex flex-wrap items-center justify-between gap-3 text-[#6F7772] bg-[#FFFDF9]/60">
-        <div class="flex items-center gap-2">
-          <span class="inline-flex h-2 w-2 rounded-full bg-[#8EAF98]"></span>
-          <span class="font-bold text-[#29332E]">VERTEX Platform</span>
-          <span>•</span>
-          <span class="text-[#6F7772]">All Prices in Indian Rupees (₹) • 212 Tests Passing</span>
-        </div>
-
-        <div class="flex items-center gap-2">
-          <span class="font-medium text-[#6F7772]">Role:</span>
-          <div class="inline-flex rounded-lg bg-[#E4DDD2]/60 p-0.5" id="header-role-pills">
-            <button onclick="switchRole('customer')" id="role-btn-customer" class="px-2.5 py-0.5 text-xs font-bold rounded-md bg-[#557A68] text-white shadow-xs">
-              Customer
-            </button>
-            <button onclick="switchRole('vendor')" id="role-btn-vendor" class="px-2.5 py-0.5 text-xs font-bold rounded-md text-[#6F7772] hover:text-[#29332E]">
-              Vendor
-            </button>
-            <button onclick="switchRole('admin')" id="role-btn-admin" class="px-2.5 py-0.5 text-xs font-bold rounded-md text-[#6F7772] hover:text-[#29332E]">
-              Admin
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- Main Header Content -->
+    <!-- GLOBAL HEADER (PLUM + SOFT GRAY) -->
+    <header class="sticky top-0 z-40 bg-white border-b border-[#E5E7EB] shadow-sm transition-all">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-6">
         
-        <!-- Brand -->
+        <!-- Brand & Title -->
         <div class="flex items-center gap-8">
-          <a href="javascript:void(0)" onclick="switchView('storefront')" class="text-2xl font-black tracking-widest text-[#29332E] flex items-center gap-2.5">
-            <div class="h-11 w-11 rounded-2xl bg-[#557A68] flex items-center justify-center text-white shadow-md">
+          <div class="text-2xl font-black tracking-widest text-[#2A0B22] flex items-center gap-2.5">
+            <div class="h-11 w-11 rounded-2xl bg-[#581C44] flex items-center justify-center text-white shadow-md shadow-[#581C44]/20">
               <i class="fa-solid fa-cube text-xl"></i>
             </div>
             <span>VERTEX</span>
-          </a>
+          </div>
 
-          <!-- Category Nav (Functional from everywhere) -->
-          <nav class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#6F7772]">
-            <button onclick="handleCategoryClick('All')" class="category-pill active px-3 py-1.5 rounded-xl text-[#29332E] font-bold bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">All Hardware</button>
-            <button onclick="handleCategoryClick('Audio & Acoustics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Audio & Acoustics</button>
-            <button onclick="handleCategoryClick('Computing & Rigs')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Computing</button>
-            <button onclick="handleCategoryClick('Optics & Cinema')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Cinema Optics</button>
-            <button onclick="handleCategoryClick('Power & Energy')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Power Hubs</button>
-            <button onclick="handleCategoryClick('Workspace & Ergonomics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all">Ergonomics</button>
+          <!-- Customer Category Links (Rendered Only for Customer) -->
+          <nav class="hidden lg:flex items-center gap-1.5 text-sm font-medium text-[#6B7280]" id="customer-category-nav">
+            <button onclick="handleCategoryClick('All')" class="category-pill active px-3 py-1.5 rounded-xl text-[#2A0B22] font-bold bg-[#F5E8F0] border border-[#E5D0DF]">All Hardware</button>
+            <button onclick="handleCategoryClick('Audio & Acoustics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#2A0B22] transition-all">Audio & Acoustics</button>
+            <button onclick="handleCategoryClick('Computing & Rigs')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#2A0B22] transition-all">Computing</button>
+            <button onclick="handleCategoryClick('Optics & Cinema')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#2A0B22] transition-all">Cinema Optics</button>
+            <button onclick="handleCategoryClick('Power & Energy')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#2A0B22] transition-all">Power Hubs</button>
+            <button onclick="handleCategoryClick('Workspace & Ergonomics')" class="category-pill px-3 py-1.5 rounded-xl hover:text-[#2A0B22] transition-all">Ergonomics</button>
           </nav>
         </div>
 
-        <!-- Header Actions -->
+        <!-- Role Specific Actions (NO ROLE SWITCHER PILLS HERE!) -->
         <div class="flex items-center gap-3">
-          <!-- Currency Indicator (₹ INR) -->
-          <div class="px-3 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] text-[#557A68] font-mono font-bold text-xs flex items-center gap-1.5 shadow-xs">
-            <span class="h-2 w-2 rounded-full bg-[#8EAF98]"></span>
+          
+          <!-- Currency Indicator -->
+          <div class="px-3 py-1.5 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] text-[#581C44] font-mono font-bold text-xs flex items-center gap-1.5 shadow-xs">
+            <span class="h-2 w-2 rounded-full bg-[#10B981]"></span>
             <span>INR (₹)</span>
           </div>
 
           <!-- Customer Header Buttons -->
-          <div id="customer-header-actions" class="flex items-center gap-2">
-            <button onclick="openOrdersModal()" class="px-3.5 py-2 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] rounded-xl text-xs font-bold border border-[#E4DDD2] flex items-center gap-2 shadow-xs transition-colors">
-              <i class="fa-solid fa-clock-rotate-left text-[#557A68]"></i>
+          <div id="customer-header-actions" class="hidden flex items-center gap-2">
+            <button onclick="openOrdersModal()" class="px-3.5 py-2 bg-[#F9FAFB] hover:bg-[#F3F4F6] text-[#2A0B22] rounded-xl text-xs font-bold border border-[#E5E7EB] flex items-center gap-2 shadow-xs transition-colors">
+              <i class="fa-solid fa-clock-rotate-left text-[#581C44]"></i>
               <span class="hidden sm:inline">My Orders</span>
             </button>
 
-            <button onclick="toggleWishlistDrawer()" class="relative p-2.5 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] rounded-xl border border-[#E4DDD2] shadow-xs">
+            <button onclick="toggleWishlistDrawer()" class="relative p-2.5 bg-[#F9FAFB] hover:bg-[#F3F4F6] text-[#2A0B22] rounded-xl border border-[#E5E7EB] shadow-xs">
               <i class="fa-regular fa-heart"></i>
-              <span id="wishlist-count-badge" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-[#C96F6F] text-white text-[10px] font-bold flex items-center justify-center">0</span>
+              <span id="wishlist-count-badge" class="absolute -top-1.5 -right-1.5 h-5 w-5 rounded-full bg-[#BE123C] text-white text-[10px] font-bold flex items-center justify-center">0</span>
             </button>
 
-            <button onclick="toggleCartDrawer()" class="relative px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#557A68]/20 transition-all">
+            <button onclick="toggleCartDrawer()" class="relative px-4 py-2 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#581C44]/20 transition-all">
               <i class="fa-solid fa-cart-shopping"></i>
               <span>Cart</span>
               <span id="cart-count-badge" class="ml-1 px-1.5 py-0.5 rounded-full bg-white/30 text-white text-[11px] font-bold">1</span>
             </button>
           </div>
 
-          <!-- Vendor Actions -->
+          <!-- Vendor Header Buttons -->
           <div id="vendor-header-actions" class="hidden flex items-center gap-2">
-            <button onclick="openAddProductModal()" class="px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#557A68]/20">
+            <button onclick="openAddProductModal()" class="px-4 py-2 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#581C44]/20">
               <i class="fa-solid fa-plus"></i> + Add New SKU
             </button>
           </div>
 
-          <!-- Admin Actions -->
+          <!-- Admin Header Buttons -->
           <div id="admin-header-actions" class="hidden flex items-center gap-2">
-            <button onclick="simulateTrafficOrder()" class="px-3.5 py-2 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded-xl text-xs font-bold flex items-center gap-2 shadow-md shadow-[#C9826B]/20">
-              <i class="fa-solid fa-bolt"></i> Simulate Live Order
+            <button onclick="openNewCouponModal()" class="px-3.5 py-2 bg-white hover:bg-[#F9FAFB] text-[#2A0B22] border border-[#E5E7EB] rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-xs">
+              <i class="fa-solid fa-ticket text-[#581C44]"></i> + Promo Code
+            </button>
+            <button onclick="simulateTrafficOrder()" class="px-3.5 py-2 bg-[#7E2861] hover:bg-[#581C44] text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-[#7E2861]/20">
+              <i class="fa-solid fa-bolt"></i> Simulate Order
             </button>
           </div>
 
-          <!-- User Profile & Sign Out -->
-          <div class="pl-2 border-l border-[#E4DDD2] flex items-center gap-2" id="user-profile-widget">
-            <!-- Dynamic Avatar & Sign Out -->
+          <!-- User Profile & Sign Out Button (Strictly authenticated user) -->
+          <div class="pl-2 border-l border-[#E5E7EB] flex items-center gap-2" id="header-user-profile">
+            <!-- Rendered via JS -->
           </div>
 
         </div>
@@ -565,49 +528,49 @@ INDEX_HTML = """<!DOCTYPE html>
     </header>
 
     <!-- ======================================================= -->
-    <!-- MAIN CONTAINER (WARM CREAM #F7F3EC) -->
+    <!-- STRICT ROLE-BASED APPLICATION PAGES -->
     <!-- ======================================================= -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16 flex-1 w-full space-y-10">
 
-      <!-- ----------------------------------------------------- -->
-      <!-- VIEW 1: STOREFRONT & CATALOG -->
-      <!-- ----------------------------------------------------- -->
-      <div id="view-customer" class="space-y-10">
-        <!-- Hero Banner (Soft Peach / Soft Sage / Terracotta) -->
-        <section class="rounded-3xl border border-[#E4DDD2] bg-gradient-to-br from-[#FFFDF9] via-[#F0D5C8]/40 to-[#DDE7DF]/50 p-8 sm:p-14 shadow-sm relative overflow-hidden">
+      <!-- ===================================================== -->
+      <!-- 1. CUSTOMER STOREFRONT PAGE (ONLY SHOWN TO CUSTOMERS) -->
+      <!-- ===================================================== -->
+      <div id="page-customer" class="hidden space-y-10">
+        <!-- Hero Banner (Plum & Soft Gray Gradient) -->
+        <section class="rounded-3xl border border-[#E5E7EB] bg-gradient-to-br from-white via-[#F5E8F0] to-[#EBD8E6] p-8 sm:p-14 shadow-sm relative overflow-hidden">
           <div class="max-w-3xl space-y-6">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F0D5C8] text-[#C9826B] text-xs font-bold border border-[#E4DDD2]">
-              <i class="fa-solid fa-sparkles"></i> 2026 Flagship Hardware • Indian Rupees (₹)
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white text-[#581C44] text-xs font-bold border border-[#E5D0DF] shadow-xs">
+              <i class="fa-solid fa-sparkles text-[#A23B7D]"></i> Precision Engineering • Indian Rupees (₹)
             </div>
-            <h1 class="text-4xl sm:text-6xl font-black text-[#29332E] tracking-tight leading-none">
-              Precision Built For <span class="text-[#557A68]">Extreme Output</span>.
+            <h1 class="text-4xl sm:text-6xl font-black text-[#2A0B22] tracking-tight leading-none">
+              Hardware Built For <span class="text-[#581C44]">Extreme Output</span>.
             </h1>
-            <p class="text-base sm:text-lg text-[#6F7772] leading-relaxed max-w-2xl">
+            <p class="text-base sm:text-lg text-[#6B7280] leading-relaxed max-w-2xl">
               Beryllium transducer acoustics, unthrottled 16-core workstation rigs, and solid-state energy storage with 10-year comprehensive warranties.
             </p>
             <div class="flex flex-wrap gap-4 pt-2">
-              <a href="#catalog-section" class="px-8 py-3.5 bg-[#557A68] hover:bg-[#456653] text-white font-bold text-sm rounded-xl shadow-md shadow-[#557A68]/20 transition-all">
-                Explore Live Hardware
+              <a href="#catalog-section" class="px-8 py-3.5 bg-[#581C44] hover:bg-[#3F1230] text-white font-bold text-sm rounded-xl shadow-md shadow-[#581C44]/20 transition-all">
+                Browse Hardware Catalog
               </a>
-              <button onclick="applyCouponCode('WELCOME10')" class="px-6 py-3.5 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] font-semibold text-sm rounded-xl border border-[#E4DDD2] flex items-center gap-2 shadow-xs">
-                <i class="fa-solid fa-tag text-[#C9826B]"></i> Use Promo <span class="font-mono font-bold text-[#557A68]">WELCOME10</span> (10% Off)
+              <button onclick="applyCouponCode('WELCOME10')" class="px-6 py-3.5 bg-white hover:bg-[#F9FAFB] text-[#2A0B22] font-semibold text-sm rounded-xl border border-[#E5E7EB] flex items-center gap-2 shadow-xs">
+                <i class="fa-solid fa-tag text-[#A23B7D]"></i> Use Promo <span class="font-mono font-bold text-[#581C44]">WELCOME10</span> (10% Off)
               </button>
             </div>
           </div>
         </section>
 
-        <!-- Search & Filter Bar -->
+        <!-- Search & Catalog Grid -->
         <section id="catalog-section" class="space-y-6">
-          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
             <div class="relative w-full sm:w-96">
-              <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-[#6F7772] text-sm"></i>
-              <input type="text" id="catalog-search-input" oninput="renderProducts()" placeholder="Search title, SKU, or specs..." class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl pl-11 pr-4 py-2.5 text-sm text-[#29332E] placeholder-[#6F7772] focus:outline-none focus:border-[#557A68]">
+              <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-[#6B7280] text-sm"></i>
+              <input type="text" id="catalog-search-input" oninput="renderProducts()" placeholder="Search title, SKU, or specs..." class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl pl-11 pr-4 py-2.5 text-sm text-[#2A0B22] placeholder-[#6B7280] focus:outline-none focus:border-[#581C44]">
             </div>
 
             <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
-              <span class="text-xs text-[#6F7772] font-medium">Sort by:</span>
-              <select id="sort-select" onchange="renderProducts()" class="bg-[#F7F3EC] border border-[#E4DDD2] text-[#29332E] text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#557A68] font-medium">
-                <option value="featured">Featured Catalog</option>
+              <span class="text-xs text-[#6B7280] font-medium">Sort by:</span>
+              <select id="sort-select" onchange="renderProducts()" class="bg-[#F9FAFB] border border-[#E5E7EB] text-[#2A0B22] text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-[#581C44] font-medium">
+                <option value="featured">Featured Hardware</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
                 <option value="rating">Highest Customer Rating</option>
@@ -615,56 +578,54 @@ INDEX_HTML = """<!DOCTYPE html>
             </div>
           </div>
 
-          <!-- Product Grid (Warm White Cards #FFFDF9) -->
-          <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Rendered via JS -->
-          </div>
+          <!-- Product Grid -->
+          <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
       </div>
 
-      <!-- ----------------------------------------------------- -->
-      <!-- VIEW 2: VENDOR DASHBOARD -->
-      <!-- ----------------------------------------------------- -->
-      <div id="view-vendor" class="hidden space-y-8">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E4DDD2] pb-6">
+      <!-- ===================================================== -->
+      <!-- 2. VENDOR DASHBOARD PAGE (ONLY SHOWN TO VENDORS) -->
+      <!-- ===================================================== -->
+      <div id="page-vendor" class="hidden space-y-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E5E7EB] pb-6">
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-3xl font-black text-[#29332E]">Merchant Command Dashboard</h1>
-              <span class="px-2.5 py-0.5 bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98] rounded-full text-xs font-bold">VERIFIED SELLER</span>
+              <h1 class="text-3xl font-black text-[#2A0B22]">Merchant Command Studio</h1>
+              <span class="px-2.5 py-0.5 bg-[#F5E8F0] text-[#581C44] border border-[#E5D0DF] rounded-full text-xs font-bold">VERIFIED SELLER</span>
             </div>
-            <p class="text-sm text-[#6F7772] mt-1">Store: <strong class="text-[#29332E]">AeroAcoustics Labs</strong> • Direct SKU inventory allocation & payout management</p>
+            <p class="text-sm text-[#6B7280] mt-1">Vendor: <strong class="text-[#2A0B22]">Elena Rostova (AeroAcoustics Labs)</strong> • Direct SKU inventory allocation & payout management</p>
           </div>
-          <button onclick="openAddProductModal()" class="px-5 py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-sm font-bold shadow-md shadow-[#557A68]/20 flex items-center gap-2">
+          <button onclick="openAddProductModal()" class="px-5 py-3 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-sm font-bold shadow-md shadow-[#581C44]/20 flex items-center gap-2">
             <i class="fa-solid fa-plus"></i> + Add New Product SKU
           </button>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Total Store GMV</div>
-            <div class="text-3xl font-black text-[#29332E] mt-2" id="vendor-gmv">₹1,18,40,000</div>
-            <div class="text-xs text-[#557A68] mt-1 font-semibold"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% this month</div>
+          <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Total Store Gross GMV</div>
+            <div class="text-3xl font-black text-[#2A0B22] mt-2" id="vendor-gmv">₹1,18,40,000</div>
+            <div class="text-xs text-[#10B981] mt-1 font-semibold"><i class="fa-solid fa-arrow-trend-up"></i> +18.4% month-over-month</div>
           </div>
-          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Net Merchant Payout</div>
-            <div class="text-3xl font-black text-[#C9826B] mt-2" id="vendor-payout">₹1,06,56,000</div>
-            <div class="text-xs text-[#6F7772] mt-1">90% net after 10% commission</div>
+          <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Net Merchant Payout</div>
+            <div class="text-3xl font-black text-[#581C44] mt-2" id="vendor-payout">₹1,06,56,000</div>
+            <div class="text-xs text-[#6B7280] mt-1">90% net after 10% platform commission</div>
           </div>
-          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Active Listed SKUs</div>
-            <div class="text-3xl font-black text-[#557A68] mt-2" id="vendor-sku-count">6 Units</div>
-            <div class="text-xs text-[#6F7772] mt-1">100% fulfillable in domestic hubs</div>
+          <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Active Listed SKUs</div>
+            <div class="text-3xl font-black text-[#7E2861] mt-2" id="vendor-sku-count">6 Units</div>
+            <div class="text-xs text-[#6B7280] mt-1">100% fulfillable in domestic hubs</div>
           </div>
         </div>
 
-        <div class="rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden shadow-xs">
-          <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between">
-            <h3 class="text-lg font-bold text-[#29332E]">Your Listed Products & Stock Control</h3>
-            <span class="text-xs text-[#557A68] font-mono font-bold">Live Sync</span>
+        <div class="rounded-2xl bg-white border border-[#E5E7EB] overflow-hidden shadow-xs">
+          <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between">
+            <h3 class="text-lg font-bold text-[#2A0B22]">Your Listed Products & Stock Control</h3>
+            <span class="text-xs text-[#581C44] font-mono font-bold">Live Inventory Sync</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-              <thead class="bg-[#DDE7DF]/50 text-[#29332E] text-xs uppercase border-b border-[#E4DDD2] font-bold">
+              <thead class="bg-[#F9FAFB] text-[#2A0B22] text-xs uppercase border-b border-[#E5E7EB] font-bold">
                 <tr>
                   <th class="px-6 py-4">Item & SKU</th>
                   <th class="px-6 py-4">Category</th>
@@ -674,68 +635,66 @@ INDEX_HTML = """<!DOCTYPE html>
                   <th class="px-6 py-4 text-right">Quick Stock Action</th>
                 </tr>
               </thead>
-              <tbody id="vendor-product-rows" class="divide-y divide-[#E4DDD2] text-[#29332E]">
-                <!-- Rendered via JS -->
-              </tbody>
+              <tbody id="vendor-product-rows" class="divide-y divide-[#E5E7EB] text-[#2A0B22]"></tbody>
             </table>
           </div>
         </div>
       </div>
 
-      <!-- ----------------------------------------------------- -->
-      <!-- VIEW 3: ADMIN GATEWAY & TELEMETRY -->
-      <!-- ----------------------------------------------------- -->
-      <div id="view-admin" class="hidden space-y-8">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E4DDD2] pb-6">
+      <!-- ===================================================== -->
+      <!-- 3. SUPER ADMIN PAGE (ONLY SHOWN TO SUPER ADMINS) -->
+      <!-- ===================================================== -->
+      <div id="page-admin" class="hidden space-y-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-[#E5E7EB] pb-6">
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-3xl font-black text-[#29332E]">Executive Telemetry & Admin Gateway</h1>
-              <span class="px-2.5 py-0.5 bg-[#D9AE6A]/30 text-[#8c6527] border border-[#D9AE6A] rounded-full text-xs font-bold">ROOT PRIVILEGE</span>
+              <h1 class="text-3xl font-black text-[#2A0B22]">Executive Telemetry & Admin Gateway</h1>
+              <span class="px-2.5 py-0.5 bg-[#F5E8F0] text-[#581C44] border border-[#E5D0DF] rounded-full text-xs font-bold">ROOT PRIVILEGE</span>
             </div>
-            <p class="text-sm text-[#6F7772] mt-1">Super Administrator: <strong class="text-[#29332E]">Kusuma Podili</strong> • Live State Machine & Compliance Ledger</p>
+            <p class="text-sm text-[#6B7280] mt-1">Super Administrator: <strong class="text-[#2A0B22]">Kusuma Podili</strong> • Live State Machine & Compliance Ledger</p>
           </div>
           <div class="flex gap-3">
-            <button onclick="openNewCouponModal()" class="px-4 py-2.5 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] border border-[#E4DDD2] rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs">
-              <i class="fa-solid fa-ticket text-[#C9826B]"></i> + Create Promo Coupon
+            <button onclick="openNewCouponModal()" class="px-4 py-2.5 bg-white hover:bg-[#F9FAFB] text-[#2A0B22] border border-[#E5E7EB] rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs">
+              <i class="fa-solid fa-ticket text-[#581C44]"></i> + Create Promo Coupon
             </button>
-            <button onclick="simulateTrafficOrder()" class="px-4 py-2.5 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded-xl text-xs font-bold shadow-md shadow-[#C9826B]/20 flex items-center gap-2">
-              <i class="fa-solid fa-bolt"></i> Trigger Test Order
+            <button onclick="simulateTrafficOrder()" class="px-4 py-2.5 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold shadow-md shadow-[#581C44]/20 flex items-center gap-2">
+              <i class="fa-solid fa-bolt text-[#A23B7D]"></i> Trigger Test Order
             </button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
-          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Gross Platform Revenue</div>
-            <div class="text-2xl font-black text-[#29332E] mt-2" id="admin-revenue">₹2,36,83,000</div>
-            <div class="text-xs text-[#557A68] mt-1 font-semibold">100% captured</div>
+          <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Gross Platform Revenue</div>
+            <div class="text-2xl font-black text-[#2A0B22] mt-2" id="admin-revenue">₹2,36,83,000</div>
+            <div class="text-xs text-[#10B981] mt-1 font-semibold">100% captured</div>
           </div>
-          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Processed Orders</div>
-            <div class="text-2xl font-black text-[#557A68] mt-2" id="admin-order-count">2 Orders</div>
-            <div class="text-xs text-[#6F7772] mt-1">State machine active</div>
+          <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Processed Orders</div>
+            <div class="text-2xl font-black text-[#581C44] mt-2" id="admin-order-count">2 Orders</div>
+            <div class="text-xs text-[#6B7280] mt-1">State machine active</div>
           </div>
-          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Verified Vendors</div>
-            <div class="text-2xl font-black text-[#C9826B] mt-2" id="admin-vendor-count">3 Stores</div>
-            <div class="text-xs text-[#D9AE6A] mt-1 font-semibold">1 Pending Review</div>
+          <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Verified Vendors</div>
+            <div class="text-2xl font-black text-[#7E2861] mt-2" id="admin-vendor-count">3 Stores</div>
+            <div class="text-xs text-[#F59E0B] mt-1 font-semibold">1 Pending Review</div>
           </div>
-          <div class="p-6 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs">
-            <div class="text-xs font-bold uppercase tracking-wider text-[#6F7772]">Automated Tests</div>
-            <div class="text-2xl font-black text-[#456653] mt-2">212 / 212 Passing</div>
-            <div class="text-xs text-[#557A68] mt-1 font-semibold">0 Failures • 56k+ LOC</div>
+          <div class="p-6 rounded-2xl bg-white border border-[#E5E7EB] shadow-xs">
+            <div class="text-xs font-bold uppercase tracking-wider text-[#6B7280]">Automated Tests</div>
+            <div class="text-2xl font-black text-[#10B981] mt-2">212 / 212 Passing</div>
+            <div class="text-xs text-[#10B981] mt-1 font-semibold">0 Failures • 56k+ LOC</div>
           </div>
         </div>
 
-        <!-- Orders State Machine -->
-        <div class="rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden shadow-xs">
-          <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between">
-            <h3 class="text-lg font-bold text-[#29332E]">Order State Machine & Fulfillment Hub</h3>
-            <span class="text-xs text-[#557A68] font-mono font-bold">Real-Time State Transitions</span>
+        <!-- Orders State Machine Transitions -->
+        <div class="rounded-2xl bg-white border border-[#E5E7EB] overflow-hidden shadow-xs">
+          <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between">
+            <h3 class="text-lg font-bold text-[#2A0B22]">Order State Machine & Fulfillment Action Hub</h3>
+            <span class="text-xs text-[#581C44] font-mono font-bold">Real-Time Dispatch</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-              <thead class="bg-[#DDE7DF]/50 text-[#29332E] text-xs uppercase border-b border-[#E4DDD2] font-bold">
+              <thead class="bg-[#F9FAFB] text-[#2A0B22] text-xs uppercase border-b border-[#E5E7EB] font-bold">
                 <tr>
                   <th class="px-6 py-4">Order ID</th>
                   <th class="px-6 py-4">Customer</th>
@@ -745,92 +704,87 @@ INDEX_HTML = """<!DOCTYPE html>
                   <th class="px-6 py-4 text-right">Transition Action</th>
                 </tr>
               </thead>
-              <tbody id="admin-orders-rows" class="divide-y divide-[#E4DDD2] text-[#29332E]">
-                <!-- Rendered via JS -->
-              </tbody>
+              <tbody id="admin-orders-rows" class="divide-y divide-[#E5E7EB] text-[#2A0B22]"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- Vendor KYC Approvals -->
-        <div class="rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden shadow-xs">
-          <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between">
-            <h3 class="text-lg font-bold text-[#29332E]">Vendor Marketplace KYC Dossiers</h3>
-            <span class="text-xs text-[#6F7772]">Merchant Approval Pipeline</span>
+        <!-- Vendor Marketplace KYC Dossiers -->
+        <div class="rounded-2xl bg-white border border-[#E5E7EB] overflow-hidden shadow-xs">
+          <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between">
+            <h3 class="text-lg font-bold text-[#2A0B22]">Vendor Marketplace KYC Dossiers</h3>
+            <span class="text-xs text-[#6B7280]">Merchant Onboarding Pipeline</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-sm">
-              <thead class="bg-[#DDE7DF]/50 text-[#29332E] text-xs uppercase border-b border-[#E4DDD2] font-bold">
+              <thead class="bg-[#F9FAFB] text-[#2A0B22] text-xs uppercase border-b border-[#E5E7EB] font-bold">
                 <tr>
                   <th class="px-6 py-4">Store Name</th>
                   <th class="px-6 py-4">Representative</th>
-                  <th class="px-6 py-4">Tax ID / Country</th>
+                  <th class="px-6 py-4">Tax ID</th>
                   <th class="px-6 py-4">Commission</th>
                   <th class="px-6 py-4">Status</th>
                   <th class="px-6 py-4 text-right">KYC Action</th>
                 </tr>
               </thead>
-              <tbody id="admin-vendor-rows" class="divide-y divide-[#E4DDD2] text-[#29332E]">
-                <!-- Rendered via JS -->
-              </tbody>
+              <tbody id="admin-vendor-rows" class="divide-y divide-[#E5E7EB] text-[#2A0B22]"></tbody>
             </table>
           </div>
         </div>
       </div>
 
     </main>
-
   </div>
 
   <!-- ========================================================= -->
   <!-- MODAL: PRODUCT DETAIL (PDP) -->
   <!-- ========================================================= -->
   <div id="pdp-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-4xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
+    <div class="w-full max-w-4xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden max-h-[90vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F9FAFB]">
         <div class="flex items-center gap-3">
-          <span id="pdp-badge" class="px-2.5 py-0.5 bg-[#F0D5C8] text-[#C9826B] border border-[#E4DDD2] rounded-full text-xs font-bold">CATEGORY</span>
-          <span id="pdp-sku" class="text-xs font-mono text-[#6F7772]">SKU-0000</span>
+          <span id="pdp-badge" class="px-2.5 py-0.5 bg-[#F5E8F0] text-[#581C44] border border-[#E5D0DF] rounded-full text-xs font-bold">CATEGORY</span>
+          <span id="pdp-sku" class="text-xs font-mono text-[#6B7280]">SKU-0000</span>
         </div>
-        <button onclick="closePDPModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closePDPModal()" class="text-[#6B7280] hover:text-[#2A0B22] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-8 overflow-y-auto space-y-8 flex-1">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div class="aspect-square rounded-2xl overflow-hidden bg-[#F7F3EC] border border-[#E4DDD2]">
+          <div class="aspect-square rounded-2xl overflow-hidden bg-[#F3F4F6] border border-[#E5E7EB]">
             <img id="pdp-image" src="" alt="Product" class="w-full h-full object-cover">
           </div>
 
           <div class="space-y-6 flex flex-col justify-between">
             <div class="space-y-3">
-              <h2 id="pdp-title" class="text-2xl sm:text-3xl font-black text-[#29332E]">Product Title</h2>
+              <h2 id="pdp-title" class="text-2xl sm:text-3xl font-black text-[#2A0B22]">Product Title</h2>
               <div class="flex items-center gap-3">
-                <div class="flex text-[#D9AE6A] text-sm" id="pdp-stars">
+                <div class="flex text-[#F59E0B] text-sm" id="pdp-stars">
                   <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <span id="pdp-rating-text" class="text-xs text-[#6F7772] font-semibold">4.9 (128 reviews)</span>
+                <span id="pdp-rating-text" class="text-xs text-[#6B7280] font-semibold">4.9 (128 reviews)</span>
               </div>
-              <p id="pdp-description" class="text-sm text-[#6F7772] leading-relaxed">Description goes here.</p>
+              <p id="pdp-description" class="text-sm text-[#6B7280] leading-relaxed">Description goes here.</p>
             </div>
 
-            <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-4">
+            <div class="p-4 rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] space-y-4">
               <div class="flex items-baseline justify-between">
                 <div>
-                  <span class="text-xs text-[#6F7772] font-medium">Unit Price (₹ INR):</span>
-                  <div id="pdp-price" class="text-3xl font-black text-[#29332E] font-mono">₹0</div>
+                  <span class="text-xs text-[#6B7280] font-medium">Unit Price (₹ INR):</span>
+                  <div id="pdp-price" class="text-3xl font-black text-[#2A0B22] font-mono">₹0</div>
                 </div>
-                <span id="pdp-stock-status" class="px-3 py-1 bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98] rounded-full text-xs font-bold">
+                <span id="pdp-stock-status" class="px-3 py-1 bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0] rounded-full text-xs font-bold">
                   In Stock
                 </span>
               </div>
 
               <div class="flex items-center gap-3 pt-2">
-                <div class="flex items-center rounded-xl bg-[#FFFDF9] border border-[#E4DDD2] p-1">
-                  <button onclick="changePDPQty(-1)" class="w-8 h-8 rounded-lg text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-base">-</button>
-                  <span id="pdp-qty-display" class="w-10 text-center text-sm font-bold text-[#29332E] font-mono">1</span>
-                  <button onclick="changePDPQty(1)" class="w-8 h-8 rounded-lg text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-base">+</button>
+                <div class="flex items-center rounded-xl bg-white border border-[#E5E7EB] p-1">
+                  <button onclick="changePDPQty(-1)" class="w-8 h-8 rounded-lg text-[#6B7280] hover:text-[#2A0B22] flex items-center justify-center font-bold text-base">-</button>
+                  <span id="pdp-qty-display" class="w-10 text-center text-sm font-bold text-[#2A0B22] font-mono">1</span>
+                  <button onclick="changePDPQty(1)" class="w-8 h-8 rounded-lg text-[#6B7280] hover:text-[#2A0B22] flex items-center justify-center font-bold text-base">+</button>
                 </div>
-                <button onclick="addPDPToCart()" class="flex-1 py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-sm shadow-md shadow-[#557A68]/20 flex items-center justify-center gap-2">
+                <button onclick="addPDPToCart()" class="flex-1 py-3 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl font-bold text-sm shadow-md shadow-[#581C44]/20 flex items-center justify-center gap-2">
                   <i class="fa-solid fa-cart-plus"></i> Add To Hardware Cart
                 </button>
               </div>
@@ -838,23 +792,21 @@ INDEX_HTML = """<!DOCTYPE html>
           </div>
         </div>
 
-        <div class="border-t border-[#E4DDD2] pt-6">
-          <h4 class="text-sm font-bold uppercase tracking-wider text-[#29332E] mb-4">Engineering Specifications</h4>
-          <div id="pdp-specs-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
-            <!-- Rendered via JS -->
-          </div>
+        <div class="border-t border-[#E5E7EB] pt-6">
+          <h4 class="text-sm font-bold uppercase tracking-wider text-[#2A0B22] mb-4">Engineering Specifications</h4>
+          <div id="pdp-specs-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs"></div>
         </div>
 
-        <div class="border-t border-[#E4DDD2] pt-6 space-y-4">
+        <div class="border-t border-[#E5E7EB] pt-6 space-y-4">
           <div class="flex items-center justify-between">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-[#29332E]">Verified Buyer Reviews</h4>
-            <button onclick="openReviewComposer()" class="text-xs font-bold text-[#557A68] hover:underline">+ Write Review</button>
+            <h4 class="text-sm font-bold uppercase tracking-wider text-[#2A0B22]">Verified Buyer Reviews</h4>
+            <button onclick="openReviewComposer()" class="text-xs font-bold text-[#581C44] hover:underline">+ Write Review</button>
           </div>
 
-          <div id="review-composer" class="hidden p-4 rounded-xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-3">
-            <input type="text" id="review-title-input" placeholder="Review headline (e.g. Unrivaled clarity)" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-lg p-2.5 text-xs text-[#29332E] focus:outline-none focus:border-[#557A68]">
-            <textarea id="review-comment-input" rows="3" placeholder="Share your experience..." class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-lg p-2.5 text-xs text-[#29332E] focus:outline-none focus:border-[#557A68]"></textarea>
-            <button onclick="submitCustomerReview()" class="px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-lg text-xs font-bold">Submit Review</button>
+          <div id="review-composer" class="hidden p-4 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] space-y-3">
+            <input type="text" id="review-title-input" placeholder="Review headline (e.g. Unrivaled acoustic clarity)" class="w-full bg-white border border-[#E5E7EB] rounded-lg p-2.5 text-xs text-[#2A0B22] focus:outline-none focus:border-[#581C44]">
+            <textarea id="review-comment-input" rows="3" placeholder="Share your experience..." class="w-full bg-white border border-[#E5E7EB] rounded-lg p-2.5 text-xs text-[#2A0B22] focus:outline-none focus:border-[#581C44]"></textarea>
+            <button onclick="submitCustomerReview()" class="px-4 py-2 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-lg text-xs font-bold">Submit Review</button>
           </div>
 
           <div id="pdp-reviews-list" class="space-y-3"></div>
@@ -867,53 +819,53 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- DRAWER: CART -->
   <!-- ========================================================= -->
   <div id="cart-drawer" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 hidden flex justify-end">
-    <div class="w-full max-w-md bg-[#FFFDF9] border-l border-[#E4DDD2] p-8 flex flex-col justify-between h-full shadow-2xl animate-in slide-in-from-right duration-200">
+    <div class="w-full max-w-md bg-white border-l border-[#E5E7EB] p-8 flex flex-col justify-between h-full shadow-2xl animate-in slide-in-from-right duration-200">
       <div>
-        <div class="flex items-center justify-between border-b border-[#E4DDD2] pb-4 mb-6">
+        <div class="flex items-center justify-between border-b border-[#E5E7EB] pb-4 mb-6">
           <div class="flex items-center gap-2">
-            <i class="fa-solid fa-cart-shopping text-[#557A68]"></i>
-            <h3 class="text-xl font-bold text-[#29332E]">Hardware Cart</h3>
+            <i class="fa-solid fa-cart-shopping text-[#581C44]"></i>
+            <h3 class="text-xl font-bold text-[#2A0B22]">Hardware Cart</h3>
           </div>
-          <button onclick="toggleCartDrawer()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+          <button onclick="toggleCartDrawer()" class="text-[#6B7280] hover:text-[#2A0B22] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
         </div>
 
         <div id="cart-items-container" class="space-y-4 max-h-[48vh] overflow-y-auto pr-1"></div>
       </div>
 
-      <div class="border-t border-[#E4DDD2] pt-6 space-y-4">
+      <div class="border-t border-[#E5E7EB] pt-6 space-y-4">
         <div class="flex gap-2">
-          <input type="text" id="coupon-input" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl px-3 py-2 text-xs font-mono text-[#29332E] uppercase focus:outline-none focus:border-[#557A68]">
-          <button onclick="applyTypedCoupon()" class="px-4 py-2 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold">Apply</button>
+          <input type="text" id="coupon-input" placeholder="Promo code (e.g. WELCOME10)" class="flex-1 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl px-3 py-2 text-xs font-mono text-[#2A0B22] uppercase focus:outline-none focus:border-[#581C44]">
+          <button onclick="applyTypedCoupon()" class="px-4 py-2 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold">Apply</button>
         </div>
-        <div id="coupon-applied-tag" class="hidden text-xs text-[#557A68] font-bold flex items-center justify-between">
+        <div id="coupon-applied-tag" class="hidden text-xs text-[#581C44] font-bold flex items-center justify-between">
           <span><i class="fa-solid fa-tag mr-1"></i> Active: <span id="coupon-code-label"></span></span>
-          <button onclick="removeCoupon()" class="text-[#6F7772] hover:text-[#29332E]">&times;</button>
+          <button onclick="removeCoupon()" class="text-[#6B7280] hover:text-[#2A0B22]">&times;</button>
         </div>
 
-        <div class="space-y-2 text-xs text-[#6F7772]">
+        <div class="space-y-2 text-xs text-[#6B7280]">
           <div class="flex justify-between">
             <span>Subtotal</span>
-            <span class="text-[#29332E] font-bold font-mono" id="cart-subtotal-val">₹0</span>
+            <span class="text-[#2A0B22] font-bold font-mono" id="cart-subtotal-val">₹0</span>
           </div>
           <div class="flex justify-between" id="cart-discount-row" style="display:none;">
-            <span class="text-[#C96F6F]">Discount Savings</span>
-            <span class="text-[#C96F6F] font-bold font-mono" id="cart-discount-val">-₹0</span>
+            <span class="text-[#BE123C]">Discount Savings</span>
+            <span class="text-[#BE123C] font-bold font-mono" id="cart-discount-val">-₹0</span>
           </div>
           <div class="flex justify-between">
             <span>GST Tax (18%)</span>
-            <span class="text-[#29332E] font-bold font-mono" id="cart-tax-val">₹0</span>
+            <span class="text-[#2A0B22] font-bold font-mono" id="cart-tax-val">₹0</span>
           </div>
           <div class="flex justify-between">
             <span>Express Delivery</span>
-            <span class="text-[#557A68] font-bold font-mono" id="cart-shipping-val">FREE</span>
+            <span class="text-[#10B981] font-bold font-mono" id="cart-shipping-val">FREE</span>
           </div>
-          <div class="flex justify-between text-base font-bold text-[#29332E] pt-3 border-t border-[#E4DDD2]">
+          <div class="flex justify-between text-base font-bold text-[#2A0B22] pt-3 border-t border-[#E5E7EB]">
             <span>Total Amount</span>
-            <span class="text-[#557A68] text-xl font-mono font-black" id="cart-total-val">₹0</span>
+            <span class="text-[#581C44] text-xl font-mono font-black" id="cart-total-val">₹0</span>
           </div>
         </div>
 
-        <button onclick="openCheckoutModal()" id="cart-checkout-btn" class="w-full py-4 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-sm shadow-md shadow-[#557A68]/20 flex items-center justify-center gap-2">
+        <button onclick="openCheckoutModal()" id="cart-checkout-btn" class="w-full py-4 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl font-bold text-sm shadow-md shadow-[#581C44]/20 flex items-center justify-center gap-2">
           <i class="fa-solid fa-lock"></i> Proceed to Multi-Step Checkout
         </button>
       </div>
@@ -924,66 +876,66 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- MODAL: CHECKOUT -->
   <!-- ========================================================= -->
   <div id="checkout-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-2xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
+    <div class="w-full max-w-2xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F9FAFB]">
         <div class="flex items-center gap-3">
-          <i class="fa-solid fa-shield-halved text-[#557A68] text-lg"></i>
-          <h3 class="text-lg font-bold text-[#29332E]">256-Bit Encrypted Checkout (₹ INR)</h3>
+          <i class="fa-solid fa-shield-halved text-[#581C44] text-lg"></i>
+          <h3 class="text-lg font-bold text-[#2A0B22]">256-Bit Encrypted Checkout (₹ INR)</h3>
         </div>
-        <button onclick="closeCheckoutModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closeCheckoutModal()" class="text-[#6B7280] hover:text-[#2A0B22] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-8 space-y-6">
         <form id="checkout-form" onsubmit="handlePlaceOrder(event)" class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="text-xs font-bold text-[#29332E]">Full Name</label>
-              <input required type="text" id="chk-name" value="John Doe" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+              <label class="text-xs font-bold text-[#2A0B22]">Full Name</label>
+              <input required type="text" id="chk-name" value="John Doe" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#29332E]">Email Address</label>
-              <input required type="email" id="chk-email" value="john.doe@enterprise.io" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+              <label class="text-xs font-bold text-[#2A0B22]">Email Address</label>
+              <input required type="email" id="chk-email" value="john.doe@enterprise.io" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
             </div>
           </div>
 
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Delivery Address</label>
-            <input required type="text" id="chk-street" value="Brigade Road, 4th Block" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Delivery Address</label>
+            <input required type="text" id="chk-street" value="Brigade Road, 4th Block" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
           </div>
 
           <div class="grid grid-cols-3 gap-4">
             <div>
-              <label class="text-xs font-bold text-[#29332E]">City</label>
-              <input required type="text" id="chk-city" value="Bengaluru" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+              <label class="text-xs font-bold text-[#2A0B22]">City</label>
+              <input required type="text" id="chk-city" value="Bengaluru" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#29332E]">State</label>
-              <input required type="text" id="chk-state" value="Karnataka" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+              <label class="text-xs font-bold text-[#2A0B22]">State</label>
+              <input required type="text" id="chk-state" value="Karnataka" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
             </div>
             <div>
-              <label class="text-xs font-bold text-[#29332E]">PIN Code</label>
-              <input required type="text" id="chk-zip" value="560001" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+              <label class="text-xs font-bold text-[#2A0B22]">PIN Code</label>
+              <input required type="text" id="chk-zip" value="560001" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
             </div>
           </div>
 
-          <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-3 mt-4">
-            <div class="flex items-center justify-between text-xs font-bold text-[#29332E]">
+          <div class="p-4 rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] space-y-3 mt-4">
+            <div class="flex items-center justify-between text-xs font-bold text-[#2A0B22]">
               <span>UPI & Card Direct Gateway</span>
-              <div class="flex gap-2 text-[#557A68] text-sm">
+              <div class="flex gap-2 text-[#581C44] text-sm">
                 <i class="fa-solid fa-qrcode"></i>
                 <i class="fa-brands fa-cc-visa"></i>
                 <i class="fa-brands fa-cc-mastercard"></i>
               </div>
             </div>
-            <input type="text" value="upi-merchant-instant@icici / 4242 •••• 4242" class="w-full bg-[#FFFDF9] border border-[#E4DDD2] rounded-xl p-2.5 text-xs font-mono text-[#29332E]" readonly>
+            <input type="text" value="upi-merchant-instant@icici / 4242 •••• 4242" class="w-full bg-white border border-[#E5E7EB] rounded-xl p-2.5 text-xs font-mono text-[#2A0B22]" readonly>
           </div>
 
           <div class="pt-4 flex items-center justify-between">
             <div>
-              <span class="text-xs text-[#6F7772]">Total Authorized:</span>
-              <div class="text-2xl font-black text-[#557A68] font-mono" id="chk-final-total">₹0</div>
+              <span class="text-xs text-[#6B7280]">Total Authorized:</span>
+              <div class="text-2xl font-black text-[#581C44] font-mono" id="chk-final-total">₹0</div>
             </div>
-            <button type="submit" id="btn-submit-order" class="px-8 py-3.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-sm shadow-md shadow-[#557A68]/20 flex items-center gap-2">
+            <button type="submit" id="btn-submit-order" class="px-8 py-3.5 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl font-bold text-sm shadow-md shadow-[#581C44]/20 flex items-center gap-2">
               <i class="fa-solid fa-lock"></i> Authorize & Place Order
             </button>
           </div>
@@ -996,35 +948,35 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- MODAL: ORDER SUCCESS -->
   <!-- ========================================================= -->
   <div id="order-success-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-lg bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl p-8 text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="h-16 w-16 rounded-full bg-[#DDE7DF] text-[#557A68] flex items-center justify-center text-2xl mx-auto shadow-sm">
+    <div class="w-full max-w-lg bg-white border border-[#E5E7EB] rounded-3xl p-8 text-center space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="h-16 w-16 rounded-full bg-[#F5E8F0] text-[#581C44] flex items-center justify-center text-2xl mx-auto shadow-sm">
         <i class="fa-solid fa-check"></i>
       </div>
       <div class="space-y-2">
-        <h2 class="text-2xl font-black text-[#29332E]">Payment Captured & Stock Reserved!</h2>
-        <p class="text-xs text-[#6F7772]">Your hardware order has been routed to our Bengaluru Hub for automated packaging.</p>
+        <h2 class="text-2xl font-black text-[#2A0B22]">Payment Captured & Stock Reserved!</h2>
+        <p class="text-xs text-[#6B7280]">Your hardware order has been routed to our Bengaluru Hub for automated packaging.</p>
       </div>
 
-      <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] text-left text-xs space-y-2">
+      <div class="p-4 rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] text-left text-xs space-y-2">
         <div class="flex justify-between">
-          <span class="text-[#6F7772]">Order Reference:</span>
-          <span class="font-mono font-bold text-[#557A68]" id="success-order-id">ORD-9826-VX1</span>
+          <span class="text-[#6B7280]">Order Reference:</span>
+          <span class="font-mono font-bold text-[#581C44]" id="success-order-id">ORD-9826-VX1</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-[#6F7772]">Carrier Assigned:</span>
-          <span class="font-semibold text-[#29332E]">Blue Dart Air Express (Tracking Generated)</span>
+          <span class="text-[#6B7280]">Carrier Assigned:</span>
+          <span class="font-semibold text-[#2A0B22]">Blue Dart Air Express (Tracking Generated)</span>
         </div>
         <div class="flex justify-between">
-          <span class="text-[#6F7772]">Estimated Delivery:</span>
-          <span class="font-semibold text-[#557A68]">Within 24 to 48 Hours</span>
+          <span class="text-[#6B7280]">Estimated Delivery:</span>
+          <span class="font-semibold text-[#10B981]">Within 24 to 48 Hours</span>
         </div>
       </div>
 
       <div class="flex gap-3">
-        <button onclick="closeOrderSuccessModal(); openOrdersModal();" class="flex-1 py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl font-bold text-xs shadow-md shadow-[#557A68]/20">
+        <button onclick="closeOrderSuccessModal(); openOrdersModal();" class="flex-1 py-3 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl font-bold text-xs shadow-md shadow-[#581C44]/20">
           Track in My Orders
         </button>
-        <button onclick="closeOrderSuccessModal()" class="px-6 py-3 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] rounded-xl font-semibold text-xs border border-[#E4DDD2]">
+        <button onclick="closeOrderSuccessModal()" class="px-6 py-3 bg-white hover:bg-[#F9FAFB] text-[#2A0B22] rounded-xl font-semibold text-xs border border-[#E5E7EB]">
           Continue Shopping
         </button>
       </div>
@@ -1035,13 +987,13 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- MODAL: MY ORDERS -->
   <!-- ========================================================= -->
   <div id="orders-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-3xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
+    <div class="w-full max-w-3xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col max-h-[85vh] shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F9FAFB]">
         <div class="flex items-center gap-3">
-          <i class="fa-solid fa-clock-rotate-left text-[#557A68]"></i>
-          <h3 class="text-lg font-bold text-[#29332E]">My Orders & Live Tracking</h3>
+          <i class="fa-solid fa-clock-rotate-left text-[#581C44]"></i>
+          <h3 class="text-lg font-bold text-[#2A0B22]">My Orders & Live Logistics Tracking</h3>
         </div>
-        <button onclick="closeOrdersModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+        <button onclick="closeOrdersModal()" class="text-[#6B7280] hover:text-[#2A0B22] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <div class="p-6 overflow-y-auto space-y-6 flex-1" id="orders-list-container"></div>
@@ -1052,21 +1004,21 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- MODAL: VENDOR ADD PRODUCT -->
   <!-- ========================================================= -->
   <div id="add-product-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-xl bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
-        <h3 class="text-lg font-bold text-[#29332E]">Publish New Hardware SKU (₹)</h3>
-        <button onclick="closeAddProductModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+    <div class="w-full max-w-xl bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F9FAFB]">
+        <h3 class="text-lg font-bold text-[#2A0B22]">Publish New Hardware SKU (₹)</h3>
+        <button onclick="closeAddProductModal()" class="text-[#6B7280] hover:text-[#2A0B22] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <form onsubmit="handleVendorAddProduct(event)" class="p-6 space-y-4">
         <div>
-          <label class="text-xs font-bold text-[#29332E]">Product Title</label>
-          <input required type="text" id="new-prod-title" placeholder="e.g. Apex 4K OLED Reference Monitor" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+          <label class="text-xs font-bold text-[#2A0B22]">Product Title</label>
+          <input required type="text" id="new-prod-title" placeholder="e.g. Apex 4K OLED Reference Monitor" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Category</label>
-            <select id="new-prod-category" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Category</label>
+            <select id="new-prod-category" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
               <option value="Audio & Acoustics">Audio & Acoustics</option>
               <option value="Computing & Rigs">Computing & Rigs</option>
               <option value="Optics & Cinema">Optics & Cinema</option>
@@ -1075,31 +1027,31 @@ INDEX_HTML = """<!DOCTYPE html>
             </select>
           </div>
           <div>
-            <label class="text-xs font-bold text-[#29332E]">SKU Code</label>
-            <input required type="text" id="new-prod-sku" placeholder="APEX-OLED-4K" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono uppercase focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">SKU Code</label>
+            <input required type="text" id="new-prod-sku" placeholder="APEX-OLED-4K" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 font-mono uppercase focus:outline-none focus:border-[#581C44]">
           </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Retail Unit Price (₹ INR)</label>
-            <input required type="number" step="1" id="new-prod-price" placeholder="64999" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Retail Unit Price (₹ INR)</label>
+            <input required type="number" step="1" id="new-prod-price" placeholder="64999" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 font-mono focus:outline-none focus:border-[#581C44]">
           </div>
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Initial Stock Units</label>
-            <input required type="number" id="new-prod-stock" placeholder="25" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Initial Stock Units</label>
+            <input required type="number" id="new-prod-stock" placeholder="25" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 font-mono focus:outline-none focus:border-[#581C44]">
           </div>
         </div>
         <div>
-          <label class="text-xs font-bold text-[#29332E]">Short Description</label>
-          <input required type="text" id="new-prod-desc" placeholder="32-inch 4K RGB OLED panel with 99.8% DCI-P3 color accuracy." class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+          <label class="text-xs font-bold text-[#2A0B22]">Short Description</label>
+          <input required type="text" id="new-prod-desc" placeholder="32-inch 4K RGB OLED panel with 99.8% DCI-P3 color accuracy." class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
         </div>
         <div>
-          <label class="text-xs font-bold text-[#29332E]">High-Res Image URL</label>
-          <input required type="url" id="new-prod-image" value="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 font-mono focus:outline-none focus:border-[#557A68]">
+          <label class="text-xs font-bold text-[#2A0B22]">High-Res Image URL</label>
+          <input required type="url" id="new-prod-image" value="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 font-mono focus:outline-none focus:border-[#581C44]">
         </div>
         <div class="pt-4 flex justify-end gap-3">
-          <button type="button" onclick="closeAddProductModal()" class="px-4 py-2.5 bg-[#FFFDF9] text-[#6F7772] rounded-xl text-xs font-semibold border border-[#E4DDD2]">Cancel</button>
-          <button type="submit" class="px-6 py-2.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-md shadow-[#557A68]/20">
+          <button type="button" onclick="closeAddProductModal()" class="px-4 py-2.5 bg-white text-[#6B7280] rounded-xl text-xs font-semibold border border-[#E5E7EB]">Cancel</button>
+          <button type="submit" class="px-6 py-2.5 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold shadow-md shadow-[#581C44]/20">
             Publish Instantly
           </button>
         </div>
@@ -1111,36 +1063,36 @@ INDEX_HTML = """<!DOCTYPE html>
   <!-- MODAL: ADMIN COUPON -->
   <!-- ========================================================= -->
   <div id="new-coupon-modal" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="w-full max-w-md bg-[#FFFDF9] border border-[#E4DDD2] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
-      <div class="p-6 border-b border-[#E4DDD2] flex items-center justify-between bg-[#DDE7DF]/40">
-        <h3 class="text-lg font-bold text-[#29332E]">Create Promo Campaign (₹)</h3>
-        <button onclick="closeNewCouponModal()" class="text-[#6F7772] hover:text-[#29332E] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+    <div class="w-full max-w-md bg-white border border-[#E5E7EB] rounded-3xl overflow-hidden flex flex-col shadow-2xl animate-in zoom-in-95 duration-200">
+      <div class="p-6 border-b border-[#E5E7EB] flex items-center justify-between bg-[#F9FAFB]">
+        <h3 class="text-lg font-bold text-[#2A0B22]">Create Promo Campaign (₹)</h3>
+        <button onclick="closeNewCouponModal()" class="text-[#6B7280] hover:text-[#2A0B22] text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
       <form onsubmit="handleAdminCreateCoupon(event)" class="p-6 space-y-4">
         <div>
-          <label class="text-xs font-bold text-[#29332E]">Coupon Code</label>
-          <input required type="text" id="admin-coupon-code" placeholder="DIWALI20" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] font-mono uppercase mt-1 focus:outline-none focus:border-[#557A68]">
+          <label class="text-xs font-bold text-[#2A0B22]">Coupon Code</label>
+          <input required type="text" id="admin-coupon-code" placeholder="DIWALI20" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] font-mono uppercase mt-1 focus:outline-none focus:border-[#581C44]">
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Discount Type</label>
-            <select id="admin-coupon-type" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Discount Type</label>
+            <select id="admin-coupon-type" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] mt-1 focus:outline-none focus:border-[#581C44]">
               <option value="PERCENT">Percentage (%)</option>
               <option value="FIXED">Fixed Amount (₹)</option>
               <option value="SHIPPING">Free Shipping</option>
             </select>
           </div>
           <div>
-            <label class="text-xs font-bold text-[#29332E]">Discount Value</label>
-            <input required type="number" id="admin-coupon-val" placeholder="20" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] font-mono mt-1 focus:outline-none focus:border-[#557A68]">
+            <label class="text-xs font-bold text-[#2A0B22]">Discount Value</label>
+            <input required type="number" id="admin-coupon-val" placeholder="20" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] font-mono mt-1 focus:outline-none focus:border-[#581C44]">
           </div>
         </div>
         <div>
-          <label class="text-xs font-bold text-[#29332E]">Minimum Spend (₹ INR)</label>
-          <input required type="number" id="admin-coupon-min" placeholder="5000" class="w-full bg-[#F7F3EC] border border-[#E4DDD2] rounded-xl p-2.5 text-xs text-[#29332E] font-mono mt-1 focus:outline-none focus:border-[#557A68]">
+          <label class="text-xs font-bold text-[#2A0B22]">Minimum Spend (₹ INR)</label>
+          <input required type="number" id="admin-coupon-min" placeholder="5000" class="w-full bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-2.5 text-xs text-[#2A0B22] font-mono mt-1 focus:outline-none focus:border-[#581C44]">
         </div>
-        <button type="submit" class="w-full py-3 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-md shadow-[#557A68]/20">
+        <button type="submit" class="w-full py-3 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold shadow-md shadow-[#581C44]/20">
           Activate Campaign Instantly
         </button>
       </form>
@@ -1151,10 +1103,10 @@ INDEX_HTML = """<!DOCTYPE html>
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm pointer-events-none"></div>
 
   <!-- ========================================================= -->
-  <!-- JAVASCRIPT CONTROLLER -->
+  <!-- JAVASCRIPT APP CONTROLLER -->
   <!-- ========================================================= -->
   <script>
-    let currentUser = null; // null = Gatekeeper login view active!
+    let currentUser = null; // Gated by default
     let currentCategory = 'All';
     let activeCoupon = null;
     let selectedPDPProduct = null;
@@ -1197,12 +1149,12 @@ INDEX_HTML = """<!DOCTYPE html>
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       const icons = {
-        success: '<i class="fa-solid fa-circle-check text-[#557A68] text-lg"></i>',
-        error: '<i class="fa-solid fa-circle-exclamation text-[#C96F6F] text-lg"></i>',
-        info: '<i class="fa-solid fa-circle-info text-[#C9826B] text-lg"></i>'
+        success: '<i class="fa-solid fa-circle-check text-[#10B981] text-lg"></i>',
+        error: '<i class="fa-solid fa-circle-exclamation text-[#BE123C] text-lg"></i>',
+        info: '<i class="fa-solid fa-circle-info text-[#581C44] text-lg"></i>'
       };
 
-      toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-2xl bg-[#FFFDF9] border border-[#E4DDD2] text-[#29332E] text-xs shadow-xl transition-all duration-300 transform translate-y-2 opacity-0';
+      toast.className = 'pointer-events-auto flex items-center gap-3 p-4 rounded-2xl bg-white border border-[#E5E7EB] text-[#2A0B22] text-xs shadow-xl transition-all duration-300 transform translate-y-2 opacity-0';
       toast.innerHTML = `
         ${icons[type] || icons.success}
         <div class="flex-1 font-bold">${message}</div>
@@ -1217,7 +1169,7 @@ INDEX_HTML = """<!DOCTYPE html>
     }
 
     // -------------------------------------------------------------
-    // GATEKEEPER LOGIN & SIGNUP
+    // GATEKEEPER LOGIN & SIGNUP ENGINE
     // -------------------------------------------------------------
     function setGatekeeperTab(tab) {
       const tabLogin = document.getElementById('gate-tab-login');
@@ -1226,13 +1178,13 @@ INDEX_HTML = """<!DOCTYPE html>
       const formSignup = document.getElementById('gate-form-signup');
 
       if (tab === 'login') {
-        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#557A68] text-white shadow-sm transition-all';
-        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6F7772] hover:text-[#29332E] transition-all';
+        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#581C44] text-white shadow-sm transition-all';
+        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-[#2A0B22] transition-all';
         formLogin.classList.remove('hidden');
         formSignup.classList.add('hidden');
       } else {
-        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#C9826B] text-white shadow-sm transition-all';
-        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6F7772] hover:text-[#29332E] transition-all';
+        tabSignup.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl bg-[#7E2861] text-white shadow-sm transition-all';
+        tabLogin.className = 'flex-1 py-2.5 text-xs font-bold rounded-xl text-[#6B7280] hover:text-[#2A0B22] transition-all';
         formSignup.classList.remove('hidden');
         formLogin.classList.add('hidden');
       }
@@ -1242,7 +1194,7 @@ INDEX_HTML = """<!DOCTYPE html>
       const target = PRESET_ACCOUNTS[roleKey];
       if (!target) return;
       authenticateAndReveal(target);
-      showToast(`Logged in as ${target.name} (${target.role.toUpperCase()})`);
+      showToast(`Welcome! Logged in as ${target.name} (${target.role.toUpperCase()})`);
     }
 
     async function handleGatekeeperLogin(e) {
@@ -1284,7 +1236,7 @@ INDEX_HTML = """<!DOCTYPE html>
         const data = await res.json();
         if (data.success) {
           authenticateAndReveal(data.user);
-          showToast(`Customer account created! Welcome, ${name}!`);
+          showToast(`Account created! Welcome, ${name}!`);
         } else {
           showToast(data.message || 'Sign up failed', 'error');
         }
@@ -1293,109 +1245,85 @@ INDEX_HTML = """<!DOCTYPE html>
       }
     }
 
+    // AUTHENTICATE AND DISPLAY EXACT ROLE INTERFACE
     function authenticateAndReveal(user) {
       currentUser = user;
-      document.getElementById('gatekeeper-view').classList.add('hidden');
+      document.getElementById('login-gatekeeper-screen').classList.add('hidden');
       document.getElementById('authenticated-app').classList.remove('hidden');
-      applyUserRole(currentUser.role);
+
+      // Hide all page containers
+      document.getElementById('page-customer').classList.add('hidden');
+      document.getElementById('page-vendor').classList.add('hidden');
+      document.getElementById('page-admin').classList.add('hidden');
+
+      document.getElementById('customer-header-actions').classList.add('hidden');
+      document.getElementById('vendor-header-actions').classList.add('hidden');
+      document.getElementById('admin-header-actions').classList.add('hidden');
+      document.getElementById('customer-category-nav').classList.add('hidden');
+
+      // Render ONLY the relevant role interface!
+      if (user.role === 'customer') {
+        document.getElementById('page-customer').classList.remove('hidden');
+        document.getElementById('customer-header-actions').classList.remove('hidden');
+        document.getElementById('customer-category-nav').classList.remove('hidden');
+        renderProducts();
+        updateCartUI();
+      } else if (user.role === 'vendor') {
+        document.getElementById('page-vendor').classList.remove('hidden');
+        document.getElementById('vendor-header-actions').classList.remove('hidden');
+        renderVendorDashboard();
+      } else if (user.role === 'admin') {
+        document.getElementById('page-admin').classList.remove('hidden');
+        document.getElementById('admin-header-actions').classList.remove('hidden');
+        renderAdminDashboard();
+      }
+
       updateHeaderProfile();
-      renderProducts();
-      updateCartUI();
     }
 
     function logoutToGatekeeper() {
       currentUser = null;
       document.getElementById('authenticated-app').classList.add('hidden');
-      document.getElementById('gatekeeper-view').classList.remove('hidden');
-      showToast('Logged out. Please sign in again.', 'info');
+      document.getElementById('login-gatekeeper-screen').classList.remove('hidden');
+      showToast('Logged out. Please authenticate to continue.', 'info');
     }
 
     function updateHeaderProfile() {
-      const widget = document.getElementById('user-profile-widget');
+      const widget = document.getElementById('header-user-profile');
       if (!currentUser) return;
 
-      const roleBadgeBg = {
-        customer: 'bg-[#557A68] text-white',
-        vendor: 'bg-[#C9826B] text-white',
-        admin: 'bg-[#D9AE6A] text-white'
+      const roleBadge = {
+        customer: 'bg-[#F5E8F0] text-[#581C44]',
+        vendor: 'bg-[#EDE9FE] text-[#6D28D9]',
+        admin: 'bg-[#FEF3C7] text-[#B45309]'
       };
 
       widget.innerHTML = `
         <div class="flex items-center gap-2">
-          <div class="h-9 w-9 rounded-xl ${roleBadgeBg[currentUser.role]} flex items-center justify-center font-bold text-xs shadow-xs">
+          <div class="h-9 w-9 rounded-xl bg-[#581C44] text-white flex items-center justify-center font-bold text-xs shadow-xs">
             ${currentUser.name.charAt(0)}
           </div>
           <div class="hidden md:block text-left">
-            <div class="text-xs font-bold text-[#29332E] leading-tight truncate max-w-[130px]">${currentUser.name}</div>
-            <div class="text-[10px] text-[#557A68] font-bold uppercase">${currentUser.role}</div>
+            <div class="text-xs font-bold text-[#2A0B22] leading-tight truncate max-w-[130px]">${currentUser.name}</div>
+            <div class="text-[10px] font-bold uppercase tracking-wider ${roleBadge[currentUser.role]} px-1.5 py-0.2 rounded w-fit">${currentUser.role}</div>
           </div>
-          <button onclick="logoutToGatekeeper()" title="Sign Out to Login Dashboard" class="p-2 text-[#6F7772] hover:text-[#C96F6F] text-xs transition-colors">
+          <button onclick="logoutToGatekeeper()" title="Sign Out to Login Screen" class="p-2 text-[#6B7280] hover:text-[#BE123C] text-xs transition-colors">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
           </button>
         </div>
       `;
     }
 
-    function switchRole(role) {
-      if (PRESET_ACCOUNTS[role]) {
-        currentUser = PRESET_ACCOUNTS[role];
-        applyUserRole(role);
-        updateHeaderProfile();
-        showToast(`Switched active view to ${role.toUpperCase()}`);
-      }
-    }
-
-    function applyUserRole(role) {
-      document.querySelectorAll('#role-btn-customer, #role-btn-vendor, #role-btn-admin').forEach(b => {
-        b.className = 'px-2.5 py-0.5 text-xs font-bold rounded-md text-[#6F7772] hover:text-[#29332E]';
-      });
-
-      const activeBtn = document.getElementById(`role-btn-${role}`);
-      if (activeBtn) {
-        activeBtn.className = 'px-2.5 py-0.5 text-xs font-bold rounded-md bg-[#557A68] text-white shadow-xs';
-      }
-
-      document.getElementById('view-customer').classList.add('hidden');
-      document.getElementById('view-vendor').classList.add('hidden');
-      document.getElementById('view-admin').classList.add('hidden');
-
-      document.getElementById('customer-header-actions').classList.add('hidden');
-      document.getElementById('vendor-header-actions').classList.add('hidden');
-      document.getElementById('admin-header-actions').classList.add('hidden');
-
-      if (role === 'customer') {
-        document.getElementById('view-customer').classList.remove('hidden');
-        document.getElementById('customer-header-actions').classList.remove('hidden');
-      } else if (role === 'vendor') {
-        document.getElementById('view-vendor').classList.remove('hidden');
-        document.getElementById('vendor-header-actions').classList.remove('hidden');
-        renderVendorDashboard();
-      } else if (role === 'admin') {
-        document.getElementById('view-admin').classList.remove('hidden');
-        document.getElementById('admin-header-actions').classList.remove('hidden');
-        renderAdminDashboard();
-      }
-    }
-
-    function switchView(viewName) {
-      if (viewName === 'storefront') applyUserRole('customer');
-    }
-
-    // Category button click handling (Always works from any page!)
+    // Category click handler in customer view
     function handleCategoryClick(cat) {
       currentCategory = cat;
-      if (document.getElementById('view-customer').classList.contains('hidden')) {
-        applyUserRole('customer');
-      }
-
       document.querySelectorAll('.category-pill').forEach(el => {
         if (el.innerText.trim().toLowerCase().includes(cat.toLowerCase()) || (cat === 'All' && el.innerText.includes('All'))) {
-          el.className = 'category-pill active px-3 py-1.5 rounded-xl text-[#29332E] font-bold bg-[#FFFDF9] border border-[#E4DDD2] shadow-xs';
+          el.className = 'category-pill active px-3 py-1.5 rounded-xl text-[#2A0B22] font-bold bg-[#F5E8F0] border border-[#E5D0DF] shadow-xs';
         } else {
-          el.className = 'category-pill px-3 py-1.5 rounded-xl hover:text-[#29332E] transition-all';
+          el.className = 'category-pill px-3 py-1.5 rounded-xl hover:text-[#2A0B22] transition-all';
         }
       });
-
       renderProducts();
       showToast(`Filtered by "${cat}"`);
     }
@@ -1414,6 +1342,7 @@ INDEX_HTML = """<!DOCTYPE html>
 
     async function renderProducts() {
       const grid = document.getElementById('product-grid');
+      if (!grid) return;
       const products = await fetchProducts();
       const searchQuery = (document.getElementById('catalog-search-input')?.value || '').toLowerCase().trim();
       const sortBy = document.getElementById('sort-select')?.value || 'featured';
@@ -1431,34 +1360,34 @@ INDEX_HTML = """<!DOCTYPE html>
       grid.innerHTML = filtered.map(p => {
         const isWishlisted = wishlist.includes(p.id);
         return `
-          <div class="rounded-3xl bg-[#FFFDF9] border border-[#E4DDD2] overflow-hidden flex flex-col justify-between hover:border-[#557A68] hover:shadow-lg transition-all duration-300 p-6 group">
-            <div class="relative aspect-square bg-[#F7F3EC] rounded-2xl overflow-hidden mb-5 cursor-pointer" onclick="openPDPModal('${p.id}')">
+          <div class="rounded-3xl bg-white border border-[#E5E7EB] overflow-hidden flex flex-col justify-between hover:border-[#581C44] hover:shadow-lg transition-all duration-300 p-6 group">
+            <div class="relative aspect-square bg-[#F3F4F6] rounded-2xl overflow-hidden mb-5 cursor-pointer" onclick="openPDPModal('${p.id}')">
               <img src="${p.image}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-              <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 h-9 w-9 rounded-xl bg-white/80 backdrop-blur-xs border border-[#E4DDD2] text-[#6F7772] hover:text-[#C96F6F] flex items-center justify-center transition-colors">
-                <i class="${isWishlisted ? 'fa-solid text-[#C96F6F]' : 'fa-regular'} fa-heart"></i>
+              <button onclick="event.stopPropagation(); toggleWishlist('${p.id}')" class="absolute top-3 right-3 h-9 w-9 rounded-xl bg-white/80 backdrop-blur-xs border border-[#E5E7EB] text-[#6B7280] hover:text-[#BE123C] flex items-center justify-center transition-colors">
+                <i class="${isWishlisted ? 'fa-solid text-[#BE123C]' : 'fa-regular'} fa-heart"></i>
               </button>
-              <div class="absolute bottom-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-xs rounded-lg text-[10px] font-mono font-bold text-[#557A68] border border-[#E4DDD2]">
+              <div class="absolute bottom-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-xs rounded-lg text-[10px] font-mono font-bold text-[#581C44] border border-[#E5E7EB]">
                 ${p.stock > 0 ? `${p.stock} in stock` : 'Backorder'}
               </div>
             </div>
 
             <div class="space-y-2 flex-1 cursor-pointer" onclick="openPDPModal('${p.id}')">
               <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-[#557A68]">${p.category}</span>
-                <div class="flex items-center gap-1 text-[#D9AE6A] text-xs font-bold">
+                <span class="text-xs font-bold text-[#581C44]">${p.category}</span>
+                <div class="flex items-center gap-1 text-[#F59E0B] text-xs font-bold">
                   <i class="fa-solid fa-star text-[10px]"></i> ${p.rating.toFixed(1)}
                 </div>
               </div>
-              <h3 class="text-lg font-black text-[#29332E] group-hover:text-[#557A68] transition-colors">${p.title}</h3>
-              <p class="text-xs text-[#6F7772] line-clamp-2 leading-relaxed">${p.shortDesc}</p>
+              <h3 class="text-lg font-black text-[#2A0B22] group-hover:text-[#581C44] transition-colors">${p.title}</h3>
+              <p class="text-xs text-[#6B7280] line-clamp-2 leading-relaxed">${p.shortDesc}</p>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-[#E4DDD2] flex items-center justify-between gap-3">
+            <div class="mt-6 pt-4 border-t border-[#E5E7EB] flex items-center justify-between gap-3">
               <div>
-                <span class="text-[10px] text-[#6F7772] font-medium">Starting at</span>
-                <div class="text-xl font-black text-[#29332E] font-mono">${formatRupees(p.price)}</div>
+                <span class="text-[10px] text-[#6B7280] font-medium">Starting at</span>
+                <div class="text-xl font-black text-[#2A0B22] font-mono">${formatRupees(p.price)}</div>
               </div>
-              <button onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')" class="px-4 py-2.5 bg-[#557A68] hover:bg-[#456653] text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all">
+              <button onclick="addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', ${p.price}, '${p.image}')" class="px-4 py-2.5 bg-[#581C44] hover:bg-[#3F1230] text-white rounded-xl text-xs font-bold shadow-sm flex items-center gap-1.5 transition-all">
                 <i class="fa-solid fa-cart-plus"></i> + Add
               </button>
             </div>
@@ -1500,12 +1429,13 @@ INDEX_HTML = """<!DOCTYPE html>
     function updateCartUI() {
       const container = document.getElementById('cart-items-container');
       const badge = document.getElementById('cart-count-badge');
+      if (!container) return;
       const totalCount = cart.reduce((acc, i) => acc + i.quantity, 0);
       if (badge) badge.innerText = totalCount;
 
       if (cart.length === 0) {
         container.innerHTML = `
-          <div class="py-16 text-center text-[#6F7772] space-y-3">
+          <div class="py-16 text-center text-[#6B7280] space-y-3">
             <i class="fa-solid fa-cart-shopping text-3xl"></i>
             <div class="text-sm font-semibold">Your hardware cart is empty.</div>
           </div>
@@ -1522,19 +1452,19 @@ INDEX_HTML = """<!DOCTYPE html>
       document.getElementById('cart-checkout-btn').classList.remove('opacity-40', 'cursor-not-allowed');
 
       container.innerHTML = cart.map(item => `
-        <div class="p-4 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] flex items-center justify-between gap-3">
-          <img src="${item.image}" class="h-12 w-12 rounded-xl object-cover bg-white border border-[#E4DDD2]">
+        <div class="p-4 rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] flex items-center justify-between gap-3">
+          <img src="${item.image}" class="h-12 w-12 rounded-xl object-cover bg-white border border-[#E5E7EB]">
           <div class="flex-1 min-w-0">
-            <div class="text-xs font-bold text-[#29332E] truncate">${item.title}</div>
-            <div class="text-xs font-mono text-[#557A68] font-bold">${formatRupees(item.price)} each</div>
+            <div class="text-xs font-bold text-[#2A0B22] truncate">${item.title}</div>
+            <div class="text-xs font-mono text-[#581C44] font-bold">${formatRupees(item.price)} each</div>
           </div>
           <div class="flex items-center gap-2">
-            <div class="flex items-center rounded-lg bg-[#FFFDF9] border border-[#E4DDD2]">
-              <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-xs">-</button>
-              <span class="w-6 text-center text-xs font-bold font-mono text-[#29332E]">${item.quantity}</span>
-              <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 text-[#6F7772] hover:text-[#29332E] flex items-center justify-center font-bold text-xs">+</button>
+            <div class="flex items-center rounded-lg bg-white border border-[#E5E7EB]">
+              <button onclick="changeCartQty('${item.id}', -1)" class="w-6 h-6 text-[#6B7280] hover:text-[#2A0B22] flex items-center justify-center font-bold text-xs">-</button>
+              <span class="w-6 text-center text-xs font-bold font-mono text-[#2A0B22]">${item.quantity}</span>
+              <button onclick="changeCartQty('${item.id}', 1)" class="w-6 h-6 text-[#6B7280] hover:text-[#2A0B22] flex items-center justify-center font-bold text-xs">+</button>
             </div>
-            <button onclick="removeCartItem('${item.id}')" class="text-[#6F7772] hover:text-[#C96F6F] p-1 text-xs">
+            <button onclick="removeCartItem('${item.id}')" class="text-[#6B7280] hover:text-[#BE123C] p-1 text-xs">
               <i class="fa-regular fa-trash-can"></i>
             </button>
           </div>
@@ -1549,7 +1479,7 @@ INDEX_HTML = """<!DOCTYPE html>
       }
 
       const taxableAmount = Math.max(0, subtotal - discount);
-      const tax = taxableAmount * 0.18; // 18% GST
+      const tax = taxableAmount * 0.18;
       const total = taxableAmount + tax;
 
       document.getElementById('cart-subtotal-val').innerText = formatRupees(subtotal);
@@ -1625,9 +1555,9 @@ INDEX_HTML = """<!DOCTYPE html>
 
       const specsGrid = document.getElementById('pdp-specs-grid');
       specsGrid.innerHTML = p.specs.map(s => `
-        <div class="p-3 rounded-xl bg-[#F7F3EC] border border-[#E4DDD2]">
-          <div class="text-[10px] text-[#6F7772] font-semibold">${s.key}</div>
-          <div class="text-xs font-bold text-[#29332E] mt-0.5">${s.val}</div>
+        <div class="p-3 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB]">
+          <div class="text-[10px] text-[#6B7280] font-semibold">${s.key}</div>
+          <div class="text-xs font-bold text-[#2A0B22] mt-0.5">${s.val}</div>
         </div>
       `).join('');
 
@@ -1655,21 +1585,21 @@ INDEX_HTML = """<!DOCTYPE html>
     function renderPDPReviews() {
       const list = document.getElementById('pdp-reviews-list');
       if (!selectedPDPProduct.reviews || selectedPDPProduct.reviews.length === 0) {
-        list.innerHTML = '<div class="text-xs text-[#6F7772]">No reviews yet. Be the first to review!</div>';
+        list.innerHTML = '<div class="text-xs text-[#6B7280]">No reviews yet. Be the first to review!</div>';
         return;
       }
 
       list.innerHTML = selectedPDPProduct.reviews.map(r => `
-        <div class="p-4 rounded-xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-1.5">
+        <div class="p-4 rounded-xl bg-[#F9FAFB] border border-[#E5E7EB] space-y-1.5">
           <div class="flex items-center justify-between text-xs">
-            <span class="font-bold text-[#29332E]">${r.author} <span class="text-[#557A68] font-semibold">• Verified Buyer</span></span>
-            <span class="text-[#6F7772] font-mono text-[10px]">${r.date}</span>
+            <span class="font-bold text-[#2A0B22]">${r.author} <span class="text-[#581C44] font-semibold">• Verified Buyer</span></span>
+            <span class="text-[#6B7280] font-mono text-[10px]">${r.date}</span>
           </div>
-          <div class="flex text-[#D9AE6A] text-[10px]">
+          <div class="flex text-[#F59E0B] text-[10px]">
             ${Array(r.rating).fill('<i class="fa-solid fa-star"></i>').join('')}
           </div>
-          <div class="text-xs font-bold text-[#29332E]">${r.title}</div>
-          <p class="text-xs text-[#6F7772]">${r.comment}</p>
+          <div class="text-xs font-bold text-[#2A0B22]">${r.title}</div>
+          <p class="text-xs text-[#6B7280]">${r.comment}</p>
         </div>
       `).join('');
     }
@@ -1774,30 +1704,30 @@ INDEX_HTML = """<!DOCTYPE html>
       const orders = await res.json();
 
       if (orders.length === 0) {
-        container.innerHTML = '<div class="py-12 text-center text-[#6F7772]">No orders placed yet.</div>';
+        container.innerHTML = '<div class="py-12 text-center text-[#6B7280]">No orders placed yet.</div>';
       } else {
         container.innerHTML = orders.map(o => `
-          <div class="p-6 rounded-2xl bg-[#F7F3EC] border border-[#E4DDD2] space-y-4">
-            <div class="flex items-center justify-between border-b border-[#E4DDD2] pb-3">
+          <div class="p-6 rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] space-y-4">
+            <div class="flex items-center justify-between border-b border-[#E5E7EB] pb-3">
               <div>
-                <span class="text-xs font-mono font-bold text-[#557A68]">${o.id}</span>
-                <div class="text-xs text-[#6F7772] mt-0.5">${new Date(o.createdAt).toLocaleString()}</div>
+                <span class="text-xs font-mono font-bold text-[#581C44]">${o.id}</span>
+                <div class="text-xs text-[#6B7280] mt-0.5">${new Date(o.createdAt).toLocaleString()}</div>
               </div>
               <div class="text-right">
-                <span class="px-3 py-1 bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98] rounded-full text-xs font-bold">${o.status}</span>
-                <div class="text-xs font-mono font-bold text-[#29332E] mt-1">${formatRupees(o.total)}</div>
+                <span class="px-3 py-1 bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0] rounded-full text-xs font-bold">${o.status}</span>
+                <div class="text-xs font-mono font-bold text-[#2A0B22] mt-1">${formatRupees(o.total)}</div>
               </div>
             </div>
 
-            <div class="space-y-1.5 text-xs text-[#29332E]">
-              ${o.items.map(i => `<div class="flex justify-between"><span>${i.title} x ${i.quantity}</span> <span class="font-mono text-[#557A68] font-semibold">${formatRupees(i.price * i.quantity)}</span></div>`).join('')}
+            <div class="space-y-1.5 text-xs text-[#2A0B22]">
+              ${o.items.map(i => `<div class="flex justify-between"><span>${i.title} x ${i.quantity}</span> <span class="font-mono text-[#581C44] font-semibold">${formatRupees(i.price * i.quantity)}</span></div>`).join('')}
             </div>
 
-            <div class="pt-3 border-t border-[#E4DDD2]">
-              <div class="text-[11px] font-bold text-[#29332E] uppercase tracking-wider mb-2">Carrier Roadmap (${o.carrier})</div>
+            <div class="pt-3 border-t border-[#E5E7EB]">
+              <div class="text-[11px] font-bold text-[#2A0B22] uppercase tracking-wider mb-2">Carrier Roadmap (${o.carrier})</div>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
                 ${(o.timeline || []).map(t => `
-                  <div class="p-2.5 rounded-lg ${t.done ? 'bg-[#FFFDF9] border border-[#557A68] text-[#557A68] font-bold' : 'bg-[#F7F3EC] border border-[#E4DDD2] text-[#6F7772]'}">
+                  <div class="p-2.5 rounded-lg ${t.done ? 'bg-white border border-[#581C44] text-[#581C44] font-bold' : 'bg-[#F9FAFB] border border-[#E5E7EB] text-[#6B7280]'}">
                     <div class="font-bold text-[11px]">${t.title}</div>
                     <div class="text-[10px] font-mono mt-0.5">${t.time}</div>
                   </div>
@@ -1822,21 +1752,22 @@ INDEX_HTML = """<!DOCTYPE html>
       const res = await fetch('/api/v1/products');
       const products = await res.json();
       const rows = document.getElementById('vendor-product-rows');
+      if (!rows) return;
 
       rows.innerHTML = products.map(p => `
-        <tr class="hover:bg-[#F7F3EC] transition-colors">
+        <tr class="hover:bg-[#F9FAFB] transition-colors">
           <td class="px-6 py-4">
-            <div class="font-bold text-[#29332E]">${p.title}</div>
-            <div class="text-xs font-mono text-[#6F7772]">${p.sku}</div>
+            <div class="font-bold text-[#2A0B22]">${p.title}</div>
+            <div class="text-xs font-mono text-[#6B7280]">${p.sku}</div>
           </td>
-          <td class="px-6 py-4 text-xs text-[#6F7772]">${p.category}</td>
-          <td class="px-6 py-4 font-mono font-bold text-[#29332E]">${formatRupees(p.price)}</td>
-          <td class="px-6 py-4 font-mono font-bold ${p.stock < 10 ? 'text-[#C96F6F]' : 'text-[#557A68]'}">${p.stock} units</td>
-          <td class="px-6 py-4 text-[#D9AE6A] font-bold text-xs"><i class="fa-solid fa-star"></i> ${p.rating.toFixed(1)} (${p.reviewCount})</td>
+          <td class="px-6 py-4 text-xs text-[#6B7280]">${p.category}</td>
+          <td class="px-6 py-4 font-mono font-bold text-[#2A0B22]">${formatRupees(p.price)}</td>
+          <td class="px-6 py-4 font-mono font-bold ${p.stock < 10 ? 'text-[#BE123C]' : 'text-[#10B981]'}">${p.stock} units</td>
+          <td class="px-6 py-4 text-[#F59E0B] font-bold text-xs"><i class="fa-solid fa-star"></i> ${p.rating.toFixed(1)} (${p.reviewCount})</td>
           <td class="px-6 py-4 text-right">
             <div class="inline-flex items-center gap-1.5">
-              <button onclick="updateProductStock('${p.id}', 10)" class="px-2.5 py-1 bg-[#557A68] hover:bg-[#456653] text-white rounded text-xs font-bold">+10 Stock</button>
-              <button onclick="updateProductStock('${p.id}', -5)" class="px-2.5 py-1 bg-[#FFFDF9] hover:bg-[#F7F3EC] text-[#29332E] border border-[#E4DDD2] rounded text-xs font-bold">-5</button>
+              <button onclick="updateProductStock('${p.id}', 10)" class="px-2.5 py-1 bg-[#581C44] hover:bg-[#3F1230] text-white rounded text-xs font-bold">+10 Stock</button>
+              <button onclick="updateProductStock('${p.id}', -5)" class="px-2.5 py-1 bg-white hover:bg-[#F9FAFB] text-[#2A0B22] border border-[#E5E7EB] rounded text-xs font-bold">-5</button>
             </div>
           </td>
         </tr>
@@ -1907,45 +1838,49 @@ INDEX_HTML = """<!DOCTYPE html>
       document.getElementById('admin-revenue').innerText = formatRupees(grossRev);
 
       const orderRows = document.getElementById('admin-orders-rows');
-      orderRows.innerHTML = orders.map(o => `
-        <tr class="hover:bg-[#F7F3EC] transition-colors">
-          <td class="px-6 py-4 font-mono font-bold text-[#557A68]">${o.id}</td>
-          <td class="px-6 py-4">
-            <div class="font-bold text-[#29332E]">${o.customerName}</div>
-            <div class="text-xs text-[#6F7772]">${o.customerEmail}</div>
-          </td>
-          <td class="px-6 py-4 text-xs text-[#29332E]">${o.items.length} item(s)</td>
-          <td class="px-6 py-4 font-mono font-bold text-[#29332E]">${formatRupees(o.total)}</td>
-          <td class="px-6 py-4"><span class="px-2.5 py-1 bg-[#DDE7DF] text-[#557A68] border border-[#E4DDD2] rounded-full text-xs font-bold">${o.status}</span></td>
-          <td class="px-6 py-4 text-right">
-            <div class="inline-flex gap-2">
-              ${o.status === 'CONFIRMED' ? `<button onclick="transitionOrderStatus('${o.id}', 'PROCESSING')" class="px-3 py-1 bg-[#557A68] hover:bg-[#456653] text-white rounded text-xs font-bold">Process</button>` : ''}
-              ${o.status === 'PROCESSING' ? `<button onclick="transitionOrderStatus('${o.id}', 'SHIPPED')" class="px-3 py-1 bg-[#C9826B] hover:bg-[#b5735d] text-white rounded text-xs font-bold">Dispatch</button>` : ''}
-              ${o.status === 'SHIPPED' ? `<button onclick="transitionOrderStatus('${o.id}', 'DELIVERED')" class="px-3 py-1 bg-[#8EAF98] hover:bg-[#7b9f85] text-white rounded text-xs font-bold">Deliver</button>` : ''}
-            </div>
-          </td>
-        </tr>
-      `).join('');
+      if (orderRows) {
+        orderRows.innerHTML = orders.map(o => `
+          <tr class="hover:bg-[#F9FAFB] transition-colors">
+            <td class="px-6 py-4 font-mono font-bold text-[#581C44]">${o.id}</td>
+            <td class="px-6 py-4">
+              <div class="font-bold text-[#2A0B22]">${o.customerName}</div>
+              <div class="text-xs text-[#6B7280]">${o.customerEmail}</div>
+            </td>
+            <td class="px-6 py-4 text-xs text-[#2A0B22]">${o.items.length} item(s)</td>
+            <td class="px-6 py-4 font-mono font-bold text-[#2A0B22]">${formatRupees(o.total)}</td>
+            <td class="px-6 py-4"><span class="px-2.5 py-1 bg-[#F5E8F0] text-[#581C44] border border-[#E5D0DF] rounded-full text-xs font-bold">${o.status}</span></td>
+            <td class="px-6 py-4 text-right">
+              <div class="inline-flex gap-2">
+                ${o.status === 'CONFIRMED' ? `<button onclick="transitionOrderStatus('${o.id}', 'PROCESSING')" class="px-3 py-1 bg-[#581C44] hover:bg-[#3F1230] text-white rounded text-xs font-bold">Process</button>` : ''}
+                ${o.status === 'PROCESSING' ? `<button onclick="transitionOrderStatus('${o.id}', 'SHIPPED')" class="px-3 py-1 bg-[#7E2861] hover:bg-[#581C44] text-white rounded text-xs font-bold">Dispatch</button>` : ''}
+                ${o.status === 'SHIPPED' ? `<button onclick="transitionOrderStatus('${o.id}', 'DELIVERED')" class="px-3 py-1 bg-[#10B981] hover:bg-[#059669] text-white rounded text-xs font-bold">Deliver</button>` : ''}
+              </div>
+            </td>
+          </tr>
+        `).join('');
+      }
 
       const vendorRows = document.getElementById('admin-vendor-rows');
-      vendorRows.innerHTML = vendors.map(v => `
-        <tr class="hover:bg-[#F7F3EC] transition-colors">
-          <td class="px-6 py-4 font-bold text-[#29332E]">${v.name}</td>
-          <td class="px-6 py-4 text-[#6F7772] text-xs">${v.contact}</td>
-          <td class="px-6 py-4 font-mono text-xs text-[#6F7772]">${v.taxId}</td>
-          <td class="px-6 py-4 font-mono font-bold text-[#557A68]">${(v.commission * 100).toFixed(0)}%</td>
-          <td class="px-6 py-4">
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${v.status === 'VERIFIED' ? 'bg-[#8EAF98]/30 text-[#456653] border border-[#8EAF98]' : 'bg-[#D9AE6A]/30 text-[#8c6527] border border-[#D9AE6A]'}">
-              ${v.status}
-            </span>
-          </td>
-          <td class="px-6 py-4 text-right">
-            ${v.status === 'PENDING' ? `
-              <button onclick="approveVendor('${v.id}')" class="px-3 py-1 bg-[#557A68] hover:bg-[#456653] text-white rounded text-xs font-bold">Approve KYC</button>
-            ` : '<span class="text-xs text-[#6F7772]">Verified</span>'}
-          </td>
-        </tr>
-      `).join('');
+      if (vendorRows) {
+        vendorRows.innerHTML = vendors.map(v => `
+          <tr class="hover:bg-[#F9FAFB] transition-colors">
+            <td class="px-6 py-4 font-bold text-[#2A0B22]">${v.name}</td>
+            <td class="px-6 py-4 text-[#6B7280] text-xs">${v.contact}</td>
+            <td class="px-6 py-4 font-mono text-xs text-[#6B7280]">${v.taxId}</td>
+            <td class="px-6 py-4 font-mono font-bold text-[#581C44]">${(v.commission * 100).toFixed(0)}%</td>
+            <td class="px-6 py-4">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold ${v.status === 'VERIFIED' ? 'bg-[#ECFDF5] text-[#059669] border border-[#A7F3D0]' : 'bg-[#FEF3C7] text-[#B45309] border border-[#FDE68A]'}">
+                ${v.status}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              ${v.status === 'PENDING' ? `
+                <button onclick="approveVendor('${v.id}')" class="px-3 py-1 bg-[#581C44] hover:bg-[#3F1230] text-white rounded text-xs font-bold">Approve KYC</button>
+              ` : '<span class="text-xs text-[#6B7280]">Verified</span>'}
+            </td>
+          </tr>
+        `).join('');
+      }
     }
 
     async function transitionOrderStatus(id, newStatus) {
@@ -2019,9 +1954,10 @@ INDEX_HTML = """<!DOCTYPE html>
         showToast('Removed from saved wishlist', 'info');
       } else {
         wishlist.push(id);
-        showToast('Added to your saved hardware wishlist!');
+        showToast('Added to saved wishlist!');
       }
-      document.getElementById('wishlist-count-badge').innerText = wishlist.length;
+      const b = document.getElementById('wishlist-count-badge');
+      if (b) b.innerText = wishlist.length;
       renderProducts();
     }
 
@@ -2083,8 +2019,8 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
                 "status": "HEALTHY",
                 "tests_passing": 212,
                 "currency": "INR (₹)",
-                "loc_total": 56342,
-                "palette": "Warm Cream & Soft Sage Edition"
+                "loc_total": 56264,
+                "theme": "Plum & Soft Gray Edition"
             }).encode("utf-8"))
             return
 
@@ -2174,7 +2110,7 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
 
         if parsed.path == "/api/v1/orders":
             subtotal = sum(i["price"] * i["quantity"] for i in payload.get("items", []))
-            tax = subtotal * 0.18 # 18% GST
+            tax = subtotal * 0.18
             total = subtotal + tax
             order_id = f"ORD-{len(DATA_STORE['orders']) + 9825}-{uuid.uuid4().hex[:3].upper()}"
 
@@ -2312,7 +2248,7 @@ class EnterpriseHandler(http.server.SimpleHTTPRequestHandler):
 def start_server():
     print(f"VERTEX Platform server listening on port {PORT}")
     with socketserver.TCPServer(("", PORT), EnterpriseHandler) as httpd:
-        print(f"VERTEX Warm Cream & Soft Sage Palette online at http://localhost:{PORT}")
+        print(f"VERTEX Plum & Soft Gray Edition online at http://localhost:{PORT}")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
